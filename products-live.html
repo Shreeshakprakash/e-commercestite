@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Products | E-commerce Store</title>
+  <link rel="stylesheet" href="products.css">
+</head>
+<body>
+  <header>
+    <div class="navbar-container">
+      <img src="images/logo.png" alt="Store Logo" class="logo">
+      <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="products-live.html" class="active">Live Products</a>
+      </nav>
+      <div class="cart-container">
+        <span class="cart-icon" id="cart-icon">
+          <img src="images/cart.png" alt="Cart" style="height:28px;vertical-align:middle;">
+          <span class="cart-badge" id="cart-badge">0</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-live">
+      <div class="hero-graphics">
+        <span class="hero-icon" style="left:10%;animation-delay:0.1s;">🎧</span>
+        <span class="hero-icon" style="left:30%;animation-delay:0.3s;">💻</span>
+        <span class="hero-icon" style="left:50%;animation-delay:0.5s;">⌚</span>
+        <span class="hero-icon" style="left:70%;animation-delay:0.2s;">🔊</span>
+        <span class="hero-icon" style="left:85%;animation-delay:0.4s;">🛒</span>
+      </div>
+      <h1 class="hero-title-animated">Live Products</h1>
+      <p class="hero-desc-animated">Browse our latest products, updated instantly from our database.</p>
+    </section>
+    <div class="products-grid" id="products-list">
+      <!-- Products will be loaded here -->
+    </div>
+  </main>
+
+  <footer class="footer-live">
+    <div class="footer-contact">
+      Contact us: info@pixelport.com | 123-4567
+    </div>
+    <p>&copy; 2025 E-commerce Store. All rights reserved.</p>
+  </footer>
+
+  <!-- Load Firebase + Your JS -->
+  <script type="module" src="products-live.js"></script>
+</body>
+</html>
