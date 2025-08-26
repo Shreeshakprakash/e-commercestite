@@ -459,8 +459,8 @@ header {
 
 /* Footer */
 .footer-contact {
-    background: linear-gradient(135deg, #3e8f8f 0%, #4ba0a2 100%);
-    color: #fff;
+    background: #a3c2bd;
+    color: black;
     text-align: center;
     padding: 2.5rem 0 1.5rem 0;
     margin-top: 4rem;
