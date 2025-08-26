@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 contactForm.reset();
                 btnText.textContent = 'Send Message';
                 btnIcon.textContent = '🚀';
-                submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                submitBtn.style.background = 'linear-gradient(135deg, #3e8f8f 0%, #4ba0a2 100%)';
                 submitBtn.style.transform = 'scale(1)';
                 submitBtn.disabled = false;
                 

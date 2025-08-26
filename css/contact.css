@@ -80,8 +80,8 @@ header {
 
 /* Contact Hero Section */
 .contact-hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    color: #fff;
+    background: linear-gradient(135deg, #f8faff 0%, #c7e7e2 50%, #f0f4ff 100%);
+    color: #000000;
     text-align: center;
     padding: 5rem 1rem 3rem 1rem;
     border-radius: 0 0 40px 40px;
@@ -121,7 +121,7 @@ header {
     font-size: 3.2rem;
     margin-bottom: 0.8rem;
     letter-spacing: 2px;
-    background: linear-gradient(90deg, #fff 20%, #f0f8ff 50%, #e6f3ff 80%);
+    background: linear-gradient(90deg, #434343 20%, #000000 50%, #343434 80%);
     background-size: 200% auto;
     color: transparent;
     background-clip: text;
@@ -192,7 +192,7 @@ header {
 }
 
 .form-header h2 {
-    color: #667eea;
+    color: #3e8f8f;
     margin-bottom: 0.5rem;
     font-size: 1.8rem;
 }
@@ -245,7 +245,7 @@ header {
 }
 
 .submit-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #3e8f8f 0%, #4ba0a2 100%);
     color: #fff;
     border: none;
     padding: 1rem 2rem;
@@ -296,7 +296,7 @@ header {
 }
 
 .info-header h2 {
-    color: #667eea;
+    color: #3e8f8f;
     margin-bottom: 0.5rem;
     font-size: 1.8rem;
 }
@@ -335,7 +335,7 @@ header {
 }
 
 .method-details h3 {
-    color: #667eea;
+    color: #3e8f8f;
     margin: 0 0 0.3rem 0;
     font-size: 1.1rem;
 }
@@ -359,7 +359,7 @@ header {
 }
 
 .social-links h3 {
-    color: #667eea;
+    color: #3e8f8f;
     margin-bottom: 1rem;
 }
 
@@ -380,19 +380,15 @@ header {
 
 .social-link:hover {
     transform: translateY(-3px);
-    background: #667eea;
+    background: #3e8f8f;
 }
 
 .social-link img {
     width: 24px;
     height: 24px;
-    filter: grayscale(1);
     transition: filter 0.3s ease;
 }
 
-.social-link:hover img {
-    filter: grayscale(0) brightness(0) invert(1);
-}
 
 /* FAQ Section */
 .faq-section {
@@ -420,7 +416,7 @@ header {
 }
 
 .faq-header h2 {
-    color: #667eea;
+    color: #3e8f8f;
     margin-bottom: 0.5rem;
     font-size: 1.8rem;
 }
@@ -450,7 +446,7 @@ header {
 }
 
 .faq-item h3 {
-    color: #667eea;
+    color: #3e8f8f;
     margin: 0 0 0.8rem 0;
     font-size: 1.1rem;
 }
@@ -463,7 +459,7 @@ header {
 
 /* Footer */
 .footer-contact {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    background: linear-gradient(135deg, #3e8f8f 0%, #4ba0a2 100%);
     color: #fff;
     text-align: center;
     padding: 2.5rem 0 1.5rem 0;
