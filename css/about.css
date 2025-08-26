@@ -45,8 +45,8 @@ header {
     color: #fff;
 }
 .about-hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    color: #fff;
+    background: linear-gradient(135deg, #f8faff 0%, #b3cde6 50%, #f0f4ff 100%);
+    color: black;
     text-align: center;
     padding: 5rem 1rem 3rem 1rem;
     border-radius: 0 0 40px 40px;
@@ -86,7 +86,7 @@ header {
     font-size: 3.2rem;
     margin-bottom: 0.8rem;
     letter-spacing: 2px;
-    background: linear-gradient(90deg, #fff 20%, #f0f8ff 50%, #e6f3ff 80%);
+    background: linear-gradient(90deg, #000000 20%, #121212 50%, #4b4b4b 80%);
     background-size: 200% auto;
     color: transparent;
     background-clip: text;
@@ -271,92 +271,7 @@ header {
     font-size: 0.95rem;
     margin: 0;
 }
-.team-block {
-    text-align: center;
-}
 
-.team-intro {
-    color: #666;
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    font-style: italic;
-}
-
-.team-list {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-}
-
-.team-member {
-    background: linear-gradient(135deg, #f8faff 0%, #f0f6ff 100%);
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(79,140,255,0.08);
-    padding: 2rem 1.5rem 1.8rem 1.5rem;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #e8f0ff;
-    position: relative;
-}
-
-.team-member:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 12px 32px rgba(79,140,255,0.15);
-}
-
-.team-img-container {
-    position: relative;
-    margin-bottom: 1.2rem;
-}
-
-.team-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: #fff;
-    object-fit: cover;
-    border: 3px solid #667eea;
-    box-shadow: 0 4px 12px rgba(79,140,255,0.2);
-}
-
-.team-badge {
-    position: absolute;
-    bottom: -5px;
-    right: -5px;
-    background: #667eea;
-    color: #fff;
-    border-radius: 12px;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.7rem;
-    font-weight: bold;
-    border: 2px solid #fff;
-}
-
-.team-name {
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 0.3rem;
-    font-size: 1.1rem;
-}
-
-.team-role {
-    color: #667eea;
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 0.8rem;
-}
-
-.team-bio {
-    color: #666;
-    font-size: 0.85rem;
-    text-align: center;
-    line-height: 1.4;
-}
 .footer-live {
     background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: #fff;

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | PixelPort</title>
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+</head>
+<body>
+  <header>
+    <div class="navbar-container">
+      <img src="images/logo.png" alt="Store Logo" class="logo">
+      <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="products-live.html">Live Products</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+      <div class="cart-container">
+        <span class="cart-icon" id="cart-icon">
+          <img src="images/cart.png" alt="Cart" style="height:28px;vertical-align:middle;">
+          <span class="cart-badge" id="cart-badge">0</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="contact-hero">
+      <div class="hero-graphics">
+        <span class="hero-icon" style="left:10%;animation-delay:0.1s;">📧</span>
+        <span class="hero-icon" style="left:25%;animation-delay:0.3s;">📞</span>
+        <span class="hero-icon" style="left:50%;animation-delay:0.2s;">💬</span>
+        <span class="hero-icon" style="left:75%;animation-delay:0.4s;">🗺️</span>
+        <span class="hero-icon" style="left:90%;animation-delay:0.1s;">⏰</span>
+      </div>
+      <h1 class="hero-title-animated">Get In Touch</h1>
+      <p class="hero-desc-animated">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+    </section>
+
+    <section class="contact-content">
+      <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-section">
+          <div class="form-header">
+            <div class="form-icon">✉️</div>
+            <h2>Send us a Message</h2>
+            <p>Fill out the form below and we'll get back to you within 24 hours</p>
+          </div>
+          
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <select id="subject" name="subject" required>
+                <option value="">Select a topic</option>
+                <option value="general">General Inquiry</option>
+                <option value="support">Technical Support</option>
+                <option value="order">Order Related</option>
+                <option value="returns">Returns & Refunds</option>
+                <option value="partnership">Business Partnership</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" rows="5" required placeholder="Tell us how we can help you..."></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-icon">🚀</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-info-section">
+          <div class="info-header">
+            <div class="info-icon">📍</div>
+            <h2>Contact Information</h2>
+            <p>Reach out to us through any of these channels</p>
+          </div>
+
+          <div class="contact-methods">
+            <div class="contact-method">
+              <div class="method-icon">📧</div>
+              <div class="method-details">
+                <h3>Email Us</h3>
+                <p>info@pixelport.com</p>
+                <p>support@pixelport.com</p>
+                <span class="response-time">Response within 2-4 hours</span>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="method-icon">📞</div>
+              <div class="method-details">
+                <h3>Call Us</h3>
+                <p>+1 (555) 123-4567</p>
+                <p>+1 (555) 987-6543</p>
+                <span class="response-time">Mon-Fri: 9AM-6PM EST</span>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="method-icon">💬</div>
+              <div class="method-details">
+                <h3>Live Chat</h3>
+                <p>Available on our website</p>
+                <p>Instant support</p>
+                <span class="response-time">24/7 automated assistance</span>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="method-icon">🗺️</div>
+              <div class="method-details">
+                <h3>Visit Us</h3>
+                <p>123 Tech Street</p>
+                <p>San Francisco, CA 94105</p>
+                <span class="response-time">By appointment only</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+              <a href="#" class="social-link">
+                <img src="images/facebook.png" alt="Facebook">
+              </a>
+              <a href="#" class="social-link">
+                <img src="images/twitter.png" alt="Twitter">
+              </a>
+              <a href="#" class="social-link">
+                <img src="images/instagram.png" alt="Instagram">
+              </a>
+              <a href="#" class="social-link">
+                <img src="images/mail.png" alt="Email">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-section">
+        <div class="faq-header">
+          <div class="faq-icon">❓</div>
+          <h2>Frequently Asked Questions</h2>
+          <p>Quick answers to common questions</p>
+        </div>
+        
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>How long does shipping take?</h3>
+            <p>Standard shipping takes 3-5 business days. Express shipping is available for 1-2 day delivery.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3>What's your return policy?</h3>
+            <p>We offer a 30-day return policy for all items in original condition with proof of purchase.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3>Do you offer technical support?</h3>
+            <p>Yes! Our technical support team is available 24/7 via chat, email, or phone for all your needs.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3>Can I track my order?</h3>
+            <p>Absolutely! You'll receive a tracking number via email once your order ships, allowing you to monitor its progress.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-contact">
+    <div class="footer-contact-info">
+      <p>Contact us: info@pixelport.com | +1 (555) 123-4567</p>
+    </div>
+    <p>&copy; 2025 PixelPort. All rights reserved.</p>
+  </footer>
+
+  <script src="js/contact.js"></script>
+</body>
+</html>
