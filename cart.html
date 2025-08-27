@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart | PixelPort</title>
+  <link rel="stylesheet" href="css/cart.css">
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" integrity="sha512-XcIsjKMcuVe0Ucj/xgIXQnytNwBttJbNjltBV18IOnru2lDPe9KRRyvCXw6Y5H415vbBLRm8+q6fmLUU7DfO6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <header>
+    <div class="navbar-container">
+      <img src="images/logo.png" alt="Store Logo" class="logo">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="navbar" id="navbar">
+        <a href="index.html">Home</a>
+        <a href="products-live.html">Live Products</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="cart.html" class="active">Cart</a>
+      </nav>
+      <div class="cart-container">
+        <span class="cart-icon" id="cart-icon">
+          <img src="images/cart.png" alt="Cart" style="height:28px;vertical-align:middle;">
+          <span class="cart-badge" id="cart-badge">0</span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="cart-hero">
+      <div class="hero-graphics">
+        <span class="hero-icon" style="left:10%;animation-delay:0.1s;">🛒</span>
+        <span class="hero-icon" style="left:25%;animation-delay:0.3s;">💳</span>
+        <span class="hero-icon" style="left:50%;animation-delay:0.2s;">📦</span>
+        <span class="hero-icon" style="left:75%;animation-delay:0.4s;">✨</span>
+        <span class="hero-icon" style="left:90%;animation-delay:0.1s;">🎉</span>
+      </div>
+      <h1 class="hero-title-animated">Shopping Cart</h1>
+      <p class="hero-desc-animated">Review your items and proceed to checkout when ready.</p>
+    </section>
+
+    <section class="cart-content">
+      <div class="cart-container-main">
+        <!-- Cart Items Section -->
+        <div class="cart-items-section" id="cart-items-section">
+          <div class="cart-header">
+            <h2>Your Items</h2>
+            <button class="clear-cart-btn" id="clear-cart-btn">Clear Cart</button>
+          </div>
+          
+          <div class="cart-items" id="cart-items">
+            <!-- Cart items will be loaded here dynamically -->
+            <div class="empty-cart" id="empty-cart">
+              <div class="empty-cart-icon">🛒</div>
+              <h3>Your cart is empty</h3>
+              <p>Add some products to get started!</p>
+              <a href="products-live.html" class="shop-now-btn">Shop Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cart Summary Section -->
+        <div class="cart-summary-section">
+          <div class="cart-summary">
+            <h3>Order Summary</h3>
+            
+            <div class="summary-item">
+              <span>Subtotal (<span id="item-count">0</span> items)</span>
+              <span class="price" id="subtotal">₹0</span>
+            </div>
+            
+            <div class="summary-item">
+              <span>Shipping</span>
+              <span class="price" id="shipping">₹0</span>
+            </div>
+            
+            <div class="summary-divider"></div>
+            
+            <div class="summary-item total">
+              <span>Total</span>
+              <span class="price" id="total">₹0</span>
+            </div>
+            
+            <button class="checkout-btn" id="checkout-btn" disabled>
+              <span class="btn-text">Proceed to Checkout</span>
+              <span class="btn-icon">→</span>
+            </button>
+            
+            <div class="payment-options">
+              <h4>We Accept</h4>
+              <div class="payment-icons">
+                <span class="payment-icon">💳</span>
+                <span class="payment-icon">🏦</span>
+                <span class="payment-icon">📱</span>
+                <span class="payment-icon">💰</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommended Products -->
+      <div class="recommended-section">
+        <h3>You Might Also Like</h3>
+        <div class="recommended-products" id="recommended-products">
+          <div class="product-card-mini">
+            <div class="product-image">🎧</div>
+            <div class="product-info">
+              <h4>Premium Headphones</h4>
+              <span class="price">₹5000</span>
+              <button class="add-to-cart-mini" data-name="Premium Headphones" data-price="5000">Add to Cart</button>
+            </div>
+          </div>
+          
+          <div class="product-card-mini">
+            <div class="product-image">⌚</div>
+            <div class="product-info">
+              <h4>Smart Watch</h4>
+              <span class="price">₹10000</span>
+              <button class="add-to-cart-mini" data-name="Smart Watch" data-price="10000">Add to Cart</button>
+            </div>
+          </div>
+          
+          <div class="product-card-mini">
+            <div class="product-image">🔊</div>
+            <div class="product-info">
+              <h4>Wireless Speaker</h4>
+              <span class="price">₹12000</span>
+              <button class="add-to-cart-mini" data-name="Wireless Speaker" data-price="12000">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-cart">
+    <div class="footer-contact">
+      Contact us: info@pixelport.com | +91 123-4567-890
+    </div>
+    <p>&copy; 2025 PixelPort. All rights reserved.</p>
+  </footer>
+
+    <script src="js/cart-shared.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

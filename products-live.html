@@ -11,15 +11,18 @@
   <header>
     <div class="navbar-container">
       <img src="images/logo.png" alt="Store Logo" class="logo">
-      <nav class="navbar">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="navbar" id="navbar">
         <a href="index.html">Home</a>
         <a href="products-live.html" class="active">Live Products</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <div class="cart-container">
-        <span class="cart-icon" id="cart-icon">
+        <a href="cart.html" class="cart-icon" id="cart-icon">
           <img src="images/cart.png" alt="Cart" style="height:28px;vertical-align:middle;">
           <span class="cart-badge" id="cart-badge">0</span>
-        </span>
+        </a>
       </div>
     </div>
   </header>
@@ -48,7 +51,8 @@
     <p>&copy; 2025 E-commerce Store. All rights reserved.</p>
   </footer>
 
-  <!-- Load Firebase + Your JS -->
+  <!-- Load Shared Cart + Firebase + Your JS -->
+  <script src="js/cart-shared.js"></script>
   <script type="module" src="js/products-live.js"></script>
 </body>
 </html>

@@ -30,29 +30,65 @@ function renderProducts(products) {
       <div class="product-title">${product.Name || 'No Name'}</div>
       <div class="product-price">₹${product.Price ?? 'N/A'}</div>
       <div class="product-desc">${product.Description || ''}</div>
-      <button class="add-to-cart">Add to Cart</button>
+      <button class="add-to-cart" data-name="${product.Name}" data-price="${product.Price}">Add to Cart</button>
     </div>
   `).join('');
 
-  // Add-to-cart logic with button and cart icon animation
-  const cartBadge = document.getElementById('cart-badge');
+  // Add-to-cart logic using shared cart functionality
   const cartIcon = document.getElementById('cart-icon');
-  let cartCount = 0;
   document.querySelectorAll('.add-to-cart').forEach((btn) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      const productName = btn.getAttribute('data-name');
+      const productPrice = parseFloat(btn.getAttribute('data-price'));
+      
+      // Use shared cart function
+      addToCart(productName, productPrice);
+      
+      // Visual feedback
       btn.classList.add('added');
       setTimeout(() => btn.classList.remove('added'), 350);
+      
       // Cart icon bounce
-      cartIcon.classList.add('cart-bounce');
-      setTimeout(() => cartIcon.classList.remove('cart-bounce'), 400);
-      cartCount++;
-      cartBadge.textContent = cartCount;
+      if (cartIcon) {
+        cartIcon.classList.add('cart-bounce');
+        setTimeout(() => cartIcon.classList.remove('cart-bounce'), 400);
+      }
     });
   });
 }
 
 // 🔹 Firestore Listener
 document.addEventListener('DOMContentLoaded', () => {
+  // Hamburger menu toggle for mobile nav
+  const menuBtn = document.getElementById('menu-toggle');
+  const navbar = document.getElementById('navbar');
+  
+  if(menuBtn && navbar) {
+    menuBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      navbar.classList.toggle('active');
+      const expanded = navbar.classList.contains('active');
+      menuBtn.setAttribute('aria-expanded', expanded);
+      
+      // Change hamburger icon when menu is open
+      if (expanded) {
+        menuBtn.innerHTML = '✕';
+      } else {
+        menuBtn.innerHTML = '☰';
+      }
+    });
+    
+    // Close menu when clicking on a link
+    const navLinks = navbar.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navbar.classList.remove('active');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.innerHTML = '☰';
+      });
+    });
+  }
+
   const productsRef = collection(db, "products");
   onSnapshot(productsRef, snapshot => {
     const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
