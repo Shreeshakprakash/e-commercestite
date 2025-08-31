@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login - PixelPort</title>
+    <link rel="stylesheet" href="css/login.css">
+    <!-- Add your website's favicon -->
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <section class="login-section">
+        <div class="login-container animated-fade-in">
+            <div class="logo-container">
+                <img src="images/logo.png" alt="PixelPort Logo" class="login-logo">
+            </div>
+            <div class="form-toggle">
+                <button class="toggle-btn active" data-form="login">Login</button>
+                <button class="toggle-btn" data-form="signup">Sign Up</button>
+            </div>
+
+
+            <form class="login-form" id="loginForm">
+                <div id="login-error" class="error-message"></div>
+                <div class="input-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                    <div class="error-message" id="login-email-error"></div>
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                <button type="submit" class="primary-btn" id="login-btn">
+                    <span class="btn-text">Login</span>
+                    <span class="btn-loader"></span>
+                </button>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </form>
+
+
+            <form class="signup-form" id="signupForm" style="display: none;">
+                <div id="signup-error" class="error-message"></div>
+                <div class="input-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required>
+                    <div class="error-message" id="name-error"></div>
+                </div>
+                <div class="input-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                    <div class="error-message" id="signup-email-error"></div>
+                </div>
+                <div class="input-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                    <div class="password-strength" id="password-strength"></div>
+                </div>
+                <button type="submit" class="primary-btn" id="signup-btn">
+                    <span class="btn-text">Create Account</span>
+                    <span class="btn-loader"></span>
+                </button>
+            </form>
+        </div>
+    </section>
+    <script src="js/login.js"></script>
+</body>
+
+</html>

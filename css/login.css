@@ -1,0 +1,203 @@
+html{
+    scroll-behavior: smooth;
+}
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+/* Login Page Styles */
+.login-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e0e7ef 0%, #f5f7fa 100%);
+    padding: 20px;
+}
+
+.login-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(11, 48, 55, 0.1);
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.login-logo {
+    max-width: 150px;
+    height: auto;
+}
+
+.form-toggle {
+    display: flex;
+    background: #e0e7ef;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    padding: 4px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: none;
+    color: #134E5E;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn.active {
+    background: #0B3037;
+    color: white;
+}
+
+.input-group {
+    margin-bottom: 1.2rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #0B3037;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    padding-right: 45px; /* Make room for password toggle */
+    border: 1.5px solid #e0e7ef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8fafc;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    border-color: #134E5E;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(19, 78, 94, 0.1);
+    background: white;
+}
+
+.show-password-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 1rem 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+    accent-color: #0B3037;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #0B3037 0%, #134E5E 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.primary-btn:hover {
+    background: linear-gradient(135deg, #134E5E 0%, #0B3037 100%);
+    transform: translateY(-1px);
+}
+
+.primary-btn:active {
+    transform: scale(0.98);
+}
+
+.forgot-password {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #134E5E;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+    color: #0B3037;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    display: none;
+}
+
+.password-strength {
+    font-size: 0.9rem;
+    margin-top: 4px;
+    color: #666;
+}
+
+/* Loading Animation */
+.btn-loader {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.primary-btn.loading .btn-loader {
+    display: inline-block;
+}
+
+.primary-btn.loading .btn-text {
+    opacity: 0.7;
+}
+
+/* Fade In Animation */
+.animated-fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
