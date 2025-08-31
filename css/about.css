@@ -21,6 +21,11 @@
   .logo {
     order: 1;
   }
+  .cart-container {
+    order: 2;
+    margin-left: auto;
+    margin-right: 1rem;
+  }
   .menu-toggle {
     display: block !important;
     background: none;
@@ -30,7 +35,6 @@
     cursor: pointer;
     order: 3;
     padding: 0.5rem;
-    margin-left: auto;
   }
   .navbar {
     order: 4;
@@ -118,6 +122,57 @@ header {
     background: #4f8cff;
     color: #fff;
 }
+
+.cart-container {
+    position: relative;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cart-icon {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    color: #222;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.cart-icon:hover {
+    transform: scale(1.1);
+}
+
+.login-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #222;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(79, 140, 255, 0.1);
+    border: 1px solid rgba(79, 140, 255, 0.2);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background: rgba(79, 140, 255, 0.2);
+    border-color: rgba(79, 140, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.login-btn i {
+    font-size: 1.1rem;
+}
+
+.login-btn span {
+    font-weight: 500;
+}
+
 .about-hero {
     background: linear-gradient(135deg, #f8faff 0%, #b3cde6 50%, #f0f4ff 100%);
     color: black;
