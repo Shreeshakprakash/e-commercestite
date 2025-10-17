@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
+
+        const firebaseConfig = {
+  apiKey: "AIzaSyBrVZa9LRKYURVw8t7sqWGbQYuqlrnfEZ8",
+  authDomain: "test-ecommerce-a7d42.firebaseapp.com",
+  projectId: "test-ecommerce-a7d42",
+  storageBucket: "test-ecommerce-a7d42.appspot.com",
+  messagingSenderId: "202120303178",
+  appId: "1:202120303178:web:a80663199b8a4a78808cb3",
+  measurementId: "G-FYPBLT6XDH"
+};
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
     // Admin credentials
     const ADMIN_EMAIL = 'admin@pixelport.com';
     const ADMIN_PASSWORD = 'PixelPort2025!';
@@ -52,76 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    loginForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const email = loginEmail.value.trim();
-        const password = loginPassword.value;
-
-        // Clear previous errors
-        loginError.style.display = 'none';
-
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            loginError.textContent = 'Please enter a valid email address';
-            loginError.style.display = 'block';
-            return;
-        }
-
-        const loginBtn = this.querySelector('button[type="submit"]');
-        loginBtn.classList.add('loading');
-        loginBtn.disabled = true;
-
-        setTimeout(() => {
-            // Check admin credentials first
-            if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('userEmail', email);
-                localStorage.setItem('userRole', 'admin');
-                localStorage.setItem('userName', 'Administrator');
-                
-                if (rememberMe.checked) {
-                    localStorage.setItem('rememberedEmail', email);
-                }
-                
-                showNotification('Admin login successful! Redirecting...', 'success');
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1000);
-            } else {
-                // Check regular user credentials
-                const storedEmail = localStorage.getItem('userEmail');
-                const storedPassword = localStorage.getItem('userPassword');
-
-                if (email === storedEmail && password === storedPassword) {
-                    if (rememberMe.checked) {
-                        localStorage.setItem('rememberedEmail', email);
-                    }
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('userRole', 'user');
-                    
-                    showNotification('Login successful! Redirecting...', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 1000);
-                } else {
-                    loginError.textContent = 'Invalid email or password. Use admin@pixelport.com / PixelPort2025! for demo.';
-                    loginError.style.display = 'block';
-                    loginBtn.classList.remove('loading');
-                    loginBtn.disabled = false;
-                }
-            }
-        }, 1000);
-    });
-
-
+    // SIGN UP
     signupForm.addEventListener('submit', function (e) {
         e.preventDefault();
-
         const name = signupName.value.trim();
         const email = signupEmail.value.trim();
         const password = signupPassword.value;
 
-        // Clear previous errors
         signupError.style.display = 'none';
 
         if (name.length < 2) {
@@ -129,13 +79,11 @@ document.addEventListener('DOMContentLoaded', function () {
             signupError.style.display = 'block';
             return;
         }
-
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             signupError.textContent = 'Please enter a valid email address';
             signupError.style.display = 'block';
             return;
         }
-
         if (password.length < 6) {
             signupError.textContent = 'Password must be at least 6 characters long';
             signupError.style.display = 'block';
@@ -146,19 +94,69 @@ document.addEventListener('DOMContentLoaded', function () {
         signupBtn.classList.add('loading');
         signupBtn.disabled = true;
 
-        setTimeout(() => {
-            localStorage.setItem('userName', name);
-            localStorage.setItem('userEmail', email);
-            localStorage.setItem('userPassword', password);
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userRole', 'user');
-            
-            showNotification('Account created successfully! Redirecting...', 'success');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1000);
-        }, 1000);
+        // Firebase Auth: Create user
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Save user info to Firestore
+                return db.collection('users').doc(userCredential.user.uid).set({
+                    name: name,
+                    email: email,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            })
+            .then(() => {
+                showNotification('Account created! Redirecting...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            })
+            .catch((error) => {
+                signupError.textContent = error.message;
+                signupError.style.display = 'block';
+                signupBtn.classList.remove('loading');
+                signupBtn.disabled = false;
+            });
     });
+
+    // LOGIN
+    loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = loginEmail.value.trim();
+        const password = loginPassword.value.trim();
+
+        loginError.style.display = 'none';
+
+        // Basic validation
+        if (!email || !password) {
+            loginError.textContent = 'Please enter both email and password.';
+            loginError.style.display = 'block';
+            return;
+        }
+
+        // Firebase Auth: Sign in
+        auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Store user info locally
+                localStorage.setItem('user', JSON.stringify({
+                    uid: userCredential.user.uid,
+                    email: userCredential.user.email
+                }));
+                window.location.href = 'index.html';
+            })
+            .catch((error) => {
+                loginError.textContent = error.message;
+                loginError.style.display = 'block';
+            });
+    });
+
+    // Check if user is already signed in
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            localStorage.setItem('user', JSON.stringify(user));
+            // Optionally redirect or show logged-in UI
+        }
+    });
+
 
     // Notification function
     function showNotification(message, type) {
@@ -240,4 +238,5 @@ document.addEventListener('DOMContentLoaded', function () {
         loginEmail.value = rememberedEmail;
         rememberMe.checked = true;
     }
+
 });

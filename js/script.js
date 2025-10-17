@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Hamburger menu toggle for mobile nav
   const menuBtn = document.querySelector('.menu-toggle');
   const navLinks = document.querySelector('.nav-links');
   if(menuBtn && navLinks) {
@@ -47,6 +46,23 @@ document.addEventListener('DOMContentLoaded', function() {
       const expanded = navLinks.classList.contains('active');
       menuBtn.setAttribute('aria-expanded', expanded);
     });
+  }
+
+  const loginBtn = document.querySelector('.login-btn');
+  if (loginBtn) {
+    const user = localStorage.getItem('user');
+    if (user) {
+      loginBtn.textContent = 'Logout';
+      loginBtn.href = '#';
+      loginBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        localStorage.removeItem('user');
+        window.location.reload();
+      });
+    } else {
+      loginBtn.textContent = 'Login';
+      loginBtn.href = 'login.html';
+    }
   }
 });
 

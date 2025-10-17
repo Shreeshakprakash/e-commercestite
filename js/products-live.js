@@ -1,22 +1,22 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// 🔹 Firebase Config
+//  Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyBrVZa9LRKYURVw8t7sqWGbQYuqlrnfEZ8",
   authDomain: "test-ecommerce-a7d42.firebaseapp.com",
   projectId: "test-ecommerce-a7d42",
-  storageBucket: "test-ecommerce-a7d42.appspot.com",   // ✅ fixed
+  storageBucket: "test-ecommerce-a7d42.appspot.com",  
   messagingSenderId: "202120303178",
   appId: "1:202120303178:web:a80663199b8a4a78808cb3",
   measurementId: "G-FYPBLT6XDH"
 };
 
-// 🔹 Init Firebase + Firestore
+//  Init Firebase + Firestore
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 🔹 Render Products
+//  Render Products
 function renderProducts(products) {
   const productsList = document.getElementById('products-list');
   if (!products || products.length === 0) {
@@ -57,7 +57,7 @@ function renderProducts(products) {
   });
 }
 
-// 🔹 Firestore Listener
+//  Firestore Listener
 document.addEventListener('DOMContentLoaded', () => {
   // Hamburger menu toggle for mobile nav
   const menuBtn = document.getElementById('menu-toggle');
@@ -95,3 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts(products);
   });
 });
+
+
+
