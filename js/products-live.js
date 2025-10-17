@@ -16,6 +16,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Store all products for filtering
+let allProducts = [];
+
 //  Render Products
 function renderProducts(products) {
   const productsList = document.getElementById('products-list');
@@ -57,6 +60,42 @@ function renderProducts(products) {
   });
 }
 
+// Filter products by category
+function filterProductsByCategory(category) {
+  if (category === 'all') {
+    renderProducts(allProducts);
+  } else {
+    const filteredProducts = allProducts.filter(product => {
+      if (product.Category) {
+        // Split by comma and check if category exists
+        const categories = product.Category.split(',').map(cat => cat.trim().toLowerCase());
+        return categories.includes(category.toLowerCase());
+      }
+      return false;
+    });
+    renderProducts(filteredProducts);
+  }
+}
+
+// Setup category filter buttons
+function setupCategoryFilters() {
+  const categoryBtns = document.querySelectorAll('.category-btn');
+  
+  categoryBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      // Remove active class from all buttons
+      categoryBtns.forEach(b => b.classList.remove('active'));
+      
+      // Add active class to clicked button
+      this.classList.add('active');
+      
+      // Filter products
+      const category = this.dataset.category;
+      filterProductsByCategory(category);
+    });
+  });
+}
+
 //  Firestore Listener
 document.addEventListener('DOMContentLoaded', () => {
   // Hamburger menu toggle for mobile nav
@@ -91,9 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const productsRef = collection(db, "products");
   onSnapshot(productsRef, snapshot => {
-    const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    renderProducts(products);
+    allProducts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    renderProducts(allProducts);
   });
+  
+  // Setup category filters
+  setupCategoryFilters();
 });
 
 

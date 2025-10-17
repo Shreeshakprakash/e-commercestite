@@ -97,19 +97,12 @@ function createCartItemElement(item, index) {
 // Get product icon based on name
 function getProductIcon(productName) {
     const icons = {
-        'Premium Laptop': '<i class="bx bx-laptop"></i>',
-        'Wireless Headphones': '<i class="bx bx-headphone"></i>',
-        'Smart Watch': '<i class="bx bx-time"></i>',
-        'Gaming Mouse': '<i class="bx bx-mouse"></i>',
-        'Mechanical Keyboard': '<i class="bx bx-keyboard"></i>',
-        'Portable Speaker': '<i class="bx bx-speaker"></i>',
-        'Smartphone': '<i class="bx bx-mobile"></i>',
-        'Tablet': '<i class="bx bx-tablet"></i>',
-        'Camera': '<i class="bx bx-camera"></i>',
-        'Monitor': '<i class="bx bx-desktop"></i>',
-        'Premium Headphones': '<i class="bx bx-headphone"></i>',
-        'USB-C Cable': '<i class="bx bx-usb"></i>',
-        'Laptop': '<i class="bx bx-laptop"></i>'
+        'Premium Laptop': '<img src="images/laptop.png" alt="Laptop" width="50">',
+        'Smart Watch': '<img src="images/smartwatch.png" alt="watch" width="50">',
+        'Smartphone': '<img src="images/mobile.png" alt="Mobile" width="50">',
+        'Tablet': '<img src="images/tablet1.jpg" alt="Tablet" width="50">',
+        'Premium Headphones': '<img src="images/headphone.png" alt="Headphone" width="50">',
+        'Laptop': '<img src="images/laptop.png" alt="Laptop" width="50">'
     };
     return icons[productName] || '<i class="bx bx-package"></i>';
 }
