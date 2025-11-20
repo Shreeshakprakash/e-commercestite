@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title id="product-title">Product Details</title>
+        <link rel="stylesheet" href="../css/product.css">
+        <!-- Firebase SDKs -->
+        <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+        <script>
+            const firebaseConfig = {
+                apiKey: "AIzaSyBrVZa9LRKYURVw8t7sqWGbQYuqlrnfEZ8",
+                authDomain: "test-ecommerce-a7d42.firebaseapp.com",
+                projectId: "test-ecommerce-a7d42",
+                storageBucket: "test-ecommerce-a7d42.appspot.com",  
+                messagingSenderId: "202120303178",
+                appId: "1:202120303178:web:a80663199b8a4a78808cb3",
+                measurementId: "G-FYPBLT6XDH"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+        </script>
+</head>
+<body>
+   <header>
+    <div class="navbar-container">
+      <img src="../images/logo.png" alt="Store Logo" class="logo">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+      <nav class="navbar" id="navbar">
+        <a href="../index.html">Home</a>
+        <a href="../products-live.html" class="active">Live Products</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="cart-container">
+        <a href="../cart.html" class="cart-icon" id="cart-icon">
+          <img src="../images/cart.png" alt="Cart" style="height:28px;vertical-align:middle;">
+          <span class="cart-badge" id="cart-badge">0</span>
+        </a>
+        <a href="../login.html" class="login-btn" id="login-btn">
+          <i class='bx bx-user'></i>
+          <span>Login</span>
+        </a>
+      </div>
+    </div>
+  </header>
+        <div class="product-detail">
+                <img id="Image" src="" alt="Product Image" />
+                <h1 id="Name"></h1>
+                <p id="Description"></p>
+                <div id="Price"></div>
+        </div>
+        <script src="../js/product-details.js"></script>
+</body>
+</html>

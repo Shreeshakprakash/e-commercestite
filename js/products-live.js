@@ -33,6 +33,7 @@ function renderProducts(products) {
       <div class="product-title">${product.Name || 'No Name'}</div>
       <div class="product-price">₹${product.Price ?? 'N/A'}</div>
       <div class="product-desc">${product.Description || ''}</div>
+      <a href="html/product.html?id=${product.id}" class="view-details-btn">View Details</a>
       <button class="add-to-cart" data-name="${product.Name}" data-price="${product.Price}">Add to Cart</button>
     </div>
   `).join('');
