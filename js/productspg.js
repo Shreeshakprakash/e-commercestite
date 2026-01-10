@@ -12,6 +12,7 @@ console.log('Supabase client initialized:', supabase);
 
 let allProducts = [];
 let productsChannel;
+let hasPlayedVideos = false;
 
 // Fetch products from Supabase
 async function fetchProducts() {
@@ -43,17 +44,64 @@ function renderProducts(products) {
         return;
     }
 
-    productList.innerHTML = products.map(product => `
-        <div class='product-card'>
-        <img src="${product.image || 'images/logo_small.png'}"
-        alt="${product.name}"
-        width="200">
-        <h3>${product.name}</h3>
-        <p class="price">₹${product.price}</p>
-        <p class="desc">${product.description || ''}</p>
-        </div>
+        productList.innerHTML = products.map(product => `
+          <div class="product-card">
+            ${product.video ? `
+              <div class="product-media">
+                <video
+                  src="${product.video}"
+                  muted
+                  autoplay
+                  playsinline
+                  preload="metadata"
+                  poster="${product.image || 'images/logo_small.png'}"
+                ></video>
+              </div>
+            ` : `
+              <img
+                src="${product.image || 'images/logo_small.png'}"
+                alt="${product.name}"
+                width="200"
+              >
+            `}
+            <h3>${product.name}</h3>
+            <p class="price">₹${product.price}</p>
+            <p class="desc">${product.description || ''}</p>
+          </div>
         `).join('');
+
+setupVideoObserver();
+//setTimeout(playVideosOnce, 50);
 }
+
+function setupVideoObserver() {
+  if (hasPlayedVideos) return;
+
+  const videos = document.querySelectorAll('.product-media video');
+  if (!videos.length) return;
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasPlayedVideos) {
+          const video = entry.target;
+
+          video.play().catch(() => {
+          });
+          hasPlayedVideos = true;
+          observer.disconnect();
+        }
+      });
+    },
+    {
+      threshold: 0.6
+    }
+  );
+
+  videos.forEach(video => observer.observe(video));
+}
+
+
 
 // Filter products by category
 function filterProductsByCategory(category){
