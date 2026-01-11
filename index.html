@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <title>PixelPort</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/x-icon" href="images/favicon.png">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </head>
 <body class="intro-active">
   <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
@@ -15,30 +17,36 @@
       <span class="intro-title">Welcome......</span>
     </div>
   </div>
-  <header>
-    <nav>
-      <div class="logo"><img src="images/logo_small.png" style="width: 25px;height: 25px;"> PixelPort</div>
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
-        <i class='bx bx-menu'></i>
-      </button>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="products-live.html">Products</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div class="cart-container">
-        <a href="cart.html" class="cart-icon" id="cart-icon">
-          🛒
-          <span class="cart-badge" id="cart-badge">0</span>
-        </a>
-        <a href="login.html" class="login-btn" id="login-btn">
-          <i class='bx bx-user'></i>
-          <span>Login</span>
-        </a>
-      </div>
-    </nav>
-  </header>
+
+  <header class="header" id="navbar">
+        <nav class="nav-container">
+            <div class="menu-toggle" id="mobileMenuTrigger">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <a href="/index.html" class="logo">PixelPort<span>.</span></a>
+
+            <ul class="nav-menu">
+                <li><a href="products-live.html" class="nav-link">Shop All</a></li>
+                <li><a href="#" class="nav-link">New Arrivals</a></li>
+                <li><a href="#" class="nav-link">Collections</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+            </ul>
+
+            <div class="nav-utilities">
+                <a href="#" class="nav-icon" aria-label="Search">
+                    <ion-icon name="search-outline"></ion-icon>
+                </a>
+                <a href="login.html" class="nav-icon" aria-label="Account">
+                    <ion-icon name="person-outline"></ion-icon>
+                </a>
+                <a href="cart.html" class="nav-icon" aria-label="Cart">
+                  <ion-icon name="bag-handle-outline"></ion-icon>
+                  <span id="cart-badge" class="cart-count">2</span>
+                </a>
+            </div>
+        </nav>
+    </header>
   <main>
     <br><br><br><br>
     <section class="hero" id="home">
@@ -134,21 +142,59 @@
       </div>
     </section>
   </main>
-  <button id="scrollTopBtn"><i class='bx bx-arrow-up-stroke'></i></button>
 
-  <footer>
-    <div class="footer-socials">
-      <h4 style="margin-top: 0px;">Connect to us @</h4>
-      <a href="https://twitter.com" target="_blank" aria-label="Twitter"><img src="images/twitter.png" style="width: 25px;"></a>
-      <a href="https://facebook.com" target="_blank" aria-label="Facebook"><img src="images/facebook.png" style="width: 25px;"></a>
-      <a href="https://instagram.com" target="_blank" aria-label="Instagram"><img src="images/instagram.png" style="width: 25px;"></a>
-      <a href="mailto:info@pixelport.com" aria-label="Email"><img src="images/mail.png" style="width: 25px;"></a>
-    </div>
-    <div class="footer-contact">
-      Contact us: info@pixelport.com | +91 123-4567-890
-    </div>
-    <p>&copy; 2025 PixelPort. All rights reserved.</p>
-  </footer>
+  <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <a href="#" class="logo">PIXELPORT<span>.</span></a>
+                <p>The one stop shop for all your tech needs.</p>
+                <div class="social-links">
+                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">All Products</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="#">Journal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="bottom-content">
+                <p>2026 PIXELPORT. *images are only for demonstration purposes.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <button id="backToTop" class="back-to-top">
+                    Back to top <ion-icon name="arrow-up-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </footer>
   <script src="js/cart-shared.js"></script>
   <script src="js/script.js"></script>
 </body>

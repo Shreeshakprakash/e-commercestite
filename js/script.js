@@ -66,18 +66,31 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-const scrollBtn = document.getElementById("scrollTopBtn");
+// Function to handle header appearance on scroll
+const initHeaderScroll = () => {
+    const header = document.getElementById('navbar');
+    
+    window.addEventListener('scroll', () => {
+        // If user scrolls more than 50px, add the 'scrolled' class
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+};
 
-// Show button when user scrolls down 100px
-window.addEventListener("scroll", () => {
-  if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-    scrollBtn.style.display = "flex";
-  } else {
-    scrollBtn.style.display = "none";
-  }
+// Simple log to confirm scripts are loaded
+console.log("PixelPort Navigation Initialized");
+
+// Initialize functions
+document.addEventListener('DOMContentLoaded', () => {
+    initHeaderScroll();
 });
 
-// Scroll smoothly to top when button is clicked
-scrollBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+document.getElementById('backToTop').addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 });
