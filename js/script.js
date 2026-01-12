@@ -1,70 +1,125 @@
-// Index page functionality - now uses shared cart functions
-document.addEventListener('DOMContentLoaded', function() {
-  // Show intro overlay for 2s, then fade out and reveal page
-  const overlay = document.getElementById('intro-overlay');
-  setTimeout(() => {
-    overlay.classList.add('hide');
-    setTimeout(() => {
-      overlay.style.display = 'none';
-      document.body.classList.add('intro-done');
-    }, 700);
-  }, 2000);
+//---------------- Supabase Client Setup (dont alter!)----------------//
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+const SUPABASE_URL = 'https://eyicqbqgqjadvlfhyfsf.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_kyIL5tPQt2WO5l9dh9s_VQ_d8ORucNG';
 
-  // Add to cart functionality
-  document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const productName = this.getAttribute('data-name');
-      const productPrice = parseFloat(this.getAttribute('data-price'));
+export const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+console.log('Supabase client initialized:', supabase);
+//-------------------------------------------------------------------//
+
+let allProducts = [];
+let hasPlayedVideos = false;
+
+// Fetch products from Supabase
+async function fetchProducts() {
+    const { data, error } = await supabase
+    .from('product_home')
+    .select('*');
+
+    if (error) {
+        console.error('Error fetching products:', error);
+        return;
+    }
+
+    allProducts = data;
+    renderProducts(allProducts);
+}
+fetchProducts();
+
+// Render products to the page
+function renderProducts(products) {
+    const productList = document.getElementById('products');
+
+    if (!productList){
+        console.error('products elements not found ');
+        return;
+    }
+
+    if(!products || products.length===0){
+        productList.innerHTML= '<p>No Products found.</p>';
+        return;
+    }
+
+        productList.innerHTML = products.map(product_home => `
+          <div class="product-card">
+            ${product_home.video ? `
+              <div class="product-media">
+                <video
+                  src="${product_home.video}"
+                  muted
+                  autoplay
+                  playsinline
+                  preload="metadata"
+                  poster="${product_home.image || 'images/logo_small.png'}"
+                ></video>
+              </div>
+            ` : `
+              <img
+                src="${product_home.image || 'images/logo_small.png'}"
+                width="200"
+              >
+            `}
+            <h3>${product_home.name}</h3>
+            <p class="product-price">₹${product_home.price}</p>
+            <p class="desc">${product_home.description || ''}</p>
+            <button class="add-to-cart" data-name="${product_home.name}" data-price="${product_home.price}">Add to Cart</button>
+          </div>
+        `).join('');
+
+        // Add-to-cart logic using shared cart functionality
+  const cartIcon = document.getElementById('cart-icon');
+  document.querySelectorAll('.add-to-cart').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const productName = btn.getAttribute('data-name');
+      const productPrice = parseFloat(btn.getAttribute('data-price'));
       
-      // Check if addToCart function exists
-      if (typeof addToCart === 'function') {
-        // Use shared cart function
-        addToCart(productName, productPrice);
-      } else {
-        alert('Cart function not loaded. Please refresh the page.');
-      }
+      // Use shared cart function
+      addToCart(productName, productPrice);
       
       // Visual feedback
       btn.classList.add('added');
-      const emoji = btn.querySelector('.cart-emoji');
-      if (emoji) emoji.style.opacity = '1';
-      btn.disabled = true;
-      
-      setTimeout(() => {
-        btn.classList.remove('added');
-        if (emoji) emoji.style.opacity = '';
-        btn.disabled = false;
-      }, 900);
+      setTimeout(() => btn.classList.remove('added'), 350);
+
+      if (cartIcon) {
+        cartIcon.classList.add('cart-bounce');
+        setTimeout(() => cartIcon.classList.remove('cart-bounce'), 400);
+      }
     });
   });
 
-  const menuBtn = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  if(menuBtn && navLinks) {
-    menuBtn.addEventListener('click', function() {
-      navLinks.classList.toggle('active');
-      const expanded = navLinks.classList.contains('active');
-      menuBtn.setAttribute('aria-expanded', expanded);
-    });
-  }
+setupVideoObserver();
+//setTimeout(playVideosOnce, 50);
+}
 
-  const loginBtn = document.querySelector('.login-btn');
-  if (loginBtn) {
-    const user = localStorage.getItem('user');
-    if (user) {
-      loginBtn.textContent = 'Logout';
-      loginBtn.href = '#';
-      loginBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        localStorage.removeItem('user');
-        window.location.reload();
+function setupVideoObserver() {
+  if (hasPlayedVideos) return;
+
+  const videos = document.querySelectorAll('.product-media video');
+  if (!videos.length) return;
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasPlayedVideos) {
+          const video = entry.target;
+
+          video.play().catch(() => {
+          });
+          hasPlayedVideos = true;
+          observer.disconnect();
+        }
       });
-    } else {
-      loginBtn.textContent = 'Login';
-      loginBtn.href = 'login.html';
+    },
+    {
+      threshold: 0.6
     }
-  }
-});
+  );
+
+  videos.forEach(video => observer.observe(video));
+}
 
 // Function to handle header appearance on scroll
 const initHeaderScroll = () => {
@@ -83,7 +138,6 @@ const initHeaderScroll = () => {
 // Simple log to confirm scripts are loaded
 console.log("PixelPort Navigation Initialized");
 
-// Initialize functions
 document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
 });

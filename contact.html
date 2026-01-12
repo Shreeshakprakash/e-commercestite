@@ -6,28 +6,40 @@
   <title>Contact Us | PixelPort</title>
   <link rel="stylesheet" href="css/contact.css">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="images/favico.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </head>
 <body>
-  <header>
-    <div class="navbar-container">
-      <img src="images/logo.png" alt="Store Logo" class="logo">
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
-      <nav class="navbar" id="navbar">
-        <a href="index.html">Home</a>
-        <a href="products-live.html">Live Products</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html" class="active">Contact</a>
-        <a href="cart.html">Cart</a>
-      </nav>
-      <div class="cart-container">
-        <a href="login.html" class="login-btn" id="login-btn">
-          <i class='bx bx-user'></i>
-          <span>Login</span>
-        </a>
-      </div>
-    </div>
-  </header>
+  <header class="header" id="navbar">
+        <nav class="nav-container">
+            <div class="menu-toggle" id="mobileMenuTrigger">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <a href="/index.html" class="logo">PixelPort<span>.</span></a>
+
+            <ul class="nav-menu">
+                <li><a href="products-live.html" class="nav-link">Shop All</a></li>
+                <li><a href="#" class="nav-link">New Arrivals</a></li>
+                <li><a href="#" class="nav-link">Collections</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+            </ul>
+
+            <div class="nav-utilities">
+                <a href="#" class="nav-icon" aria-label="Search">
+                    <ion-icon name="search-outline"></ion-icon>
+                </a>
+                <a href="login.html" class="nav-icon" aria-label="Account">
+                    <ion-icon name="person-outline"></ion-icon>
+                </a>
+                <a href="cart.html" class="nav-icon" aria-label="Cart">
+                  <ion-icon name="bag-handle-outline"></ion-icon>
+                  <span id="cart-badge" class="cart-count">2</span>
+                </a>
+            </div>
+        </nav>
+    </header>
 
   <main>
     <section class="contact-hero">

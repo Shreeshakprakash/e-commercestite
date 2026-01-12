@@ -61,14 +61,36 @@ function renderProducts(products) {
               <img
                 src="${product.image || 'images/logo_small.png'}"
                 alt="${product.name}"
-                width="200"
+                width="auto"
               >
             `}
             <h3>${product.name}</h3>
             <p class="price">₹${product.price}</p>
             <p class="desc">${product.description || ''}</p>
+            <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}">Add to Cart</button>
           </div>
         `).join('');
+
+        // Add-to-cart logic using shared cart functionality
+  const cartIcon = document.getElementById('cart-icon');
+  document.querySelectorAll('.add-to-cart').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const productName = btn.getAttribute('data-name');
+      const productPrice = parseFloat(btn.getAttribute('data-price'));
+      
+      // Use shared cart function
+      addToCart(productName, productPrice);
+      
+      // Visual feedback
+      btn.classList.add('added');
+      setTimeout(() => btn.classList.remove('added'), 350);
+
+      if (cartIcon) {
+        cartIcon.classList.add('cart-bounce');
+        setTimeout(() => cartIcon.classList.remove('cart-bounce'), 400);
+      }
+    });
+  });
 
 setupVideoObserver();
 //setTimeout(playVideosOnce, 50);
@@ -100,8 +122,6 @@ function setupVideoObserver() {
 
   videos.forEach(video => observer.observe(video));
 }
-
-
 
 // Filter products by category
 function filterProductsByCategory(category){
@@ -136,23 +156,52 @@ function setupCategoryFilters(){
 setupCategoryFilters();
 
 //for realtime updates not enabled in supabase for now
-function setupRealtimeProducts() {
-  if (productsChannel) return;
+// function setupRealtimeProducts() {
+//   if (productsChannel) return;
 
-  productsChannel = supabase
-    .channel('products-realtime')
-    .on(
-      'postgres_changes',
-      {
-        event: '*',
-        schema: 'public',
-        table: 'products'
-      },
-      payload => {
-        console.log('Realtime change received:', payload);
-        fetchProducts();
-      }
-    )
-    .subscribe();
-}
-setupRealtimeProducts();
+//   productsChannel = supabase
+//     .channel('products-realtime')
+//     .on(
+//       'postgres_changes',
+//       {
+//         event: '*',
+//         schema: 'public',
+//         table: 'products'
+//       },
+//       payload => {
+//         console.log('Realtime change received:', payload);
+//         fetchProducts();
+//       }
+//     )
+//     .subscribe();
+// }
+// setupRealtimeProducts();
+
+// Function to handle header appearance on scroll
+const initHeaderScroll = () => {
+    const header = document.getElementById('navbar');
+    
+    window.addEventListener('scroll', () => {
+        // If user scrolls more than 50px, add the 'scrolled' class
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+};
+
+// Simple log to confirm scripts are loaded
+console.log("PixelPort Navigation Initialized");
+
+// Initialize functions
+document.addEventListener('DOMContentLoaded', () => {
+    initHeaderScroll();
+});
+
+document.getElementById('backToTop').addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});

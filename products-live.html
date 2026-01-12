@@ -6,44 +6,60 @@
   <title>Live Products | PixelPort</title>
   <link rel="stylesheet" href="css/products.css">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="images/favico.png" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </head>
 <body>
-  <header>
-    <div class="navbar-container">
-      <img src="images/logo.png" alt="Store Logo" class="logo">
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
-      <nav class="navbar" id="navbar">
-        <a href="index.html">Home</a>
-        <a href="products-live.html" class="active">Live Products</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <div class="cart-container">
-        <a href="cart.html" class="cart-icon" id="cart-icon">
-          <img src="images/cart.png" alt="Cart" style="height:28px;vertical-align:middle;">
-          <span class="cart-badge" id="cart-badge">0</span>
-        </a>
-        <a href="login.html" class="login-btn" id="login-btn">
-          <i class='bx bx-user'></i>
-          <span>Login</span>
-        </a>
-      </div>
-    </div>
-  </header>
+ <header class="header" id="navbar">
+        <nav class="nav-container">
+            <div class="menu-toggle" id="mobileMenuTrigger">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <a href="/index.html" class="logo">PixelPort<span>.</span></a>
+
+            <ul class="nav-menu">
+                <li><a href="products-live.html" class="nav-link">Shop All</a></li>
+                <li><a href="#" class="nav-link">New Arrivals</a></li>
+                <li><a href="#" class="nav-link">Collections</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+            </ul>
+
+            <div class="nav-utilities">
+                <a href="#" class="nav-icon" aria-label="Search">
+                    <ion-icon name="search-outline"></ion-icon>
+                </a>
+                <a href="login.html" class="nav-icon" aria-label="Account">
+                    <ion-icon name="person-outline"></ion-icon>
+                </a>
+                <a href="cart.html" class="nav-icon" aria-label="Cart">
+                  <ion-icon name="bag-handle-outline"></ion-icon>
+                  <span id="cart-badge" class="cart-count">2</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <br><br><br><br>
 
   <main>
     <section class="hero-live">
-      <div class="hero-graphics">
-        <span class="hero-icon" style="left:10%;animation-delay:0.1s;">🎧</span>
-        <span class="hero-icon" style="left:30%;animation-delay:0.3s;">💻</span>
-        <span class="hero-icon" style="left:50%;animation-delay:0.5s;">⌚</span>
-        <span class="hero-icon" style="left:70%;animation-delay:0.2s;">🔊</span>
-        <span class="hero-icon" style="left:85%;animation-delay:0.4s;">🛒</span>
-      </div>
-      <h1 class="hero-title-animated">Live Products</h1>
-      <p class="hero-desc-animated">Browse our latest products, updated instantly from our database.</p>
-    </section>
+    <div class="hero-graphics">
+        <ion-icon name="layers-outline" class="hero-shape" style="left:10%; top:20%; animation-delay:0.1s;"></ion-icon>
+        <ion-icon name="flash-outline" class="hero-shape" style="left:30%; top:60%; animation-delay:0.3s;"></ion-icon>
+        <ion-icon name="cube-outline" class="hero-shape" style="left:50%; top:15%; animation-delay:0.5s;"></ion-icon>
+        <ion-icon name="infinite-outline" class="hero-shape" style="left:75%; top:50%; animation-delay:0.2s;"></ion-icon>
+        <ion-icon name="scan-outline" class="hero-shape" style="left:90%; top:25%; animation-delay:0.4s;"></ion-icon>
+    </div>
+
+    <div class="hero-content">
+        <h1 class="hero-title-animated">Live Collection</h1>
+        <p class="hero-desc-animated">Experience real-time updates from our curated inventory.</p>
+        <div class="hero-scroll-indicator">
+            <div class="mouse"></div>
+        </div>
+    </div>
+</section>
 
     <!-- Category Filter Section -->
     <section class="category-section">
@@ -63,7 +79,7 @@
             Headphones
           </button>
           <button class="category-btn" data-category="smartwatch">
-            <i class='bx bx-time'></i>
+            <i class='bxr bx-wrist-watch-alt'></i>
             Smart Watches
           </button>
           <button class="category-btn" data-category="mobile">
@@ -87,12 +103,58 @@
     </div>
   </main>
 
-  <footer class="footer-live">
-    <div class="footer-contact">
-      Contact us: info@pixelport.com | +91 123-4567-890
-    </div>
-    <p>PixelPort. *images are only for illustrative purposes.</p>
-  </footer>
+  <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <a href="#" class="logo">PIXELPORT<span>.</span></a>
+                <p>The one stop shop for all your tech needs.</p>
+                <div class="social-links">
+                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">All Products</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="#">Journal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="bottom-content">
+                <p>2026 PIXELPORT. *images are only for demonstration purposes.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <button id="backToTop" class="back-to-top">
+                    Back to top <ion-icon name="arrow-up-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </footer>
 
   <!-- Load Shared Cart + Firebase + Your JS -->
   <script src="js/cart-shared.js"></script>

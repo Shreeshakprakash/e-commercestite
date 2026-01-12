@@ -7,17 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <title>PixelPort</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/x-icon" href="images/favicon.png">
+  <link rel="icon" type="image/x-icon" href="images/favico.png">
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </head>
-<body class="intro-active">
-  <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
-    <div class="intro-logo">
-      <span class="intro-emoji"><img src="images/logo.png" style="width: 500px;height: 500px;"></span>
-      <span class="intro-title">Welcome......</span>
-    </div>
-  </div>
-
+<body>
   <header class="header" id="navbar">
         <nav class="nav-container">
             <div class="menu-toggle" id="mobileMenuTrigger">
@@ -42,105 +35,62 @@
                 </a>
                 <a href="cart.html" class="nav-icon" aria-label="Cart">
                   <ion-icon name="bag-handle-outline"></ion-icon>
-                  <span id="cart-badge" class="cart-count">2</span>
+                  <span id="cart-badge" class="cart-count">0</span>
                 </a>
             </div>
         </nav>
     </header>
   <main>
-    <br><br><br><br>
     <section class="hero" id="home">
-      <h1>Welcome to PixelPort</h1>
-      <p>Discover amazing products at unbeatable prices</p>
-      <a href="products-live.html" class="btn">Shop Now</a>
-    </section>
-    <section class="products" id="products">
-      <h2>Featured Products</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <div class="product-image"><img src="images/headphone.png" alt=""></div>
-          <div class="product-info">
-            <h3 class="product-title">Premium Headphones</h3>
-            <div class="product-price">₹5000</div>
-            <button class="add-to-cart" data-name="Premium Headphones" data-price="5000">Add to Cart <span class="cart-emoji" aria-hidden="true">🛒</span></button>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-image"><img src="images/smartwatch2.png" alt=""></div>
-          <div class="product-info">
-            <h3 class="product-title">Smart Watch</h3>
-            <div class="product-price">₹10000</div>
-            <button class="add-to-cart" data-name="Smart Watch" data-price="10000">Add to Cart <span class="cart-emoji" aria-hidden="true">🛒</span></button>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-image"><img src="images/speaker.png" alt=""></div>
-          <div class="product-info">
-            <h3 class="product-title">Wireless Speaker</h3>
-            <div class="product-price">₹12000</div>
-            <button class="add-to-cart" data-name="Wireless Speaker" data-price="12000">Add to Cart <span class="cart-emoji" aria-hidden="true">🛒</span></button>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-image"><img src="images/wirelessmouse.png" alt=""></div>
-          <div class="product-info">
-            <h3 class="product-title">Gaming Mouse</h3>
-            <div class="product-price">₹5000</div>
-            <button class="add-to-cart" data-name="Gaming Mouse" data-price="5000">Add to Cart <span class="cart-emoji" aria-hidden="true">🛒</span></button>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-image">🔌</div>
-          <div class="product-info">
-            <h3 class="product-title">USB-C Cable</h3>
-            <div class="product-price">₹800</div>
-            <button class="add-to-cart" data-name="USB-C Cable" data-price="800">Add to Cart <span class="cart-emoji" aria-hidden="true">🛒</span></button>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-image"><img src="images/laptop.png" alt=""></div>
-          <div class="product-info">
-            <h3 class="product-title">Laptop</h3>
-            <div class="product-price">₹120000</div>
-            <button class="add-to-cart" data-name="Laptop" data-price="120000">Add to Cart  <span class="cart-emoji" aria-hidden="true">🛒</span></button>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="products" id="products">
-      <h2>Featured Brands</h2>
-      <div class="product-grid">
-        <div class="product-card">
-          <div class="product-image"><img src="images/logo/asus.png" alt="ASUS" width="200px"></div>
-          <div class="product-info">
-            <h3 class="product-title">ASUS</h3>
-            <button class="btn">See more <i class='bx  bx-arrow-right-stroke'  ></i></button>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-image"><img src="images/logo/samsung.png" alt="SAMSUNG" width="200px"></div>
-          <div class="product-info">
-            <h3 class="product-title">SAMSUNG</h3>
-            <button class="btn">See more <i class='bx  bx-arrow-right-stroke'  ></i></button>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-image"><img src="images/logo/nvidia.png" alt="NVIDIA" width="200px"></div>
-          <div class="product-info">
-            <h3 class="product-title">NVIDIA</h3>
-            <button class="btn">See more <i class='bx  bx-arrow-right-stroke'  ></i></button>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-image"><img src="images/logo/intel.png" alt="INTEL" width="200px"></div>
-          <div class="product-info">
-            <h3 class="product-title">INTEL</h3>
-            <button class="btn">See more <i class='bx  bx-arrow-right-stroke'  ></i></button>
-          </div>
+     <div class="hero-glow"></div>
+    
+     <div class="hero-inner">
+         <span class="hero-label">Premium Tech & Lifestyle</span>
+         <h1 class="hero-title">Elevate Your Digital <br><span>Space.</span></h1>
+         <p class="hero-subtitle">Technology, curated. Where innovation meets aesthetics.</p>
+        
+         <div class="hero-cta">
+             <a href="products-live.html" class="btn-primary">Shop Collection</a>
+             <a href="about.html" class="btn-secondary">Our Story</a>
+         </div>
+     </div>
+     </section>
+    <div class="section-header">
+        <span class="section-label">Selected Items</span>
+        <h2 class="section-title">Featured Products</h2>
+    </div>
+    <div class="products-grid" id="products">
+      <!-- Products will be loaded here -->
+    </div>
+
+<section class="products-section secondary-bg" id="brands">
+    <div class="section-header">
+        <span class="section-label">Our Partners</span>
+        <h2 class="section-title">Featured Brands</h2>
+    </div>
+
+    <div class="brand-grid">
+        <div class="brand-card">
+            <div class="brand-logo">
+                <img src="images/logo/asus.png" alt="ASUS">
+            </div>
+            <div class="brand-info">
+                <h3 class="brand-title">ASUS</h3>
+                <a href="#" class="brand-link">View Collection <ion-icon name="arrow-forward-outline"></ion-icon></a>
+            </div>
         </div>
         
-      </div>
-    </section>
+        <div class="brand-card">
+            <div class="brand-logo">
+                <img src="images/logo/samsung.png" alt="SAMSUNG">
+            </div>
+            <div class="brand-info">
+                <h3 class="brand-title">SAMSUNG</h3>
+                <a href="#" class="brand-link">View Collection <ion-icon name="arrow-forward-outline"></ion-icon></a>
+            </div>
+        </div>
+        </div>
+</section>
   </main>
 
   <footer class="footer">
@@ -196,6 +146,6 @@
         </div>
     </footer>
   <script src="js/cart-shared.js"></script>
-  <script src="js/script.js"></script>
+  <script type="module" src="js/script.js"></script>
 </body>
 </html>
