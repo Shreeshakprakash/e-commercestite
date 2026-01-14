@@ -1,0 +1,811 @@
+// Cart page functionality - uses shared cart functions
+document.addEventListener('DOMContentLoaded', function() {
+    displayCartItems();
+    updateOrderSummary();
+    loadRecommendedProducts();
+    initializeMenuToggle();
+});
+
+// Initialize hamburger menu
+function initializeMenuToggle() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navbar = document.querySelector('.navbar');
+
+    if (menuToggle && navbar) {
+        menuToggle.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.navbar-container')) {
+                navbar.classList.remove('active');
+            }
+        });
+
+        // Close menu when window is resized to desktop size
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 700) {
+                navbar.classList.remove('active');
+            }
+        });
+    }
+}
+
+// Display cart items
+function displayCartItems() {
+    const cart = getCart(); // Use shared function
+    const cartItemsContainer = document.querySelector('.cart-items');
+    const emptyCartDiv = document.querySelector('.empty-cart');
+
+    if (cart.length === 0) {
+        if (emptyCartDiv) {
+            emptyCartDiv.style.display = 'block';
+        }
+        if (cartItemsContainer) {
+            cartItemsContainer.style.display = 'none';
+        }
+        return;
+    }
+
+    if (emptyCartDiv) {
+        emptyCartDiv.style.display = 'none';
+    }
+    if (cartItemsContainer) {
+        cartItemsContainer.style.display = 'flex';
+    }
+
+    if (cartItemsContainer) {
+        cartItemsContainer.innerHTML = '';
+        
+        cart.forEach((item, index) => {
+            const cartItemElement = createCartItemElement(item, index);
+            cartItemsContainer.appendChild(cartItemElement);
+        });
+    }
+}
+
+// Create cart item element
+function createCartItemElement(item, index) {
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'cart-item';
+    itemDiv.innerHTML = `
+        <div class="item-image">
+            ${getProductIcon(item.name)}
+        </div>
+        <div class="item-details">
+            <div class="item-name">${item.name}</div>
+            <div class="item-price">₹${item.price.toFixed(2)}</div>
+        </div>
+        <div class="quantity-controls">
+            <button class="quantity-btn" onclick="updateQuantity(${index}, ${item.quantity - 1})">
+                -
+            </button>
+            <input type="number" class="quantity-input" value="${item.quantity}" 
+                   min="1" onchange="updateQuantity(${index}, parseInt(this.value))">
+            <button class="quantity-btn" onclick="updateQuantity(${index}, ${item.quantity + 1})">
+                +
+            </button>
+        </div>
+        <button class="remove-item" onclick="removeFromCart(${index})">
+            🗑️
+        </button>
+    `;
+    return itemDiv;
+}
+
+// Get product icon based on name
+function getProductIcon(productName) {
+    const icons = {
+        'Premium Laptop': '<img src="images/laptop.png" alt="Laptop" width="50">',
+        'Smart Watch': '<img src="images/smartwatch.png" alt="watch" width="50">',
+        'Smartphone': '<img src="images/mobile.png" alt="Mobile" width="50">',
+        'Tablet': '<img src="images/tablet1.jpg" alt="Tablet" width="50">',
+        'Premium Headphones': '<img src="images/headphone.png" alt="Headphone" width="50">',
+        'Laptop': '<img src="images/laptop.png" alt="Laptop" width="50">'
+    };
+    return icons[productName] || '<i class="bx bx-package"></i>';
+}
+
+// Update item quantity
+function updateQuantity(index, newQuantity) {
+    const cart = getCart();
+    if (newQuantity < 1) {
+        removeFromCart(index);
+        return;
+    }
+    
+    cart[index].quantity = newQuantity;
+    saveCart(cart);
+    displayCartItems();
+    updateOrderSummary();
+    updateCartBadge();
+}
+
+// Remove item from cart
+function removeFromCart(index) {
+    const cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    displayCartItems();
+    updateOrderSummary();
+    updateCartBadge();
+    
+    // Show success message
+    showNotification('Item removed from cart', 'success');
+}
+
+// Clear entire cart
+function clearCart() {
+    const cart = getCart();
+    if (cart.length === 0) return;
+    
+    if (confirm('Are you sure you want to clear your cart?')) {
+        saveCart([]);
+        displayCartItems();
+        updateOrderSummary();
+        updateCartBadge();
+        showNotification('Cart cleared', 'success');
+    }
+}
+
+// Update order summary
+function updateOrderSummary() {
+    const cart = getCart();
+    const subtotalElement = document.querySelector('#subtotal');
+    const shippingElement = document.querySelector('#shipping');
+    const totalElement = document.querySelector('#total');
+    const itemCountElement = document.querySelector('#item-count');
+    const checkoutBtn = document.querySelector('.checkout-btn');
+
+    if (!subtotalElement || !shippingElement || !totalElement) return;
+
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const shipping = subtotal > 1000 ? 0 : 99; // Free shipping over ₹1000
+    const total = subtotal + shipping; // No tax
+
+    subtotalElement.textContent = `₹${subtotal.toFixed(2)}`;
+    shippingElement.textContent = shipping === 0 ? 'FREE' : `₹${shipping.toFixed(2)}`;
+    totalElement.textContent = `₹${total.toFixed(2)}`;
+    if (itemCountElement) itemCountElement.textContent = totalItems;
+
+    // Enable/disable checkout button
+    if (checkoutBtn) {
+        if (cart.length === 0) {
+            checkoutBtn.disabled = true;
+            checkoutBtn.innerHTML = '<i class="bx bx-lock"></i> Cart is Empty';
+        } else {
+            checkoutBtn.disabled = false;
+            checkoutBtn.innerHTML = '<i class="bx bx-credit-card"></i> Proceed to Checkout';
+        }
+    }
+}
+
+// Checkout function
+function proceedToCheckout() {
+    const cart = getCart();
+    if (cart.length === 0) return;
+    
+    // Show payment method selection modal first
+    showPaymentMethodSelection();
+}
+
+// Show payment method selection modal
+function showPaymentMethodSelection() {
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'payment-method-overlay';
+    modalOverlay.innerHTML = `
+        <div class="payment-method-modal">
+            <div class="payment-header">
+                <h2>💳 Select Payment Method</h2>
+                <p>Choose your preferred payment option to complete the order</p>
+            </div>
+            
+            <div class="payment-options">
+                <div class="payment-option" data-method="card">
+                    <div class="payment-icon">
+                        💳
+                    </div>
+                    <div class="payment-info">
+                        <h4>Credit/Debit Card</h4>
+                        <p>Visa, Mastercard, RuPay accepted</p>
+                    </div>
+                    <div class="payment-radio">
+                        <input type="radio" name="payment" value="card" id="card">
+                    </div>
+                </div>
+                
+                <div class="payment-option" data-method="upi">
+                    <div class="payment-icon">
+                        🛜
+                    </div>
+                    <div class="payment-info">
+                        <h4>UPI Payment</h4>
+                        <p>Pay using Google Pay, PhonePe, Paytm</p>
+                    </div>
+                    <div class="payment-radio">
+                        <input type="radio" name="payment" value="upi" id="upi">
+                    </div>
+                </div>
+                
+                <div class="payment-option" data-method="wallet">
+                    <div class="payment-icon">
+                        🗂️
+                    </div>
+                    <div class="payment-info">
+                        <h4>Digital Wallet</h4>
+                        <p>Paytm, Amazon Pay, JioMoney</p>
+                    </div>
+                    <div class="payment-radio">
+                        <input type="radio" name="payment" value="wallet" id="wallet">
+                    </div>
+                </div>
+                
+                <div class="payment-option" data-method="netbanking">
+                    <div class="payment-icon">
+                        🏦
+                    </div>
+                    <div class="payment-info">
+                        <h4>Net Banking</h4>
+                        <p>All major banks supported</p>
+                    </div>
+                    <div class="payment-radio">
+                        <input type="radio" name="payment" value="netbanking" id="netbanking">
+                    </div>
+                </div>
+                
+                <div class="payment-option" data-method="cod">
+                    <div class="payment-icon">
+                        💵
+                    </div>
+                    <div class="payment-info">
+                        <h4>Cash on Delivery</h4>
+                        <p>Pay when you receive the order</p>
+                    </div>
+                    <div class="payment-radio">
+                        <input type="radio" name="payment" value="cod" id="cod">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-actions">
+                <button class="cancel-payment-btn" onclick="closePaymentModal()">
+                    <i class='bx bx-x'></i>
+                    Cancel
+                </button>
+                <button class="proceed-payment-btn" onclick="processPayment()" disabled>
+                    <i class='bx bx-check'></i>
+                    Proceed to Pay
+                </button>
+            </div>
+        </div>
+    `;
+    
+    
+    document.body.appendChild(modalOverlay);
+    
+    // Animate modal appearance
+    setTimeout(() => {
+        modalOverlay.classList.add('show');
+    }, 10);
+    
+    // Add event listeners for payment options
+    document.querySelectorAll('.payment-option').forEach(option => {
+        option.addEventListener('click', function() {
+            // Remove previous selection
+            document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Select current option
+            this.classList.add('selected');
+            const radio = this.querySelector('input[type="radio"]');
+            radio.checked = true;
+            
+            // Enable proceed button
+            document.querySelector('.proceed-payment-btn').disabled = false;
+        });
+    });
+}
+
+// Close payment modal
+function closePaymentModal() {
+    const modal = document.querySelector('.payment-method-overlay');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.remove();
+        }, 300);
+    }
+}
+
+// Process payment
+function processPayment() {
+    const selectedPayment = document.querySelector('input[name="payment"]:checked');
+    if (!selectedPayment) return;
+    
+    const paymentMethod = selectedPayment.value;
+    const paymentNames = {
+        'card': 'Credit/Debit Card',
+        'upi': 'UPI Payment',
+        'wallet': 'Digital Wallet',
+        'netbanking': 'Net Banking',
+        'cod': 'Cash on Delivery'
+    };
+    
+    // Close payment modal
+    closePaymentModal();
+    
+    // Show processing message
+    showNotification(`Processing payment via ${paymentNames[paymentMethod]}...`, 'info');
+    
+    // Simulate payment processing
+    setTimeout(() => {
+        const cart = getCart();
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const shipping = subtotal > 1000 ? 0 : 99;
+        const total = subtotal + shipping; // No tax
+        
+        // Show order confirmation modal
+        showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod);
+        
+        // Clear cart after successful checkout
+        saveCart([]);
+        displayCartItems();
+        updateOrderSummary();
+        updateCartBadge();
+    }, 2000);
+}
+
+// Show order confirmation modal
+function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 'card') {
+    const paymentNames = {
+        'card': 'Credit/Debit Card',
+        'upi': 'UPI Payment',
+        'wallet': 'Digital Wallet',
+        'netbanking': 'Net Banking',
+        'cod': 'Cash on Delivery'
+    };
+    
+    const paymentIcons = {
+        'card': 'bx-credit-card',
+        'upi': 'bx-qr',
+        'wallet': 'bx-wallet',
+        'netbanking': 'bx-bank',
+        'cod': 'bx-money'
+    };
+
+    // Store order data for receipt
+    window.lastOrderData = {
+        cart,
+        subtotal,
+        shipping,
+        total,
+        paymentMethod: paymentNames[paymentMethod],
+        orderId: generateOrderId(),
+        orderDate: new Date(),
+        estimatedDelivery: getEstimatedDelivery()
+    };
+    
+    // Create modal overlay
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'order-confirmation-overlay';
+    modalOverlay.innerHTML = `
+        <div class="order-confirmation-modal">
+            <div class="confirmation-header">
+                <div class="success-icon">
+                    <i class='bx bx-check-circle'></i>
+                </div>
+                <h2>Order Confirmed!</h2>
+                <p>Thank you for your purchase. Your order has been successfully placed.</p>
+            </div>
+            
+            <div class="order-details">
+                <h3>Order Summary</h3>
+                <div class="order-items">
+                    ${cart.map(item => `
+                        <div class="order-item">
+                            <span class="item-name">${item.name} (x${item.quantity})</span>
+                            <span class="item-total">₹${(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="order-totals">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span>₹${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Shipping:</span>
+                        <span>${shipping === 0 ? 'FREE' : `₹${shipping.toFixed(2)}`}</span>
+                    </div>
+                    <div class="total-row final-total">
+                        <span>Total Amount:</span>
+                        <span>₹${total.toFixed(2)}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-info">
+                <div class="info-item">
+                    <i class='bx bx-package'></i>
+                    <div>
+                        <strong>Order ID:</strong>
+                        <span>#${window.lastOrderData.orderId}</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class='bx ${paymentIcons[paymentMethod]}'></i>
+                    <div>
+                        <strong>Payment Method:</strong>
+                        <span>${paymentNames[paymentMethod]}</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class='bx bx-time'></i>
+                    <div>
+                        <strong>Estimated Delivery:</strong>
+                        <span>${window.lastOrderData.estimatedDelivery}</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class='bx bx-envelope'></i>
+                    <div>
+                        <strong>Confirmation Email:</strong>
+                        <span>Sent to your registered email</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="confirmation-actions">
+                <button class="continue-shopping-btn" onclick="closeOrderConfirmation()">
+                    <i class='bx bx-shopping-bag'></i>
+                    Continue Shopping
+                </button>
+                <button class="print-receipt-btn" onclick="printReceipt()">
+                    <i class='bx bx-printer'></i>
+                    Print Receipt
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modalOverlay);
+    
+    // Animate modal appearance
+    setTimeout(() => {
+        modalOverlay.classList.add('show');
+    }, 10);
+}
+
+// Generate random order ID
+function generateOrderId() {
+    const timestamp = Date.now().toString(36);
+    const random = Math.random().toString(36).substr(2, 5);
+    return `ECM${timestamp}${random}`.toUpperCase();
+}
+
+// Get estimated delivery date
+function getEstimatedDelivery() {
+    const deliveryDate = new Date();
+    deliveryDate.setDate(deliveryDate.getDate() + 3); // 3 days from now
+    return deliveryDate.toLocaleDateString('en-IN', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+}
+
+// Close order confirmation modal
+function closeOrderConfirmation() {
+    const modal = document.querySelector('.order-confirmation-overlay');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.remove();
+        }, 300);
+    }
+    // Redirect to products page
+    window.location.href = 'products-live.html';
+}
+
+// Print receipt function
+function printReceipt() {
+    if (!window.lastOrderData) {
+        showNotification('No order data available for printing', 'error');
+        return;
+    }
+
+    const orderData = window.lastOrderData;
+    const receiptWindow = window.open('', '_blank', 'width=800,height=600');
+    
+    const receiptHTML = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Order Receipt - ${orderData.orderId}</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', sans-serif;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background: white;
+                    color: black;
+                }
+                .receipt-header {
+                    text-align: center;
+                    border-bottom: 2px solid #000;
+                    padding-bottom: 20px;
+                    margin-bottom: 20px;
+                }
+                .company-name {
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                }
+                .receipt-title {
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                }
+                .order-info {
+                    margin-bottom: 20px;
+                }
+                .info-row {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 5px;
+                }
+                .items-section {
+                    margin: 20px 0;
+                }
+                .item-header {
+                    display: flex;
+                    justify-content: space-between;
+                    border-bottom: 1px solid #000;
+                    padding-bottom: 5px;
+                    margin-bottom: 10px;
+                    font-weight: bold;
+                }
+                .item-row {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 5px;
+                }
+                .totals-section {
+                    border-top: 2px solid #000;
+                    padding-top: 10px;
+                    margin-top: 20px;
+                }
+                .total-row {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 5px;
+                }
+                .final-total {
+                    font-weight: bold;
+                    font-size: 18px;
+                    border-top: 1px solid #000;
+                    padding-top: 10px;
+                    margin-top: 10px;
+                }
+                .receipt-footer {
+                    text-align: center;
+                    margin-top: 30px;
+                    padding-top: 20px;
+                    border-top: 2px solid #000;
+                    font-size: 12px;
+                }
+                @media print {
+                    body { margin: 0; }
+                    .no-print { display: none; }
+                }
+                .print-btn {
+                    background: #007bff;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    margin: 20px 0;
+                    border-radius: 5px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="receipt-header">
+                <div class="company-name">PIXELPORT</div>
+                <div class="receipt-title">ORDER RECEIPT</div>
+                <div>Thank you for your purchase!</div>
+            </div>
+
+            <div class="order-info">
+                <div class="info-row">
+                    <span>Order ID:</span>
+                    <span>#${orderData.orderId}</span>
+                </div>
+                <div class="info-row">
+                    <span>Order Date:</span>
+                    <span>${orderData.orderDate.toLocaleDateString('en-IN')} ${orderData.orderDate.toLocaleTimeString('en-IN')}</span>
+                </div>
+                <div class="info-row">
+                    <span>Payment Method:</span>
+                    <span>${orderData.paymentMethod}</span>
+                </div>
+                <div class="info-row">
+                    <span>Estimated Delivery:</span>
+                    <span>${orderData.estimatedDelivery}</span>
+                </div>
+            </div>
+
+            <div class="items-section">
+                <div class="item-header">
+                    <span>ITEM</span>
+                    <span>QTY</span>
+                    <span>PRICE</span>
+                    <span>TOTAL</span>
+                </div>
+                ${orderData.cart.map(item => `
+                    <div class="item-row">
+                        <span>${item.name}</span>
+                        <span>${item.quantity}</span>
+                        <span>₹${item.price.toFixed(2)}</span>
+                        <span>₹${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `).join('')}
+            </div>
+
+            <div class="totals-section">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span>₹${orderData.subtotal.toFixed(2)}</span>
+                </div>
+                <div class="total-row">
+                    <span>Shipping:</span>
+                    <span>${orderData.shipping === 0 ? 'FREE' : `₹${orderData.shipping.toFixed(2)}`}</span>
+                </div>
+                <div class="total-row final-total">
+                    <span>TOTAL AMOUNT:</span>
+                    <span>₹${orderData.total.toFixed(2)}</span>
+                </div>
+            </div>
+
+            <div class="receipt-footer">
+                <p>Contact: info@pixelport.com | +91 123-4567-890</p>
+                <p>Visit us at: www.pixelport.com</p>
+                <p>Thank you for choosing PixelPort!</p>
+            </div>
+
+            <button class="print-btn no-print" onclick="window.print()">🖨️ Print Receipt</button>
+        </body>
+        </html>
+    `;
+    
+    receiptWindow.document.write(receiptHTML);
+    receiptWindow.document.close();
+    
+    // Auto-focus the new window
+    receiptWindow.focus();
+    
+    showNotification('Receipt opened in new window', 'success');
+}
+
+// Load recommended products
+function loadRecommendedProducts() {
+    const recommendedContainer = document.querySelector('.recommended-products');
+    if (!recommendedContainer) return;
+
+    const recommendedProducts = [
+        { name: 'Premium Laptop', price: 120000, icon: '<i class="bx bx-laptop"></i>' },
+        { name: 'Wireless Headphones', price: 25000, icon: '<i class="bx bx-headphone"></i>' },
+        { name: 'Smart Watch', price: 40000, icon: '<i class="bx bx-time"></i>' },
+        { name: 'Gaming Mouse', price: 8000, icon: '<i class="bx bx-mouse"></i>' }
+    ];
+
+    recommendedContainer.innerHTML = '';
+    
+    recommendedProducts.forEach((product, index) => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card-mini';
+        productCard.innerHTML = `
+            <div class="product-image">${product.icon}</div>
+            <div class="product-info">
+                <h4>${product.name}</h4>
+                <span class="price">₹${product.price.toFixed(2)}</span>
+                <button class="add-to-cart-mini" data-name="${product.name}" data-price="${product.price}">
+                    Add to Cart
+                </button>
+            </div>
+        `;
+        recommendedContainer.appendChild(productCard);
+    });
+    
+    // Add event listeners to the newly created buttons
+    document.querySelectorAll('.add-to-cart-mini').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const productName = this.getAttribute('data-name');
+            const productPrice = parseFloat(this.getAttribute('data-price'));
+            addToCartFromRecommended(productName, productPrice);
+        });
+    });
+}
+
+// Add to cart from recommended products
+function addToCartFromRecommended(productName, price) {
+    const cart = getCart();
+    const existingItem = cart.find(item => item.name === productName);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            name: productName,
+            price: price,
+            quantity: 1
+        });
+    }
+    
+    saveCart(cart);
+    displayCartItems();
+    updateOrderSummary();
+    updateCartBadge();
+    showNotification(`${productName} added to cart!`, 'success');
+}
+
+// Export functions for global use
+window.updateQuantity = updateQuantity;
+window.removeFromCart = removeFromCart;
+window.addToCartFromRecommended = addToCartFromRecommended;
+
+// Initialize event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Clear cart button
+    const clearCartBtn = document.querySelector('.clear-cart-btn');
+    if (clearCartBtn) {
+        clearCartBtn.addEventListener('click', clearCart);
+    }
+    
+    // Checkout button
+    const checkoutBtn = document.querySelector('.checkout-btn');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', proceedToCheckout);
+    }
+    
+    // Shop now button (for empty cart)
+    const shopNowBtn = document.querySelector('.shop-now-btn');
+    if (shopNowBtn) {
+        shopNowBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'products-live.html';
+        });
+    }
+});
+
+// Function to handle header appearance on scroll
+const initHeaderScroll = () => {
+    const header = document.getElementById('navbar');
+    
+    window.addEventListener('scroll', () => {
+        // If user scrolls more than 50px, add the 'scrolled' class
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+};
+
+// Simple log to confirm scripts are loaded
+console.log("PixelPort Navigation Initialized");
+
+// Initialize functions
+document.addEventListener('DOMContentLoaded', () => {
+    initHeaderScroll();
+});
+
+document.getElementById('backToTop').addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});

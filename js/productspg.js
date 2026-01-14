@@ -67,7 +67,7 @@ function renderProducts(products) {
             <h3>${product.name}</h3>
             <p class="price">₹${product.price}</p>
             <p class="desc">${product.description || ''}</p>
-            <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}">Add to Cart</button>
+            <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image || ''}">Add to Cart</button>
           </div>
         `).join('');
 
@@ -77,9 +77,10 @@ function renderProducts(products) {
     btn.addEventListener('click', (e) => {
       const productName = btn.getAttribute('data-name');
       const productPrice = parseFloat(btn.getAttribute('data-price'));
+      const productImage = btn.getAttribute('data-image') || '';
       
-      // Use shared cart function
-      addToCart(productName, productPrice);
+      // Use shared cart function (now accepts optional image)
+      addToCart(productName, productPrice, productImage);
       
       // Visual feedback
       btn.classList.add('added');

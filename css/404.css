@@ -1,0 +1,125 @@
+.error-wrapper {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    padding: 0 5%;
+    text-align: center;
+}
+
+
+.hero-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vw;
+    max-width: 800px;
+    max-height: 800px;
+    background: radial-gradient(circle, rgba(11, 48, 55, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.floating-watermark {
+    position: absolute;
+    bottom: -5%;
+    right: -5%;
+    font-size: 30rem;
+    color: var(--primary); 
+    opacity: 0.03;
+    z-index: 1;
+    transform: rotate(-15deg);
+    animation: slowFloat 20s infinite alternate ease-in-out;
+}
+
+
+.error-content {
+    position: relative;
+    z-index: 5;
+    max-width: 700px;
+}
+
+.error-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s 0.2s forwards;
+}
+
+.error-title {
+    font-family: var(--nav-font-main);
+    font-size: clamp(3.5rem, 12vw, 7rem);
+    line-height: 0.95;
+    font-weight: 600;
+    letter-spacing: -3px;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    opacity: 0;
+    animation: fadeInUp 0.8s 0.4s forwards;
+}
+
+.text-outline {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--primary);
+}
+
+.error-lead {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 3rem auto;
+    opacity: 0;
+    animation: fadeInUp 0.8s 0.6s forwards;
+}
+
+
+.error-cta {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeInUp 0.8s 0.8s forwards;
+}
+
+
+.error-cta .btn-primary, 
+.error-cta .btn-secondary {
+    padding: 16px 35px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.4s ease;
+}
+
+.btn-primary { background: var(--primary); color: #fff; border-radius: 2px; }
+.btn-secondary { border: 1px solid var(--border-light); color: var(--text-primary); border-radius: 2px; }
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slowFloat {
+    0% { transform: translate(0, 0) rotate(-15deg); }
+    100% { transform: translate(-30px, -50px) rotate(-10deg); }
+}

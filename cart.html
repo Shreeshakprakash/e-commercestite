@@ -18,7 +18,7 @@
                 <ion-icon name="menu-outline"></ion-icon>
             </div>
 
-            <a href="/index.html" class="logo">PixelPort<span>.</span></a>
+            <a href="index.html" class="logo">PixelPort<span>.</span></a>
 
             <ul class="nav-menu">
                 <li><a href="products-live.html" class="nav-link">Shop All</a></li>
@@ -44,13 +44,6 @@
 
   <main>
     <section class="cart-hero">
-      <div class="hero-graphics">
-        <span class="hero-icon" style="left:10%;animation-delay:0.1s;">🛒</span>
-        <span class="hero-icon" style="left:25%;animation-delay:0.3s;">💳</span>
-        <span class="hero-icon" style="left:50%;animation-delay:0.2s;">📦</span>
-        <span class="hero-icon" style="left:75%;animation-delay:0.4s;">✨</span>
-        <span class="hero-icon" style="left:90%;animation-delay:0.1s;">🎉</span>
-      </div>
       <h1 class="hero-title-animated">Shopping Cart</h1>
       <p class="hero-desc-animated">Review your items and proceed to checkout when ready.</p>
     </section>
@@ -67,7 +60,6 @@
           <div class="cart-items" id="cart-items">
             <!-- Cart items will be loaded here dynamically -->
             <div class="empty-cart" id="empty-cart">
-              <div class="empty-cart-icon">🛒</div>
               <h3>Your cart is empty</h3>
               <p>Add some products to get started!</p>
               <a href="products-live.html" class="shop-now-btn">Shop Now</a>
@@ -102,47 +94,14 @@
               <span class="btn-icon">→</span>
             </button>
             
-            <div class="payment-options">
-              <h4>We Accept</h4>
-              <div class="payment-icons">
-                <span class="payment-icon">💳</span>
-                <span class="payment-icon">🏦</span>
-                <span class="payment-icon">📱</span>
-                <span class="payment-icon">💰</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Recommended Products -->
-      <div class="recommended-section">
-        <h3>You Might Also Like</h3>
-        <div class="recommended-products" id="recommended-products">
-          <div class="product-card-mini">
-            <div class="product-image">🎧</div>
-            <div class="product-info">
-              <h4>Premium Headphones</h4>
-              <span class="price">₹5000</span>
-              <button class="add-to-cart-mini" data-name="Premium Headphones" data-price="5000">Add to Cart</button>
-            </div>
-          </div>
-          
-          <div class="product-card-mini">
-            <div class="product-image">⌚</div>
-            <div class="product-info">
-              <h4>Smart Watch</h4>
-              <span class="price">₹10000</span>
-              <button class="add-to-cart-mini" data-name="Smart Watch" data-price="10000">Add to Cart</button>
-            </div>
-          </div>
-          
-          <div class="product-card-mini">
-            <div class="product-image">🔊</div>
-            <div class="product-info">
-              <h4>Wireless Speaker</h4>
-              <span class="price">₹12000</span>
-              <button class="add-to-cart-mini" data-name="Wireless Speaker" data-price="12000">Add to Cart</button>
+            <div class="payment-clearance">
+                <span class="clearance-label">Verified Security</span>
+                <div class="payment-methods">
+                    <ion-icon name="card-outline" class="method-icon"></ion-icon>
+                    <ion-icon name="business-outline" class="method-icon"></ion-icon>
+                    <ion-icon name="phone-portrait-outline" class="method-icon"></ion-icon>
+                    <ion-icon name="wallet-outline" class="method-icon"></ion-icon>
+                </div>
             </div>
           </div>
         </div>
@@ -150,12 +109,58 @@
     </section>
   </main>
 
-  <footer class="footer-cart">
-    <div class="footer-contact">
-      Contact us: info@pixelport.com | +91 123-4567-890
-    </div>
-    <p>PixelPort. *images are only for illustrative purposes.</p>
-  </footer>
+  <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <a href="#" class="logo">PIXELPORT<span>.</span></a>
+                <p>The one stop shop for all your tech needs.</p>
+                <div class="social-links">
+                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">All Products</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="#">Journal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="bottom-content">
+                <p>2026 PIXELPORT. *images are only for demonstration purposes.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <button id="backToTop" class="back-to-top">
+                    Back to top <ion-icon name="arrow-up-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </footer>
 
     <script src="js/cart-shared.js"></script>
     <script src="js/cart.js"></script>

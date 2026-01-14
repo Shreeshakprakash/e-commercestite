@@ -6,35 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMenuToggle();
 });
 
-// Initialize hamburger menu
-function initializeMenuToggle() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navbar = document.querySelector('.navbar');
-
-    if (menuToggle && navbar) {
-        menuToggle.addEventListener('click', () => {
-            navbar.classList.toggle('active');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.navbar-container')) {
-                navbar.classList.remove('active');
-            }
-        });
-
-        // Close menu when window is resized to desktop size
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 700) {
-                navbar.classList.remove('active');
-            }
-        });
-    }
-}
 
 // Display cart items
 function displayCartItems() {
-    const cart = getCart(); // Use shared function
+    const cart = getCart();
     const cartItemsContainer = document.querySelector('.cart-items');
     const emptyCartDiv = document.querySelector('.empty-cart');
 
@@ -43,7 +18,12 @@ function displayCartItems() {
             emptyCartDiv.style.display = 'block';
         }
         if (cartItemsContainer) {
-            cartItemsContainer.style.display = 'none';
+            Array.from(cartItemsContainer.children).forEach(child => {
+                if (!child.classList || !child.classList.contains('empty-cart')) {
+                    child.remove();
+                }
+            });
+            cartItemsContainer.style.display = '';
         }
         return;
     }
@@ -59,9 +39,9 @@ function displayCartItems() {
         cartItemsContainer.innerHTML = '';
         
         cart.forEach((item, index) => {
-            const cartItemElement = createCartItemElement(item, index);
-            cartItemsContainer.appendChild(cartItemElement);
-        });
+                const cartItemElement = createCartItemElement(item, index);
+                cartItemsContainer.appendChild(cartItemElement);
+            });
     }
 }
 
@@ -71,7 +51,7 @@ function createCartItemElement(item, index) {
     itemDiv.className = 'cart-item';
     itemDiv.innerHTML = `
         <div class="item-image">
-            ${getProductIcon(item.name)}
+            ${item.image ? `<img src="${item.image}" alt="${item.name}" width="50">` : getProductIcon(item.name)}
         </div>
         <div class="item-details">
             <div class="item-name">${item.name}</div>
@@ -87,9 +67,7 @@ function createCartItemElement(item, index) {
                 +
             </button>
         </div>
-        <button class="remove-item" onclick="removeFromCart(${index})">
-            🗑️
-        </button>
+        <button class="remove-item" onclick="removeFromCart(${index})">Delete</button>
     `;
     return itemDiv;
 }

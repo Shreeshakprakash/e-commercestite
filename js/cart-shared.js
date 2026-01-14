@@ -12,9 +12,9 @@ function saveCart(cart) {
 }
 
 // Add item to cart
-function addToCart(name, price) {
+function addToCart(name, price, image = '') {
     const cart = getCart();
-    const existingItem = cart.find(item => item.name === name);
+    const existingItem = cart.find(item => item.name === name && item.price === price && (item.image || '') === image);
     
     if (existingItem) {
         existingItem.quantity += 1;
@@ -22,7 +22,8 @@ function addToCart(name, price) {
         cart.push({
             name: name,
             price: price,
-            quantity: 1
+            quantity: 1,
+            image: image
         });
     }
     

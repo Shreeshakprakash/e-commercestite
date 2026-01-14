@@ -1,53 +1,12 @@
-// Firebase imports
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-// ✅ Replace this with YOUR Firebase config from Firebase Console
-const firebaseConfig = {
-  apiKey: "AIzaSyBrVZa9LRKYURVw8t7sqWGbQYuqlrnfEZ8",
-  authDomain: "test-ecommerce-a7d42.firebaseapp.com",
-  projectId: "test-ecommerce-a7d42",
-  storageBucket: "test-ecommerce-a7d42.appspot.com",   // ✅ fixed
-  messagingSenderId: "202120303178",
-  appId: "1:202120303178:web:a80663199b8a4a78808cb3",
-  measurementId: "G-FYPBLT6XDH"
-};
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const SUPABASE_URL = 'https://eyicqbqgqjadvlfhyfsf.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_kyIL5tPQt2WO5l9dh9s_VQ_d8ORucNG';
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Contact Form Functionality
 document.addEventListener('DOMContentLoaded', function () {
-  // Hamburger menu toggle for mobile nav
-  const menuBtn = document.getElementById('menu-toggle');
-  const navbar = document.getElementById('navbar');
-  
-  if(menuBtn && navbar) {
-    menuBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      navbar.classList.toggle('active');
-      const expanded = navbar.classList.contains('active');
-      menuBtn.setAttribute('aria-expanded', expanded);
-      
-      // Change hamburger icon when menu is open
-      if (expanded) {
-        menuBtn.innerHTML = '✕';
-      } else {
-        menuBtn.innerHTML = '☰';
-      }
-    });
-    
-    // Close menu when clicking on a link
-    const navLinks = navbar.querySelectorAll('a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navbar.classList.remove('active');
-        menuBtn.setAttribute('aria-expanded', 'false');
-        menuBtn.innerHTML = '☰';
-      });
-    });
-  }
-
   const contactForm = document.getElementById('contactForm');
   const submitBtn = contactForm.querySelector('.submit-btn');
   const btnText = submitBtn.querySelector('.btn-text');
@@ -70,20 +29,25 @@ document.addEventListener('DOMContentLoaded', function () {
     const message = document.getElementById('message').value.trim();
 
     try {
-      // Save to Firestore
-      await addDoc(collection(db, "contacts"), {
-        name,
-        email,
-        phone,
-        subject,
-        message,
-        timestamp: new Date()
-      });
+      const { error } = await supabase
+       .from('contacts')
+       .insert([
+         {
+           name,
+           email,
+           phone,
+           subject,
+           message
+         }
+      ]);
 
+if (error) {
+  throw error;
+}
       // Success animation
       btnText.textContent = 'Message Sent!';
       btnIcon.textContent = '✅';
-      submitBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+      submitBtn.style.background = '#0B3037';
 
       // Reset form after short delay
       setTimeout(() => {
@@ -104,26 +68,68 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // ✅ Notification system (kept from your old script)
-  function showNotification(message, type = 'info') {
+  function showNotification(message, type = 'success') {
+    // Remove existing notifications to avoid overlap
+    const existingNotification = document.querySelector('.pixel-notification');
+    if (existingNotification) {
+      existingNotification.remove();
+    }
+
     const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-      <div class="notification-content">
-        <span class="notification-icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
-        <span class="notification-message">${message}</span>
-        <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-      </div>
-    `;
+    notification.className = `pixel-notification notification-${type}`;
+
+    const bgColor = type === 'error' ? '#93291E' : '#121212';
+    const iconName = type === 'error' ? 'alert-circle-outline' : 'checkmark-outline';
+
     notification.style.cssText = `
-      position: fixed; top: 20px; right: 20px;
-      background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
-      color: white; padding: 1rem 1.5rem; border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15); z-index: 1000;
-      animation: notification-slide 0.3s ease-out; max-width: 400px;
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        background: ${bgColor};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 2px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        z-index: 9999;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: slideInRight 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     `;
+
+    notification.innerHTML = `
+        <ion-icon name="${iconName}" style="font-size: 1.2rem;"></ion-icon>
+        <span>${message}</span>
+    `;
+
     document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 5000);
+
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(20px)';
+        notification.style.transition = 'all 0.4s ease';
+        setTimeout(() => notification.remove(), 400);
+      }
+    }, 3000);
+  }
+
+  // Inline Animation Styles (ensure added only once)
+  if (!document.querySelector('#pixel-notif-styles')) {
+    const style = document.createElement('style');
+    style.id = 'pixel-notif-styles';
+    style.textContent = `
+        @keyframes slideInRight {
+            from { transform: translateX(40px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    `;
+    document.head.appendChild(style);
   }
 });
 
