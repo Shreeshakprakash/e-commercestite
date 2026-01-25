@@ -30,7 +30,7 @@
             </ul>
 
             <div class="nav-utilities">
-                <a href="#" class="nav-icon" aria-label="Search">
+                <a href="#" class="nav-icon" id="search-trigger" aria-label="Search">
                     <ion-icon name="search-outline"></ion-icon>
                 </a>
                 <a href="login.html" class="nav-icon" aria-label="Account">
@@ -41,6 +41,23 @@
                     <span id="cart-badge" class="cart-count">2</span>
                 </a>
             </div>
+        </nav>
+
+        <!-- Search Modal -->
+        <div id="search-modal" class="search-modal">
+            <div class="search-modal-content">
+                <form id="search-form" class="search-form">
+                    <input type="text" id="header-search-input" class="header-search-input"
+                        placeholder="Search for products..." autocomplete="off">
+                    <button type="submit" class="search-submit-btn">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button>
+                    <button type="button" class="search-close-btn" id="search-close">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </form>
+            </div>
+        </div>
         </nav>
     </header>
     <br><br><br><br>

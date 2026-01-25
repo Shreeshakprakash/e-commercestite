@@ -15,35 +15,35 @@ let hasPlayedVideos = false;
 
 // Fetch products from Supabase
 async function fetchProducts() {
-    const { data, error } = await supabase
+  const { data, error } = await supabase
     .from('product_home')
     .select('*');
 
-    if (error) {
-        console.error('Error fetching products:', error);
-        return;
-    }
+  if (error) {
+    console.error('Error fetching products:', error);
+    return;
+  }
 
-    allProducts = data;
-    renderProducts(allProducts);
+  allProducts = data;
+  renderProducts(allProducts);
 }
 fetchProducts();
 
 // Render products to the page
 function renderProducts(products) {
-    const productList = document.getElementById('products');
+  const productList = document.getElementById('products');
 
-    if (!productList){
-        console.error('products elements not found ');
-        return;
-    }
+  if (!productList) {
+    console.error('products elements not found ');
+    return;
+  }
 
-    if(!products || products.length===0){
-        productList.innerHTML= '<p>No Products found.</p>';
-        return;
-    }
+  if (!products || products.length === 0) {
+    productList.innerHTML = '<p>No Products found.</p>';
+    return;
+  }
 
-        productList.innerHTML = products.map(product_home => `
+  productList.innerHTML = products.map(product_home => `
           <div class="product-card">
             ${product_home.video ? `
               <div class="product-media">
@@ -69,17 +69,17 @@ function renderProducts(products) {
           </div>
         `).join('');
 
-        // Add-to-cart logic using shared cart functionality
+  // Add-to-cart logic using shared cart functionality
   const cartIcon = document.getElementById('cart-icon');
   document.querySelectorAll('.add-to-cart').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const productName = btn.getAttribute('data-name');
       const productPrice = parseFloat(btn.getAttribute('data-price'));
       const productImage = btn.getAttribute('data-image') || '';
-      
+
       // Use shared cart function (accepts optional image)
       addToCart(productName, productPrice, productImage);
-      
+
       // Visual feedback
       btn.classList.add('added');
       setTimeout(() => btn.classList.remove('added'), 350);
@@ -91,8 +91,8 @@ function renderProducts(products) {
     });
   });
 
-setupVideoObserver();
-//setTimeout(playVideosOnce, 50);
+  setupVideoObserver();
+  //setTimeout(playVideosOnce, 50);
 }
 
 function setupVideoObserver() {
@@ -124,28 +124,82 @@ function setupVideoObserver() {
 
 // Function to handle header appearance on scroll
 const initHeaderScroll = () => {
-    const header = document.getElementById('navbar');
-    
-    window.addEventListener('scroll', () => {
-        // If user scrolls more than 50px, add the 'scrolled' class
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
+  const header = document.getElementById('navbar');
+
+  window.addEventListener('scroll', () => {
+    // If user scrolls more than 50px, add the 'scrolled' class
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
 };
+
+// Search Modal Functionality
+function initSearchModal() {
+  const searchTrigger = document.getElementById('search-trigger');
+  const searchModal = document.getElementById('search-modal');
+  const searchForm = document.getElementById('search-form');
+  const searchInput = document.getElementById('header-search-input');
+  const closeBtn = document.getElementById('search-close');
+
+  if (!searchTrigger || !searchModal) return;
+
+  // Open search modal
+  searchTrigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    searchModal.classList.add('active');
+    searchInput.focus();
+  });
+
+  // Close search modal
+  closeBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    searchModal.classList.remove('active');
+    searchInput.value = '';
+  });
+
+  // Close on clicking outside
+  searchModal.addEventListener('click', (e) => {
+    if (e.target === searchModal) {
+      searchModal.classList.remove('active');
+      searchInput.value = '';
+    }
+  });
+
+  // Handle search form submission
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+
+    if (!query) return;
+
+    // Redirect to products page with search query parameter
+    const encodedQuery = encodeURIComponent(query);
+    window.location.href = `products-live.html?search=${encodedQuery}`;
+  });
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+      searchModal.classList.remove('active');
+      searchInput.value = '';
+    }
+  });
+}
 
 // Simple log to confirm scripts are loaded
 console.log("PixelPort Navigation Initialized");
 
 document.addEventListener('DOMContentLoaded', () => {
-    initHeaderScroll();
+  initHeaderScroll();
+  initSearchModal();
 });
 
 document.getElementById('backToTop').addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 });
