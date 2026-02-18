@@ -208,7 +208,6 @@ function updateSearchResultsCount(count) {
   }
 }
 
-
 function setupCategoryFilters() {
   const buttons = document.querySelectorAll('.category-btn');
 
@@ -291,7 +290,6 @@ function initSearchModal() {
 document.addEventListener('DOMContentLoaded', () => {
   initSearchModal();
 });
-setupSearch();
 
 //for realtime updates not enabled in supabase for now
 // function setupRealtimeProducts() {
