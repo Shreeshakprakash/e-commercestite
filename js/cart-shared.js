@@ -1,17 +1,13 @@
-// Shared Cart Functionality
-// This file contains cart functions that can be used across all pages
-
-// Get cart from localStorage
 function getCart() {
     return JSON.parse(localStorage.getItem('cart')) || [];
 }
 
-// Save cart to localStorage
+
 function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-// Add item to cart
+
 function addToCart(name, price, image = '') {
     const cart = getCart();
     const existingItem = cart.find(item => item.name === name && item.price === price && (item.image || '') === image);
@@ -33,7 +29,7 @@ function addToCart(name, price, image = '') {
     return cart;
 }
 
-// Update cart badge count
+
 function updateCartBadge() {
 
     const cartBadge = document.querySelector('.cart-count');
@@ -47,7 +43,7 @@ function updateCartBadge() {
 
 
 function showNotification(message, type = 'success') {
-    // Remove existing notifications to avoid overlap
+    
     const existingNotification = document.querySelector('.pixel-notification');
     if (existingNotification) {
         existingNotification.remove();
@@ -88,7 +84,7 @@ function showNotification(message, type = 'success') {
     
     document.body.appendChild(notification);
     
-    // Auto remove after 3 seconds
+    
     setTimeout(() => {
         if (notification.parentNode) {
             notification.style.opacity = '0';
@@ -99,7 +95,7 @@ function showNotification(message, type = 'success') {
     }, 3000);
 }
 
-// Inline Animation Styles
+
 if (!document.querySelector('#pixel-notif-styles')) {
     const style = document.createElement('style');
     style.id = 'pixel-notif-styles';
@@ -112,7 +108,7 @@ if (!document.querySelector('#pixel-notif-styles')) {
     document.head.appendChild(style);
 }
 
-// Initialize cart badge on page load
+
 document.addEventListener('DOMContentLoaded', function() {
     updateCartBadge();
 });

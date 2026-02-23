@@ -56,7 +56,7 @@
     padding: 10px 5%;
 }
 
-/* Logo */
+
 .logo {
     font-size: 1.4rem;
     font-weight: 600;
@@ -70,7 +70,7 @@
     color: var(--nav-text-secondary);
 }
 
-/* Menu Links */
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -149,7 +149,7 @@
     font-weight: 700;
 }
 
-/* Mobile Toggle */
+
 .menu-toggle {
     display: none;
     font-size: 1.6rem;
@@ -158,7 +158,7 @@
     color: var(--nav-text-primary);
 }
 
-/* Tablet & Mobile Adjustments */
+
 @media (max-width: 992px) {
     .nav-menu { display: none; }
     .menu-toggle { display: block; }
@@ -198,7 +198,7 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Contact Hero Section */
+
 .contact-hero {
     position: relative;
     padding: 5rem 5% 1rem 5%;
@@ -263,7 +263,7 @@ html {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Contact Content */
+
 .contact-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -277,7 +277,7 @@ html {
     margin-bottom: 4rem;
 }
 
-/* Contact Form Section */
+
 .contact-form-section {
     background: #fff;
     border-radius: 5px;
@@ -375,7 +375,7 @@ html {
     transform: translateY(0);
 }
 
-/* Contact Info Section */
+
 .contact-info-section {
     background: #fff;
     border-radius: 5px;
@@ -488,7 +488,7 @@ html {
 }
 
 
-/* FAQ Section */
+
 .faq-section {
     background: #fff;
     border-radius: 5px;
@@ -554,7 +554,7 @@ html {
     line-height: 1.6;
 }
 
-/* Footer */
+
 .footer {
     background-color: var(--bg-color);
     padding-top: 100px;
@@ -570,7 +570,7 @@ html {
     gap: 60px;
 }
 
-/* Brand Section */
+
 .logo {
     font-size: 1.4rem;
     font-weight: 600;
@@ -602,7 +602,7 @@ html {
 
 .social-links a:hover { opacity: 0.5; }
 
-/* Link Columns */
+
 .footer-column h3 {
     font-size: 0.85rem;
     font-weight: 600;
@@ -628,7 +628,7 @@ html {
 
 .footer-column ul li a:hover { color: var(--text-primary); }
 
-/* Footer Bottom Bar */
+
 .footer-bottom {
     margin-top: 80px;
     padding: 30px 5%;
@@ -655,7 +655,7 @@ html {
     color: var(--text-secondary);
 }
 
-/* Back to Top Button */
+
 .back-to-top {
     background: none;
     border: none;

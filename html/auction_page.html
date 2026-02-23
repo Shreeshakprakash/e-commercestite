@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Auction Page</title>
+    <link rel="stylesheet" href="/css/auction.css">
+    <link rel="icon" type="image/x-icon" href="/images/favico.png">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+    <header class="header" id="navbar">
+        <nav class="nav-container">
+            <div class="menu-toggle" id="mobileMenuTrigger">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <a href="/index.html" class="logo">PixelPort<span>.</span></a>
+
+            <ul class="nav-menu">
+                <li><a href="/products-live.html" class="nav-link">Shop All</a></li>
+                <li><a href="#" class="nav-link">New Arrivals</a></li>
+                <li><a href="/about.html" class="nav-link">About Us</a></li>
+                <li><a href="/index.html" class="nav-link">Home</a></li>
+            </ul>
+
+            <div class="nav-utilities">
+                <a href="/login.html" class="nav-icon" aria-label="Account">
+                    <ion-icon name="person-outline"></ion-icon>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-live">
+            <div class="hero-graphics">
+                <ion-icon name="paper-plane-outline" class="hero-shape" style="left:10%; top:20%; animation-delay:0.1s;"></ion-icon>
+                <ion-icon name="cash-outline" class="hero-shape" style="left:30%; top:60%; animation-delay:0.3s;"></ion-icon>
+                <ion-icon name="flash-outline" class="hero-shape" style="left:50%; top:15%; animation-delay:0.5s;"></ion-icon>
+                <ion-icon name="library-outline" class="hero-shape" style="left:75%; top:50%; animation-delay:0.2s;"></ion-icon>
+                <ion-icon name="finger-print-outline" class="hero-shape" style="left:90%; top:25%; animation-delay:0.4s;"></ion-icon>
+            </div>
+        
+            <div class="hero-content">
+                <h1 class="hero-title-animated">Live Auctions</h1>
+                <p class="hero-desc-animated">Experience real-time updates from our auctions.</p>
+                <div class="hero-scroll-indicator">
+                    <div class="mouse"></div>
+                </div>
+            </div>
+        </section>
+
+        <br><br>
+
+        <div class="auction-grid">
+            <div class="card">
+                <img src="/images/headphone.png" alt="Headphones">
+                <h3>Sony Headphone</h3>
+                <div class="price">₹2,999</div>
+                <div class="time" id="timer">Ends in: 00:08:00</div>
+                <input type="number" placeholder="Your Bid">
+                <button>Place Bid</button>
+                <button style="background: #c7e7ff;">View Details</button>
+            </div>
+            <div class="card">
+                <img src="/images/headphone2.png" alt="Headphones">
+                <h3>Wireless Sennheiser Headphone</h3>
+                <div class="price">₹3,939</div>
+                <div class="time" id="timer2">Starts in: 00:10:00</div>
+                <input type="number" placeholder="Your Bid">
+                <button>Place Bid</button>
+                <button style="background: #c7e7ff;">View Details</button>
+            </div>
+            <div class="card">
+                <img src="/images/laptop2.jpg" alt="Headphones">
+                <h3>Asus Tuf</h3>
+                <div class="price">₹83,939</div>
+                <div class="time" id="timer3">Starts in: 00:20:00</div>
+                <input type="number" placeholder="Your Bid">
+                <button>Place Bid</button>
+                <button style="background: #c7e7ff;">View Details</button>
+            </div>
+        </div>
+
+    </main>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <a href="#" class="logo">PIXELPORT<span>.</span></a>
+                <p>The one stop shop for all your tech needs.</p>
+                <div class="social-links">
+                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">All Products</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="#">Journal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="bottom-content">
+                <p>2026 PIXELPORT. *images and the page contents are only for demonstration purposes.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <button id="backToTop" class="back-to-top">
+                    Back to top <ion-icon name="arrow-up-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/auction.js"></script>
+</body>
+</html>

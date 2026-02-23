@@ -5,7 +5,7 @@ const SUPABASE_ANON_KEY = 'sb_publishable_kyIL5tPQt2WO5l9dh9s_VQ_d8ORucNG';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Contact Form Functionality
+
 document.addEventListener('DOMContentLoaded', function () {
   const contactForm = document.getElementById('contactForm');
   const submitBtn = contactForm.querySelector('.submit-btn');
@@ -15,13 +15,13 @@ document.addEventListener('DOMContentLoaded', function () {
   contactForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    // Animate button
+    
     submitBtn.style.transform = 'scale(0.95)';
     btnText.textContent = 'Sending...';
     btnIcon.textContent = '⏳';
     submitBtn.disabled = true;
 
-    // Get form values
+    
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
@@ -44,12 +44,12 @@ document.addEventListener('DOMContentLoaded', function () {
 if (error) {
   throw error;
 }
-      // Success animation
+      
       btnText.textContent = 'Message Sent!';
       btnIcon.textContent = '✅';
       submitBtn.style.background = '#0B3037';
 
-      // Reset form after short delay
+      
       setTimeout(() => {
         contactForm.reset();
         btnText.textContent = 'Send Message';
@@ -69,7 +69,7 @@ if (error) {
   });
 
   function showNotification(message, type = 'success') {
-    // Remove existing notifications to avoid overlap
+    
     const existingNotification = document.querySelector('.pixel-notification');
     if (existingNotification) {
       existingNotification.remove();
@@ -108,7 +108,7 @@ if (error) {
 
     document.body.appendChild(notification);
 
-    // Auto remove after 3 seconds
+    
     setTimeout(() => {
       if (notification.parentNode) {
         notification.style.opacity = '0';
@@ -119,7 +119,7 @@ if (error) {
     }, 3000);
   }
 
-  // Inline Animation Styles (ensure added only once)
+  
   if (!document.querySelector('#pixel-notif-styles')) {
     const style = document.createElement('style');
     style.id = 'pixel-notif-styles';
@@ -133,12 +133,12 @@ if (error) {
   }
 });
 
-// Function to handle header appearance on scroll
+
 const initHeaderScroll = () => {
     const header = document.getElementById('navbar');
     
     window.addEventListener('scroll', () => {
-        // If user scrolls more than 50px, add the 'scrolled' class
+        
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
@@ -147,10 +147,7 @@ const initHeaderScroll = () => {
     });
 };
 
-// Simple log to confirm scripts are loaded
-console.log("PixelPort Navigation Initialized");
 
-// Initialize functions
 document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
 });

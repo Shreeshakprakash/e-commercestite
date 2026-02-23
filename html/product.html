@@ -1,63 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title id="product-title">Product Details</title>
-        <link rel="stylesheet" href="../css/product.css">
-        <!-- Firebase SDKs -->
-        <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-        <script>
-            const firebaseConfig = {
-                apiKey: "AIzaSyBrVZa9LRKYURVw8t7sqWGbQYuqlrnfEZ8",
-                authDomain: "test-ecommerce-a7d42.firebaseapp.com",
-                projectId: "test-ecommerce-a7d42",
-                storageBucket: "test-ecommerce-a7d42.appspot.com",  
-                messagingSenderId: "202120303178",
-                appId: "1:202120303178:web:a80663199b8a4a78808cb3",
-                measurementId: "G-FYPBLT6XDH"
-            };
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
-        </script>
+  <title>Product Details</title>
 </head>
 <body>
-  <header class="header" id="navbar">
-        <nav class="nav-container">
-            <div class="menu-toggle" id="mobileMenuTrigger">
-                <ion-icon name="menu-outline"></ion-icon>
-            </div>
 
-            <a href="/index.html" class="logo">PixelPort<span>.</span></a>
+  <div id="product-details">
+    Loading product...
+  </div>
 
-            <ul class="nav-menu">
-                <li><a href="products-live.html" class="nav-link">Shop All</a></li>
-                <li><a href="#" class="nav-link">New Arrivals</a></li>
-                <li><a href="#" class="nav-link">Collections</a></li>
-                <li><a href="about.html" class="nav-link">About Us</a></li>
-            </ul>
+  <script type="module" src="js/product-details.js"></script>
 
-            <div class="nav-utilities">
-                <a href="#" class="nav-icon" aria-label="Search">
-                    <ion-icon name="search-outline"></ion-icon>
-                </a>
-                <a href="login.html" class="nav-icon" aria-label="Account">
-                    <ion-icon name="person-outline"></ion-icon>
-                </a>
-                <a href="cart.html" class="nav-icon" aria-label="Cart">
-                  <ion-icon name="bag-handle-outline"></ion-icon>
-                  <span id="cart-badge" class="cart-count">2</span>
-                </a>
-            </div>
-        </nav>
-    </header>
-        <div class="product-detail">
-                <img id="Image" src="" alt="Product Image" />
-                <h1 id="Name"></h1>
-                <p id="Description"></p>
-                <div id="Price"></div>
-        </div>
-        <script src="../js/product-details.js"></script>
 </body>
 </html>

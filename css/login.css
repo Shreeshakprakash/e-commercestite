@@ -4,7 +4,7 @@ html{
 body{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-/* Login Page Styles */
+
 .login-section {
     min-height: 100vh;
     display: flex;
@@ -73,7 +73,7 @@ body{
 .input-group input {
     width: 100%;
     padding: 12px;
-    padding-right: 45px; /* Make room for password toggle */
+    padding-right: 45px; 
     border: 1.5px solid #e0e7ef;
     border-radius: 8px;
     font-size: 1rem;
@@ -160,7 +160,7 @@ body{
     color: #666;
 }
 
-/* Loading Animation */
+
 .btn-loader {
     display: none;
     width: 20px;
@@ -185,7 +185,7 @@ body{
     opacity: 0.7;
 }
 
-/* Fade In Animation */
+
 .animated-fade-in {
     animation: fadeIn 0.5s ease;
 }

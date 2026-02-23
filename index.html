@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-    <title>PixelPort</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/x-icon" href="images/favico.png">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>PixelPort</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/x-icon" href="images/favico.png">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </head>
-
 <body>
-    <header class="header" id="navbar">
+  <header class="header" id="navbar">
         <nav class="nav-container">
             <div class="menu-toggle" id="mobileMenuTrigger">
                 <ion-icon name="menu-outline"></ion-icon>
@@ -25,97 +22,78 @@
             <ul class="nav-menu">
                 <li><a href="products-live.html" class="nav-link">Shop All</a></li>
                 <li><a href="#" class="nav-link">New Arrivals</a></li>
-                <li><a href="#" class="nav-link">Collections</a></li>
+                <li><a href="html/auction_page.html" class="nav-link">Auction Page</a></li>
                 <li><a href="about.html" class="nav-link">About Us</a></li>
             </ul>
 
             <div class="nav-utilities">
-                <a href="#" class="nav-icon" id="search-trigger" aria-label="Search">
+                <a href="#" class="nav-icon" aria-label="Search">
                     <ion-icon name="search-outline"></ion-icon>
                 </a>
                 <a href="login.html" class="nav-icon" aria-label="Account">
                     <ion-icon name="person-outline"></ion-icon>
                 </a>
                 <a href="cart.html" class="nav-icon" aria-label="Cart">
-                    <ion-icon name="bag-handle-outline"></ion-icon>
-                    <span id="cart-badge" class="cart-count">0</span>
+                  <ion-icon name="bag-handle-outline"></ion-icon>
+                  <span id="cart-badge" class="cart-count">0</span>
                 </a>
             </div>
         </nav>
-
-        <!-- Search Modal -->
-        <div id="search-modal" class="search-modal">
-            <div class="search-modal-content">
-                <form id="search-form" class="search-form">
-                    <input type="text" id="header-search-input" class="header-search-input"
-                        placeholder="Search for products..." autocomplete="off">
-                    <button type="submit" class="search-submit-btn">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </button>
-                    <button type="button" class="search-close-btn" id="search-close">
-                        <ion-icon name="close-outline"></ion-icon>
-                    </button>
-                </form>
-            </div>
-        </div>
-        </nav>
     </header>
-    <main>
-        <section class="hero" id="home">
-            <div class="hero-glow"></div>
+  <main>
+    <section class="hero" id="home">
+     <div class="hero-glow"></div>
+    
+     <div class="hero-inner">
+         <span class="hero-label">Premium Tech & Lifestyle</span>
+         <h1 class="hero-title">Elevate Your Digital <br><span>Space.</span></h1>
+         <p class="hero-subtitle">Technology, curated. Where innovation meets aesthetics.</p>
+        
+         <div class="hero-cta">
+             <a href="products-live.html" class="btn-primary">Shop Collection</a>
+             <a href="about.html" class="btn-secondary">Our Story</a>
+         </div>
+     </div>
+     </section>
+    <div class="section-header">
+        <span class="section-label">Selected Items</span>
+        <h2 class="section-title">Featured Products</h2>
+    </div>
+    <div class="products-grid" id="products">
+      
+    </div>
 
-            <div class="hero-inner">
-                <span class="hero-label">Premium Tech & Lifestyle</span>
-                <h1 class="hero-title">Elevate Your Digital <br><span>Space.</span></h1>
-                <p class="hero-subtitle">Technology, curated. Where innovation meets aesthetics.</p>
+<section class="products-section secondary-bg" id="brands">
+    <div class="section-header">
+        <span class="section-label">Our Partners</span>
+        <h2 class="section-title">Featured Brands</h2>
+    </div>
 
-                <div class="hero-cta">
-                    <a href="products-live.html" class="btn-primary">Shop Collection</a>
-                    <a href="about.html" class="btn-secondary">Our Story</a>
-                </div>
+    <div class="brand-grid">
+        <div class="brand-card">
+            <div class="brand-logo">
+                <img src="images/logo/asus.png" alt="ASUS">
             </div>
-        </section>
-        <div class="section-header">
-            <span class="section-label">Selected Items</span>
-            <h2 class="section-title">Featured Products</h2>
+            <div class="brand-info">
+                <h3 class="brand-title">ASUS</h3>
+                <a href="#" class="brand-link">View Collection <ion-icon name="arrow-forward-outline"></ion-icon></a>
+            </div>
         </div>
-        <div class="products-grid" id="products">
-            <!-- Products will be loaded here -->
+        
+        <div class="brand-card">
+            <div class="brand-logo">
+                <img src="images/logo/samsung.png" alt="SAMSUNG">
+            </div>
+            <div class="brand-info">
+                <h3 class="brand-title">SAMSUNG</h3>
+                <a href="#" class="brand-link">View Collection <ion-icon name="arrow-forward-outline"></ion-icon></a>
+            </div>
         </div>
+        </div>
+</section>
+  </main>
 
-        <section class="products-section secondary-bg" id="brands">
-            <div class="section-header">
-                <span class="section-label">Our Partners</span>
-                <h2 class="section-title">Featured Brands</h2>
-            </div>
-
-            <div class="brand-grid">
-                <div class="brand-card">
-                    <div class="brand-logo">
-                        <img src="images/logo/asus.png" alt="ASUS">
-                    </div>
-                    <div class="brand-info">
-                        <h3 class="brand-title">ASUS</h3>
-                        <a href="#" class="brand-link">View Collection <ion-icon
-                                name="arrow-forward-outline"></ion-icon></a>
-                    </div>
-                </div>
-
-                <div class="brand-card">
-                    <div class="brand-logo">
-                        <img src="images/logo/samsung.png" alt="SAMSUNG">
-                    </div>
-                    <div class="brand-info">
-                        <h3 class="brand-title">SAMSUNG</h3>
-                        <a href="#" class="brand-link">View Collection <ion-icon
-                                name="arrow-forward-outline"></ion-icon></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
+  <footer class="footer">
         <div class="footer-container">
             <div class="footer-column brand-col">
                 <a href="#" class="logo">PIXELPORT<span>.</span></a>
@@ -167,8 +145,8 @@
             </div>
         </div>
     </footer>
-    <script src="js/cart-shared.js"></script>
-    <script type="module" src="js/script.js"></script>
+  <script src="js/cart-shared.js"></script>
+  <script type="module" src="js/script.js"></script>
 </body>
 
 </html>

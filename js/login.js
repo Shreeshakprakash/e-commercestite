@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
-    // Admin credentials
+    
     const ADMIN_EMAIL = 'admin@pixelport.com';
     const ADMIN_PASSWORD = 'PixelPort2025!';
 
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 
-    // SIGN UP
+    
     signupForm.addEventListener('submit', function (e) {
         e.preventDefault();
         const name = signupName.value.trim();
@@ -94,10 +94,10 @@ document.addEventListener('DOMContentLoaded', function () {
         signupBtn.classList.add('loading');
         signupBtn.disabled = true;
 
-        // Firebase Auth: Create user
+        
         auth.createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                // Save user info to Firestore
+                
                 return db.collection('users').doc(userCredential.user.uid).set({
                     name: name,
                     email: email,
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
-    // LOGIN
+    
     loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
         const email = loginEmail.value.trim();
@@ -126,17 +126,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         loginError.style.display = 'none';
 
-        // Basic validation
+        
         if (!email || !password) {
             loginError.textContent = 'Please enter both email and password.';
             loginError.style.display = 'block';
             return;
         }
 
-        // Firebase Auth: Sign in
+        
         auth.signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                // Store user info locally
+                
                 localStorage.setItem('user', JSON.stringify({
                     uid: userCredential.user.uid,
                     email: userCredential.user.email
@@ -149,16 +149,16 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
-    // Check if user is already signed in
+    
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             localStorage.setItem('user', JSON.stringify(user));
-            // Optionally redirect or show logged-in UI
+            
         }
     });
 
 
-    // Notification function
+    
     function showNotification(message, type) {
         const notification = document.createElement('div');
         notification.style.cssText = `
@@ -192,16 +192,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000);
     }
 
-    // Password toggle functionality
+    
     function addPasswordToggle(passwordInput) {
         const wrapper = document.createElement('div');
         wrapper.style.cssText = 'position: relative; display: flex; align-items: center;';
         
-        // Move the input into the wrapper
+        
         passwordInput.parentNode.insertBefore(wrapper, passwordInput);
         wrapper.appendChild(passwordInput);
         
-        // Create toggle button
+        
         const toggleBtn = document.createElement('span');
         toggleBtn.innerHTML = '👁️';
         toggleBtn.style.cssText = `
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         wrapper.appendChild(toggleBtn);
         
-        // Toggle functionality
+        
         toggleBtn.addEventListener('click', function() {
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Add password toggles
+    
     addPasswordToggle(loginPassword);
     addPasswordToggle(signupPassword);
 

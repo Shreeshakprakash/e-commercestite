@@ -56,7 +56,7 @@
     padding: 10px 5%;
 }
 
-/* Logo */
+
 .logo {
     font-size: 1.4rem;
     font-weight: 600;
@@ -70,7 +70,7 @@
     color: var(--nav-text-secondary);
 }
 
-/* Menu Links */
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -149,7 +149,7 @@
     font-weight: 700;
 }
 
-/* Mobile Toggle */
+
 .menu-toggle {
     display: none;
     font-size: 1.6rem;
@@ -158,7 +158,7 @@
     color: var(--nav-text-primary);
 }
 
-/* Tablet & Mobile Adjustments */
+
 @media (max-width: 992px) {
     .nav-menu { display: none; }
     .menu-toggle { display: block; }
