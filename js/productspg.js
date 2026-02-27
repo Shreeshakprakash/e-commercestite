@@ -54,7 +54,7 @@ function renderProducts(products) {
                 ></video>
               </div>
             ` : `
-              <a href="html/product.html?id=${product.id}">
+              <a href="product.html?id=${product.id}">
                 <img
                   src="${product.image || 'images/logo_small.png'}"
                   alt="${product.name}"

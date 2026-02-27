@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>product detail Page</title>
+    <link rel="stylesheet" href="css/product.css">
+    <link rel="icon" type="image/x-icon" href="/images/favico.png">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+    <header class="header" id="navbar">
+        <nav class="nav-container">
+            <div class="menu-toggle" id="mobileMenuTrigger">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <a href="index.html" class="logo">PixelPort<span>.</span></a>
+
+            <ul class="nav-menu">
+                <li><a href="products-live.html" class="nav-link">Shop All</a></li>
+                <li><a href="#" class="nav-link">New Arrivals</a></li>
+                <li><a href="html/auction_page.html" class="nav-link">Auction Page</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+            </ul>
+
+            <div class="nav-utilities">
+                <a href="#" class="nav-icon" aria-label="Search">
+                    <ion-icon name="search-outline"></ion-icon>
+                </a>
+                <a href="login.html" class="nav-icon" aria-label="Account">
+                    <ion-icon name="person-outline"></ion-icon>
+                </a>
+                <a href="cart.html" class="nav-icon" aria-label="Cart">
+                  <ion-icon name="bag-handle-outline"></ion-icon>
+                  <span id="cart-badge" class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+  <div id="product-details">
+    <main class="details-terminal">
+    <div class="terminal-grid-optimized">
+        
+        <section class="visual-segment">
+            <div class="image-frame-locked">
+                <img id="product-image" src="" alt="Loading Asset..." class="optimized-asset">
+                <div class="frame-branding"></div>
+            </div>
+            
+            <div class="technical-description">
+                <span class="sub-label">01 / Functional Overview</span>
+                <p id="product-description" class="lead-text">
+                    </p>
+            </div>
+        </section>
+
+        <aside class="interaction-segment">
+            <div class="sticky-data-module">
+                <div class="product-path">
+                    <a href="/products-live.html">Collection</a> / <span id="product-category">Hardware</span>
+                </div>
+                
+                <h1 id="product-title" class="product-display-title"></h1>
+                
+                <div class="price-module">
+                    <span class="label">Unit Price: </span>
+                    <span id="product-price" class="value"></span>
+                </div>
+
+                <div class="specification-grid" id="spec-grid">
+                    </div>
+
+                <div class="checkout-actions">
+                    <div class="quantity-controller-unified">
+                        <button class="qty-btn" onclick="adjustQty(-1)">-</button>
+                        <input type="number" id="qty-input" value="1" readonly>
+                        <button class="qty-btn" onclick="adjustQty(1)">+</button>
+                    </div>
+                    
+                    <button class="primary-action-btn" id="add-to-cart">
+                        Add to cart <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </button>
+                </div>
+
+                <div class="security-footer">
+                    <ion-icon name="shield-outline"></ion-icon>
+                    <span>Encryption Secure / 2-Year Limited Warranty</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+</main>
+  </div>
+
+  <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <a href="#" class="logo">PIXELPORT<span>.</span></a>
+                <p>The one stop shop for all your tech needs.</p>
+                <div class="social-links">
+                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">All Products</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="#">Journal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="bottom-content">
+                <p>2026 PIXELPORT. *images are only for demonstration purposes.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <button id="backToTop" class="back-to-top">
+                    Back to top <ion-icon name="arrow-up-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+  <script type="module" src="js/product-details.js"></script>
+
+</body>
+</html>

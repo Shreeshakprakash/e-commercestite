@@ -1,6 +1,7 @@
-// Index page functionality - now uses shared cart functions
+
+// Purpose: Legacy script (kept for reference)
 document.addEventListener('DOMContentLoaded', function() {
-  // Show intro overlay for 2s, then fade out and reveal page
+  
   const overlay = document.getElementById('intro-overlay');
   setTimeout(() => {
     overlay.classList.add('hide');
@@ -10,21 +11,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 700);
   }, 2000);
 
-  // Add to cart functionality
+  
   document.querySelectorAll('.add-to-cart').forEach(btn => {
     btn.addEventListener('click', function() {
       const productName = this.getAttribute('data-name');
       const productPrice = parseFloat(this.getAttribute('data-price'));
       
-      // Check if addToCart function exists
+      
       if (typeof addToCart === 'function') {
-        // Use shared cart function
+        
         addToCart(productName, productPrice);
       } else {
         alert('Cart function not loaded. Please refresh the page.');
       }
       
-      // Visual feedback
+      
       btn.classList.add('added');
       const emoji = btn.querySelector('.cart-emoji');
       if (emoji) emoji.style.opacity = '1';
@@ -66,12 +67,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// Function to handle header appearance on scroll
+
 const initHeaderScroll = () => {
     const header = document.getElementById('navbar');
     
     window.addEventListener('scroll', () => {
-        // If user scrolls more than 50px, add the 'scrolled' class
+        
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
@@ -80,10 +81,10 @@ const initHeaderScroll = () => {
     });
 };
 
-// Simple log to confirm scripts are loaded
+
 console.log("PixelPort Navigation Initialized");
 
-// Initialize functions
+
 document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
 });

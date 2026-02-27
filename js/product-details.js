@@ -11,44 +11,109 @@ const productId = params.get('id');
 async function loadProduct() {
   if (!productId) return;
 
-  const { data, error } = await supabase
+  const { data: product, error } = await supabase
     .from('products')
     .select('*')
     .eq('id', productId)
     .single();
 
-  if (error) {
+  if (error || !product) {
     console.error(error);
     return;
   }
 
-  renderProduct(data);
+  renderProduct(product);
 }
 
 loadProduct();
 
 function renderProduct(product) {
-  const container = document.getElementById('product-details');
+  document.getElementById('product-title').textContent = product.name;
+  document.getElementById('product-price').textContent = `₹${product.price}`;
+  document.getElementById('product-description').textContent =
+    product.description || 'No description available.';
+  document.getElementById('product-category').textContent =
+    product.category || 'Hardware';
 
-  container.innerHTML = `
-    <h1>${product.name}</h1>
+  const imgEl = document.getElementById('product-image');
 
-    ${product.video
-      ? `<video src="${product.video}" controls width="400"></video>`
-      : `<img src="${product.image}" width="400">`
+  if (product.video) {
+    const video = document.createElement('video');
+    video.src = product.video;
+    video.controls = true;
+    video.autoplay = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.className = 'optimized-asset';
+
+    imgEl.replaceWith(video);
+  } else {
+    imgEl.src = product.image || 'images/logo_small.png';
+    imgEl.alt = product.name;
+  }
+
+  const specGrid = document.getElementById('spec-grid');
+  specGrid.innerHTML = '';
+
+  if (product.specs && typeof product.specs === 'object') {
+    Object.entries(product.specs).forEach(([label, value]) => {
+      specGrid.innerHTML += `
+        <div class="spec-item">
+          <span class="spec-label">${label}</span>
+          <span class="spec-value">${value}</span>
+        </div>`;
+    });
+  }
+
+  const addBtn = document.getElementById('add-to-cart');
+
+  addBtn.addEventListener('click', () => {
+    if (typeof addToCart === 'function') {
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        video: product.video || null
+      });
     }
 
-    <h2>₹${product.price}</h2>
-    <p>${product.description || ''}</p>
-
-    <button onclick="addToCart({
-      id: ${product.id},
-      name: '${product.name}',
-      price: ${product.price},
-      image: '${product.image}',
-      video: '${product.video || ''}'
-    })">
-      Add to Cart
-    </button>
-  `;
+    addBtn.textContent = 'Added ✓';
+    setTimeout(() => {
+      addBtn.innerHTML =
+        'Added to Cart <ion-icon name="arrow-forward-outline"></ion-icon>';
+    }, 1500);
+  });
 }
+
+window.adjustQty = function (delta) {
+  const input = document.getElementById('qty-input');
+  let val = parseInt(input.value) || 1;
+  val = Math.max(1, val + delta);
+  input.value = val;
+};
+
+const initHeaderScroll = () => {
+    const header = document.getElementById('navbar');
+    
+    window.addEventListener('scroll', () => {
+        
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+};
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    initHeaderScroll();
+});
+
+document.getElementById('backToTop').addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});

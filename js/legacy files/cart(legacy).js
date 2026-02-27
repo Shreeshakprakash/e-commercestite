@@ -1,4 +1,4 @@
-// Cart page functionality - uses shared cart functions
+
 document.addEventListener('DOMContentLoaded', function() {
     displayCartItems();
     updateOrderSummary();
@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMenuToggle();
 });
 
-// Initialize hamburger menu
+
 function initializeMenuToggle() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navbar = document.querySelector('.navbar');
@@ -16,14 +16,14 @@ function initializeMenuToggle() {
             navbar.classList.toggle('active');
         });
 
-        // Close menu when clicking outside
+        
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.navbar-container')) {
                 navbar.classList.remove('active');
             }
         });
 
-        // Close menu when window is resized to desktop size
+        
         window.addEventListener('resize', () => {
             if (window.innerWidth > 700) {
                 navbar.classList.remove('active');
@@ -32,9 +32,9 @@ function initializeMenuToggle() {
     }
 }
 
-// Display cart items
+
 function displayCartItems() {
-    const cart = getCart(); // Use shared function
+    const cart = getCart(); 
     const cartItemsContainer = document.querySelector('.cart-items');
     const emptyCartDiv = document.querySelector('.empty-cart');
 
@@ -65,7 +65,7 @@ function displayCartItems() {
     }
 }
 
-// Create cart item element
+
 function createCartItemElement(item, index) {
     const itemDiv = document.createElement('div');
     itemDiv.className = 'cart-item';
@@ -94,7 +94,7 @@ function createCartItemElement(item, index) {
     return itemDiv;
 }
 
-// Get product icon based on name
+
 function getProductIcon(productName) {
     const icons = {
         'Premium Laptop': '<img src="images/laptop.png" alt="Laptop" width="50">',
@@ -107,7 +107,7 @@ function getProductIcon(productName) {
     return icons[productName] || '<i class="bx bx-package"></i>';
 }
 
-// Update item quantity
+
 function updateQuantity(index, newQuantity) {
     const cart = getCart();
     if (newQuantity < 1) {
@@ -122,7 +122,7 @@ function updateQuantity(index, newQuantity) {
     updateCartBadge();
 }
 
-// Remove item from cart
+
 function removeFromCart(index) {
     const cart = getCart();
     cart.splice(index, 1);
@@ -131,11 +131,11 @@ function removeFromCart(index) {
     updateOrderSummary();
     updateCartBadge();
     
-    // Show success message
+    
     showNotification('Item removed from cart', 'success');
 }
 
-// Clear entire cart
+
 function clearCart() {
     const cart = getCart();
     if (cart.length === 0) return;
@@ -149,7 +149,7 @@ function clearCart() {
     }
 }
 
-// Update order summary
+
 function updateOrderSummary() {
     const cart = getCart();
     const subtotalElement = document.querySelector('#subtotal');
@@ -162,15 +162,15 @@ function updateOrderSummary() {
 
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    const shipping = subtotal > 1000 ? 0 : 99; // Free shipping over ₹1000
-    const total = subtotal + shipping; // No tax
+    const shipping = subtotal > 1000 ? 0 : 99; 
+    const total = subtotal + shipping; 
 
     subtotalElement.textContent = `₹${subtotal.toFixed(2)}`;
     shippingElement.textContent = shipping === 0 ? 'FREE' : `₹${shipping.toFixed(2)}`;
     totalElement.textContent = `₹${total.toFixed(2)}`;
     if (itemCountElement) itemCountElement.textContent = totalItems;
 
-    // Enable/disable checkout button
+    
     if (checkoutBtn) {
         if (cart.length === 0) {
             checkoutBtn.disabled = true;
@@ -182,16 +182,16 @@ function updateOrderSummary() {
     }
 }
 
-// Checkout function
+
 function proceedToCheckout() {
     const cart = getCart();
     if (cart.length === 0) return;
     
-    // Show payment method selection modal first
+    
     showPaymentMethodSelection();
 }
 
-// Show payment method selection modal
+
 function showPaymentMethodSelection() {
     const modalOverlay = document.createElement('div');
     modalOverlay.className = 'payment-method-overlay';
@@ -285,29 +285,29 @@ function showPaymentMethodSelection() {
     
     document.body.appendChild(modalOverlay);
     
-    // Animate modal appearance
+    
     setTimeout(() => {
         modalOverlay.classList.add('show');
     }, 10);
     
-    // Add event listeners for payment options
+    
     document.querySelectorAll('.payment-option').forEach(option => {
         option.addEventListener('click', function() {
-            // Remove previous selection
+            
             document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
             
-            // Select current option
+            
             this.classList.add('selected');
             const radio = this.querySelector('input[type="radio"]');
             radio.checked = true;
             
-            // Enable proceed button
+            
             document.querySelector('.proceed-payment-btn').disabled = false;
         });
     });
 }
 
-// Close payment modal
+
 function closePaymentModal() {
     const modal = document.querySelector('.payment-method-overlay');
     if (modal) {
@@ -318,7 +318,7 @@ function closePaymentModal() {
     }
 }
 
-// Process payment
+
 function processPayment() {
     const selectedPayment = document.querySelector('input[name="payment"]:checked');
     if (!selectedPayment) return;
@@ -332,23 +332,23 @@ function processPayment() {
         'cod': 'Cash on Delivery'
     };
     
-    // Close payment modal
+    
     closePaymentModal();
     
-    // Show processing message
+    
     showNotification(`Processing payment via ${paymentNames[paymentMethod]}...`, 'info');
     
-    // Simulate payment processing
+    
     setTimeout(() => {
         const cart = getCart();
         const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         const shipping = subtotal > 1000 ? 0 : 99;
-        const total = subtotal + shipping; // No tax
+        const total = subtotal + shipping; 
         
-        // Show order confirmation modal
+        
         showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod);
         
-        // Clear cart after successful checkout
+        
         saveCart([]);
         displayCartItems();
         updateOrderSummary();
@@ -356,7 +356,7 @@ function processPayment() {
     }, 2000);
 }
 
-// Show order confirmation modal
+
 function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 'card') {
     const paymentNames = {
         'card': 'Credit/Debit Card',
@@ -374,7 +374,7 @@ function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 
         'cod': 'bx-money'
     };
 
-    // Store order data for receipt
+    
     window.lastOrderData = {
         cart,
         subtotal,
@@ -386,7 +386,7 @@ function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 
         estimatedDelivery: getEstimatedDelivery()
     };
     
-    // Create modal overlay
+    
     const modalOverlay = document.createElement('div');
     modalOverlay.className = 'order-confirmation-overlay';
     modalOverlay.innerHTML = `
@@ -472,23 +472,23 @@ function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 
     
     document.body.appendChild(modalOverlay);
     
-    // Animate modal appearance
+    
     setTimeout(() => {
         modalOverlay.classList.add('show');
     }, 10);
 }
 
-// Generate random order ID
+
 function generateOrderId() {
     const timestamp = Date.now().toString(36);
     const random = Math.random().toString(36).substr(2, 5);
     return `ECM${timestamp}${random}`.toUpperCase();
 }
 
-// Get estimated delivery date
+
 function getEstimatedDelivery() {
     const deliveryDate = new Date();
-    deliveryDate.setDate(deliveryDate.getDate() + 3); // 3 days from now
+    deliveryDate.setDate(deliveryDate.getDate() + 3); 
     return deliveryDate.toLocaleDateString('en-IN', { 
         weekday: 'long', 
         year: 'numeric', 
@@ -497,7 +497,7 @@ function getEstimatedDelivery() {
     });
 }
 
-// Close order confirmation modal
+
 function closeOrderConfirmation() {
     const modal = document.querySelector('.order-confirmation-overlay');
     if (modal) {
@@ -506,11 +506,11 @@ function closeOrderConfirmation() {
             modal.remove();
         }, 300);
     }
-    // Redirect to products page
+    
     window.location.href = 'products-live.html';
 }
 
-// Print receipt function
+
 function printReceipt() {
     if (!window.lastOrderData) {
         showNotification('No order data available for printing', 'error');
@@ -684,13 +684,13 @@ function printReceipt() {
     receiptWindow.document.write(receiptHTML);
     receiptWindow.document.close();
     
-    // Auto-focus the new window
+    
     receiptWindow.focus();
     
     showNotification('Receipt opened in new window', 'success');
 }
 
-// Load recommended products
+
 function loadRecommendedProducts() {
     const recommendedContainer = document.querySelector('.recommended-products');
     if (!recommendedContainer) return;
@@ -720,7 +720,7 @@ function loadRecommendedProducts() {
         recommendedContainer.appendChild(productCard);
     });
     
-    // Add event listeners to the newly created buttons
+    
     document.querySelectorAll('.add-to-cart-mini').forEach(btn => {
         btn.addEventListener('click', function() {
             const productName = this.getAttribute('data-name');
@@ -730,7 +730,7 @@ function loadRecommendedProducts() {
     });
 }
 
-// Add to cart from recommended products
+
 function addToCartFromRecommended(productName, price) {
     const cart = getCart();
     const existingItem = cart.find(item => item.name === productName);
@@ -752,26 +752,26 @@ function addToCartFromRecommended(productName, price) {
     showNotification(`${productName} added to cart!`, 'success');
 }
 
-// Export functions for global use
+
 window.updateQuantity = updateQuantity;
 window.removeFromCart = removeFromCart;
 window.addToCartFromRecommended = addToCartFromRecommended;
 
-// Initialize event listeners
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Clear cart button
+    
     const clearCartBtn = document.querySelector('.clear-cart-btn');
     if (clearCartBtn) {
         clearCartBtn.addEventListener('click', clearCart);
     }
     
-    // Checkout button
+    
     const checkoutBtn = document.querySelector('.checkout-btn');
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', proceedToCheckout);
     }
     
-    // Shop now button (for empty cart)
+    
     const shopNowBtn = document.querySelector('.shop-now-btn');
     if (shopNowBtn) {
         shopNowBtn.addEventListener('click', function(e) {
@@ -781,12 +781,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Function to handle header appearance on scroll
+
 const initHeaderScroll = () => {
     const header = document.getElementById('navbar');
     
     window.addEventListener('scroll', () => {
-        // If user scrolls more than 50px, add the 'scrolled' class
+        
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
@@ -795,10 +795,10 @@ const initHeaderScroll = () => {
     });
 };
 
-// Simple log to confirm scripts are loaded
+
 console.log("PixelPort Navigation Initialized");
 
-// Initialize functions
+
 document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
 });

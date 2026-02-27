@@ -1,8 +1,9 @@
-// Firebase imports
+
+// Purpose: Legacy contact form (kept for reference)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ✅ Replace this with YOUR Firebase config from Firebase Console
+
 const firebaseConfig = {
   apiKey: "AIzaSyBrVZa9LRKYURVw8t7sqWGbQYuqlrnfEZ8",
   authDomain: "test-ecommerce-a7d42.firebaseapp.com",
@@ -12,13 +13,13 @@ const firebaseConfig = {
   appId: "1:202120303178:web:a80663199b8a4a78808cb3",
   measurementId: "G-FYPBLT6XDH"
 };
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Contact Form Functionality
+
 document.addEventListener('DOMContentLoaded', function () {
-  // Hamburger menu toggle for mobile nav
+  
   const menuBtn = document.getElementById('menu-toggle');
   const navbar = document.getElementById('navbar');
   
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const expanded = navbar.classList.contains('active');
       menuBtn.setAttribute('aria-expanded', expanded);
       
-      // Change hamburger icon when menu is open
+      
       if (expanded) {
         menuBtn.innerHTML = '✕';
       } else {
@@ -37,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
     
-    // Close menu when clicking on a link
+    
     const navLinks = navbar.querySelectorAll('a');
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
@@ -56,13 +57,13 @@ document.addEventListener('DOMContentLoaded', function () {
   contactForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
-    // Animate button
+    
     submitBtn.style.transform = 'scale(0.95)';
     btnText.textContent = 'Sending...';
     btnIcon.textContent = '⏳';
     submitBtn.disabled = true;
 
-    // Get form values
+    
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const message = document.getElementById('message').value.trim();
 
     try {
-      // Save to Firestore
+      
       await addDoc(collection(db, "contacts"), {
         name,
         email,
@@ -80,12 +81,12 @@ document.addEventListener('DOMContentLoaded', function () {
         timestamp: new Date()
       });
 
-      // Success animation
+      
       btnText.textContent = 'Message Sent!';
       btnIcon.textContent = '✅';
       submitBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
 
-      // Reset form after short delay
+      
       setTimeout(() => {
         contactForm.reset();
         btnText.textContent = 'Send Message';
@@ -104,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // ✅ Notification system (kept from your old script)
+  
   function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -127,12 +128,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-// Function to handle header appearance on scroll
+
 const initHeaderScroll = () => {
     const header = document.getElementById('navbar');
     
     window.addEventListener('scroll', () => {
-        // If user scrolls more than 50px, add the 'scrolled' class
+        
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
@@ -141,10 +142,10 @@ const initHeaderScroll = () => {
     });
 };
 
-// Simple log to confirm scripts are loaded
+
 console.log("PixelPort Navigation Initialized");
 
-// Initialize functions
+
 document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
 });
