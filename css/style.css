@@ -105,9 +105,9 @@ body {
 .nav-link::after {
     content: '';
     position: absolute;
-    width: 0;           
-    height: 1.5px;      
-    bottom: 0;          
+    width: 0;
+    height: 1.5px;
+    bottom: 0;
     left: 0;
     background-color: var(--nav-accent-color);
     transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
@@ -428,7 +428,11 @@ main {
     margin-bottom: 1rem;
     border-radius: 10px;
 }
+
 .product-card {
+    display: flex;
+    flex-direction: column;   /* stack elements vertically */
+    justify-content: space-between; /* pushes button to the bottom */
     background: #f1f1f1;
     border-radius: 4px;
     padding: 1.5rem;
@@ -439,6 +443,8 @@ main {
     position: relative;
     overflow: hidden;
 }
+
+
 
 .product-media {
     margin-bottom: 1rem;
