@@ -258,7 +258,7 @@ main {
     text-align: center;
     background: #ffffff;
     overflow: hidden;
-    padding: 0 5%;
+    padding: 0 1%;    //recentered (changed from 5% to 1%)
     margin-bottom: 4rem;
 }
 
