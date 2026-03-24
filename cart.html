@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,40 +8,44 @@
   <link rel="stylesheet" href="css/cart.css">
   <link rel="shortcut icon" href="images/favico.png" type="image/x-icon">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" integrity="sha512-XcIsjKMcuVe0Ucj/xgIXQnytNwBttJbNjltBV18IOnru2lDPe9KRRyvCXw6Y5H415vbBLRm8+q6fmLUU7DfO6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    integrity="sha512-XcIsjKMcuVe0Ucj/xgIXQnytNwBttJbNjltBV18IOnru2lDPe9KRRyvCXw6Y5H415vbBLRm8+q6fmLUU7DfO6Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 </head>
+
 <body>
- <header class="header" id="navbar">
-        <nav class="nav-container">
-            <div class="menu-toggle" id="mobileMenuTrigger">
-                <ion-icon name="menu-outline"></ion-icon>
-            </div>
+  <header class="header" id="navbar">
+    <nav class="nav-container">
+      <div class="menu-toggle" id="mobileMenuTrigger">
+        <ion-icon name="menu-outline"></ion-icon>
+      </div>
 
-            <a href="index.html" class="logo">PixelPort<span>.</span></a>
+      <a href="index.html" class="logo">PixelPort<span>.</span></a>
 
-            <ul class="nav-menu">
-                <li><a href="products-live.html" class="nav-link">Shop All</a></li>
-                <li><a href="#" class="nav-link">New Arrivals</a></li>
-                <li><a href="#" class="nav-link">Auction Page</a></li>
-                <li><a href="about.html" class="nav-link">About Us</a></li>
-            </ul>
+      <ul class="nav-menu">
+        <li><a href="products-live.html" class="nav-link">Shop All</a></li>
+        <li><a href="#" class="nav-link">New Arrivals</a></li>
+        <li><a href="#" class="nav-link">Auction Page</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+      </ul>
 
-            <div class="nav-utilities">
-                <a href="#" class="nav-icon" aria-label="Search">
-                    <ion-icon name="search-outline"></ion-icon>
-                </a>
-                <a href="login.html" class="nav-icon" aria-label="Account">
-                    <ion-icon name="person-outline"></ion-icon>
-                </a>
-                <a href="cart.html" class="nav-icon" aria-label="Cart">
-                  <ion-icon name="bag-handle-outline"></ion-icon>
-                  <span id="cart-badge" class="cart-count">2</span>
-                </a>
-            </div>
-        </nav>
-    </header>
+      <div class="nav-utilities">
+        <a href="#" class="nav-icon" aria-label="Search">
+          <ion-icon name="search-outline"></ion-icon>
+        </a>
+        <a href="login.html" class="nav-icon" aria-label="Account">
+          <ion-icon name="person-outline"></ion-icon>
+        </a>
+        <a href="cart.html" class="nav-icon" aria-label="Cart">
+          <ion-icon name="bag-handle-outline"></ion-icon>
+          <span id="cart-badge" class="cart-count">2</span>
+        </a>
+      </div>
+    </nav>
+  </header>
 
   <main>
     <section class="cart-hero">
@@ -50,15 +55,15 @@
 
     <section class="cart-content">
       <div class="cart-container-main">
-        
+
         <div class="cart-items-section" id="cart-items-section">
           <div class="cart-header">
             <h2>Your Items</h2>
             <button class="clear-cart-btn" id="clear-cart-btn">Clear Cart</button>
           </div>
-          
+
           <div class="cart-items" id="cart-items">
-            
+
             <div class="empty-cart" id="empty-cart">
               <h3>Your cart is empty</h3>
               <p>Add some products to get started!</p>
@@ -67,41 +72,41 @@
           </div>
         </div>
 
-        
+
         <div class="cart-summary-section">
           <div class="cart-summary">
             <h3>Order Summary</h3>
-            
+
             <div class="summary-item">
               <span>Subtotal (<span id="item-count">0</span> items)</span>
               <span class="price" id="subtotal">₹0</span>
             </div>
-            
+
             <div class="summary-item">
               <span>Shipping</span>
               <span class="price" id="shipping">₹0</span>
             </div>
-            
+
             <div class="summary-divider"></div>
-            
+
             <div class="summary-item total">
               <span>Total</span>
               <span class="price" id="total">₹0</span>
             </div>
-            
+
             <button class="checkout-btn" id="checkout-btn" disabled>
               <span class="btn-text">Proceed to Checkout</span>
               <span class="btn-icon">→</span>
             </button>
-            
+
             <div class="payment-clearance">
-                <span class="clearance-label">Verified Security</span>
-                <div class="payment-methods">
-                    <ion-icon name="card-outline" class="method-icon"></ion-icon>
-                    <ion-icon name="business-outline" class="method-icon"></ion-icon>
-                    <ion-icon name="phone-portrait-outline" class="method-icon"></ion-icon>
-                    <ion-icon name="wallet-outline" class="method-icon"></ion-icon>
-                </div>
+              <span class="clearance-label">Verified Security</span>
+              <div class="payment-methods">
+                <ion-icon name="card-outline" class="method-icon"></ion-icon>
+                <ion-icon name="business-outline" class="method-icon"></ion-icon>
+                <ion-icon name="phone-portrait-outline" class="method-icon"></ion-icon>
+                <ion-icon name="wallet-outline" class="method-icon"></ion-icon>
+              </div>
             </div>
           </div>
         </div>
@@ -110,61 +115,60 @@
   </main>
 
   <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-column brand-col">
-                <a href="#" class="logo">PIXELPORT<span>.</span></a>
-                <p>The one stop shop for all your tech needs.</p>
-                <div class="social-links">
-                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-                    <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
-                </div>
-            </div>
-
-            <div class="footer-column">
-                <h3>Shop</h3>
-                <ul>
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">Best Sellers</a></li>
-                    <li><a href="#">All Products</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="about.html">About us</a></li>
-                    <li><a href="#">Journal</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3>Support</h3>
-                <ul>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="#">Shipping & Returns</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
-            </div>
+    <div class="footer-container">
+      <div class="footer-column brand-col">
+        <a href="#" class="logo">PIXELPORT<span>.</span></a>
+        <p>The one stop shop for all your tech needs.</p>
+        <div class="social-links">
+          <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+          <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+          <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
         </div>
+      </div>
 
-        <div class="footer-bottom">
-            <div class="bottom-content">
-                <p>2026 PIXELPORT. *images are only for demonstration purposes.</p>
-                <div class="legal-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-                <button id="backToTop" class="back-to-top">
-                    Back to top <ion-icon name="arrow-up-outline"></ion-icon>
-                </button>
-            </div>
+      <div class="footer-column">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">All Products</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="about.html">About us</a></li>
+          <li><a href="#">Journal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="bottom-content">
+        <p>2026 PIXELPORT. *images are only for demonstration purposes.</p>
+        <div class="legal-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
         </div>
-    </footer>
+        <button id="backToTop" class="back-to-top">
+          Back to top <ion-icon name="arrow-up-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </footer>
 
-    <script src="js/cart-shared.js"></script>
-    <script src="js/cart.js"></script>
+  <script src="js/cart-shared.js"></script>
+  <script src="js/cart.js"></script>
 </body>
+
 </html>
-
-
