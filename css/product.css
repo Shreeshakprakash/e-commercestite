@@ -275,3 +275,37 @@
         width: 100%;
     }
 }
+
+@media (max-width: 768px) {
+    .product-showcase {
+        gap: 40px;
+        padding: 20px 6% 70px 6%;
+    }
+
+    .image-frame-locked {
+        min-height: 320px;
+    }
+
+    .optimized-asset {
+        max-height: 360px;
+    }
+
+    .specification-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-showcase {
+        padding: 20px 5% 60px 5%;
+    }
+
+    .product-display-title {
+        font-size: clamp(2rem, 9vw, 2.6rem);
+    }
+
+    .checkout-actions {
+        gap: 12px;
+    }
+}

@@ -113,6 +113,36 @@
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
+@media (max-width: 768px) {
+    .error-wrapper {
+        padding: 0 8%;
+    }
+
+    .error-title {
+        font-size: clamp(2.8rem, 12vw, 4.5rem);
+        letter-spacing: -2px;
+    }
+
+    .error-lead {
+        font-size: 0.95rem;
+    }
+
+    .error-cta {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .error-cta .btn-primary,
+    .error-cta .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .floating-watermark {
+        font-size: 18rem;
+    }
+}
+
 
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }

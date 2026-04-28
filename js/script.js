@@ -121,6 +121,50 @@ function setupVideoObserver() {
   videos.forEach(video => observer.observe(video));
 }
 
+  const initMobileMenu = () => {
+    const header = document.getElementById('navbar');
+    const menuToggle = document.getElementById('mobileMenuTrigger');
+    const navMenu = document.querySelector('.nav-menu');
+    const navUtilities = document.querySelector('.nav-utilities');
+
+    if (!header || !menuToggle || !navMenu || !navUtilities) return;
+
+    const closeMenu = () => {
+      header.classList.remove('nav-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Toggle navigation');
+
+    menuToggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      header.classList.toggle('nav-open');
+      const isOpen = header.classList.contains('nav-open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    navUtilities.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!header.contains(event.target)) {
+        closeMenu();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 992) {
+        closeMenu();
+      }
+    });
+  };
+
 
 const initHeaderScroll = () => {
     const header = document.getElementById('navbar');
@@ -137,6 +181,7 @@ const initHeaderScroll = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
+  initMobileMenu();
 });
 
 document.getElementById('backToTop').addEventListener('click', () => {

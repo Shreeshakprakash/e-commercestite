@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: \;
+            background: ;
             color: white;
             padding: 12px 20px;
             border-radius: 8px;
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
             z-index: 10000;
             animation: slideIn 0.3s ease;
             box-shadow: 0 4px 12px rgba(11, 48, 55, 0.2);
-        \;
+        
         notification.textContent = message;
         
         const style = document.createElement('style');
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 from { transform: translateX(100%); opacity: 0; }
                 to { transform: translateX(0); opacity: 1; }
             }
-        \;
+        
         document.head.appendChild(style);
         document.body.appendChild(notification);
         

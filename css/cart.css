@@ -174,16 +174,24 @@
     .nav-container { padding: 20px 5%; }
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
 body {
     font-family: var(--nav-font-main);
     margin: 0;
     padding: 0;
     background: #f8f8f8;
     line-height: 1.6;
-}
-
-html {
-    scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 
@@ -498,6 +506,99 @@ html {
     cursor: not-allowed;
     opacity: 0.6;
     color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    .cart-hero {
+        padding: 4rem 1rem 2.5rem 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-title-animated {
+        font-size: clamp(2rem, 9vw, 3rem);
+        letter-spacing: 1px;
+    }
+
+    .hero-desc-animated {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-hero {
+        padding: 3.5rem 1rem 2rem 1rem;
+    }
+
+    .hero-title-animated {
+        font-size: clamp(1.8rem, 10vw, 2.6rem);
+    }
+}
+
+@media (max-width: 900px) {
+    .cart-container-main {
+        grid-template-columns: 1fr;
+    }
+
+    .cart-summary-section {
+        position: static;
+    }
+}
+
+@media (max-width: 992px) {
+    .nav-container {
+        flex-wrap: wrap;
+        gap: 12px 0;
+        padding: 20px 5%;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .logo {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .nav-menu,
+    .nav-utilities {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-8px);
+        overflow: hidden;
+        pointer-events: none;
+        transition: max-height 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 10px 0 0;
+    }
+
+    .nav-utilities {
+        padding: 12px 0 16px;
+        border-top: 1px solid var(--nav-border-light);
+    }
+
+    .header.nav-open {
+        background-color: var(--nav-bg-scrolled);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid var(--nav-border-light);
+    }
+
+    .header.nav-open .nav-menu,
+    .header.nav-open .nav-utilities {
+        max-height: 400px;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
 }
 
 .payment-clearance {

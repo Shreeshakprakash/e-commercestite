@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../css/auction.css">
     <link rel="icon" type="image/x-icon" href="../images/favico.png">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+    <link rel="stylesheet" href="../css/toast.css">
 </head>
 <body>
     <header class="header" id="navbar">
@@ -22,7 +24,7 @@
 
             <ul class="nav-menu">
                 <li><a href="../products-live.html" class="nav-link">Shop All</a></li>
-                <li><a href="#" class="nav-link">New Arrivals</a></li>
+                <li><a href="../exclusives.html" class="nav-link">Exclusives</a></li>
                 <li><a href="auction_page.html" class="nav-link active-link" style="color: var(--nav-accent-color);">Auction Page</a></li>
                 <li><a href="../about.html" class="nav-link">About Us</a></li>
             </ul>
@@ -68,65 +70,104 @@
 
             <div class="auction-grid">
                 <!-- Auction Card 1 -->
-                <article class="card">
+                <article class="card" data-auction-id="1">
+                
+                    <span class="auction-status">LIVE</span>
+                
                     <div class="card-image-wrapper">
                         <img src="../images/headphone.png" alt="Headphones">
                     </div>
+                
                     <div class="card-details">
                         <h3 class="product-title">Sony Headphone</h3>
+                
                         <div class="price-row">
                             <span class="price-label">Current Bid</span>
-                            <div class="price">₹2,999</div>
+                            <div class="price current-bid">₹2,999</div>
                         </div>
-                        <div class="time" id="timer">Ends in: 00:08:00</div>
-                        
+                
+                        <div class="auction-timer">Ends in: 00:08:00</div>
+                
                         <div class="bid-controls">
                             <input type="number" placeholder="Enter Your Bid (₹)" class="bid-input">
                             <button class="primary-btn place-bid-btn">Place Bid</button>
                         </div>
-                        <button class="btn-secondary view-details-btn">View Details</button>
+                
+                        <!-- Bid History -->
+                        <div class="bid-history">
+                            <h4>Live Bids</h4>
+                            <ul class="bid-list"></ul>
+                        </div>
+                
+                        <button class="btn-secondary view-details-btn" onclick="window.location.href='auction_detail.html?id=1'">View Details</button>
                     </div>
                 </article>
-
+                
+                
                 <!-- Auction Card 2 -->
-                <article class="card">
+                <article class="card" data-auction-id="2">
+                
+                    <span class="auction-status">UPCOMING</span>
+                
                     <div class="card-image-wrapper">
                         <img src="../images/headphone2.png" alt="Headphones">
                     </div>
+                
                     <div class="card-details">
                         <h3 class="product-title">Wireless Sennheiser</h3>
+                
                         <div class="price-row">
                             <span class="price-label">Starting Bid</span>
-                            <div class="price">₹3,939</div>
+                            <div class="price current-bid">₹3,939</div>
                         </div>
-                        <div class="time time-future" id="timer2">Starts in: 00:10:00</div>
-                        
+                
+                        <div class="auction-timer">Starts in: 00:10:00</div>
+                
                         <div class="bid-controls">
                             <input type="number" placeholder="Enter Your Bid (₹)" class="bid-input">
                             <button class="primary-btn place-bid-btn">Place Bid</button>
                         </div>
-                        <button class="btn-secondary view-details-btn">View Details</button>
+                
+                        <div class="bid-history">
+                            <h4>Live Bids</h4>
+                            <ul class="bid-list"></ul>
+                        </div>
+                
+                        <button class="btn-secondary view-details-btn" onclick="window.location.href='auction_detail.html?id=2'">View Details</button>
                     </div>
                 </article>
-
+                
+                
                 <!-- Auction Card 3 -->
-                <article class="card">
+                <article class="card" data-auction-id="3">
+                
+                    <span class="auction-status">UPCOMING</span>
+                
                     <div class="card-image-wrapper">
                         <img src="../images/laptop2.jpg" alt="Asus Tuf Laptop">
                     </div>
+                
                     <div class="card-details">
                         <h3 class="product-title">Asus Tuf Gaming</h3>
+                
                         <div class="price-row">
                             <span class="price-label">Starting Bid</span>
-                            <div class="price">₹83,939</div>
+                            <div class="price current-bid">₹83,939</div>
                         </div>
-                        <div class="time time-future" id="timer3">Starts in: 00:20:00</div>
-                        
+                
+                        <div class="auction-timer">Starts in: 00:20:00</div>
+                
                         <div class="bid-controls">
                             <input type="number" placeholder="Enter Your Bid (₹)" class="bid-input">
                             <button class="primary-btn place-bid-btn">Place Bid</button>
                         </div>
-                        <button class="btn-secondary view-details-btn">View Details</button>
+                
+                        <div class="bid-history">
+                            <h4>Live Bids</h4>
+                            <ul class="bid-list"></ul>
+                        </div>
+                
+                        <button class="btn-secondary view-details-btn" onclick="window.location.href='auction_detail.html?id=3'">View Details</button>
                     </div>
                 </article>
             </div>
@@ -148,7 +189,7 @@
             <div class="footer-column">
                 <h3>Shop</h3>
                 <ul>
-                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="../new-arrivals.html">New Arrivals</a></li>
                     <li><a href="#">Best Sellers</a></li>
                     <li><a href="#">All Products</a></li>
                 </ul>
@@ -189,5 +230,8 @@
     <script type="module" src="../js/auction.js"></script>
     <script src="../js/cart-shared.js"></script>
     <script type="module" src="../js/script.js"></script>
+
+    <script src="../js/toast.js"></script>
+    <script src="../js/theme-enhancements.js"></script>
 </body>
 </html>

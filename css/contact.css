@@ -186,16 +186,24 @@
         padding: 1.2rem 0 0.7rem 0;
     }
 }
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
 body {
     font-family: var(--nav-font-main);
     margin: 0;
     padding: 0;
     background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
     line-height: 1.6;
-}
-
-html {
-    scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 
@@ -516,6 +524,101 @@ html {
     color: var(--text);
     margin-bottom: 0.5rem;
     font-size: 1.8rem;
+}
+
+@media (max-width: 768px) {
+    .contact-hero {
+        padding: 3.5rem 6% 1.5rem 6%;
+    }
+
+    .contact-hero .hero-display {
+        font-size: clamp(2.4rem, 10vw, 3.4rem);
+        letter-spacing: -2px;
+    }
+
+    .contact-hero .hero-lead {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-hero {
+        padding: 3rem 6% 1.2rem 6%;
+    }
+
+    .contact-hero .hero-display {
+        font-size: clamp(2rem, 11vw, 2.8rem);
+    }
+}
+
+@media (max-width: 900px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-form-section,
+    .contact-info-section,
+    .faq-section {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .nav-container {
+        flex-wrap: wrap;
+        gap: 12px 0;
+        padding: 20px 5%;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .logo {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .nav-menu,
+    .nav-utilities {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-8px);
+        overflow: hidden;
+        pointer-events: none;
+        transition: max-height 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 10px 0 0;
+    }
+
+    .nav-utilities {
+        padding: 12px 0 16px;
+        border-top: 1px solid var(--nav-border-light);
+    }
+
+    .header.nav-open {
+        background-color: var(--nav-bg-scrolled);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid var(--nav-border-light);
+    }
+
+    .header.nav-open .nav-menu,
+    .header.nav-open .nav-utilities {
+        max-height: 400px;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
 }
 
 .faq-header p {
