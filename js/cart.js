@@ -174,14 +174,14 @@ function showPaymentMethodSelection() {
     modalOverlay.innerHTML = `
         <div class="payment-method-modal">
             <div class="payment-header">
-                <h2>💳 Select Payment Method</h2>
-                <p>Choose your preferred payment option to complete the order</p>
+                <h2><ion-icon name="card-outline"></ion-icon> Select Payment</h2>
+                <p>Choose your preferred payment option</p>
             </div>
             
             <div class="payment-options">
                 <div class="payment-option" data-method="card">
                     <div class="payment-icon">
-                        💳
+                        <ion-icon name="card"></ion-icon>
                     </div>
                     <div class="payment-info">
                         <h4>Credit/Debit Card</h4>
@@ -194,7 +194,7 @@ function showPaymentMethodSelection() {
                 
                 <div class="payment-option" data-method="upi">
                     <div class="payment-icon">
-                        🛜
+                        <ion-icon name="qr-code-outline"></ion-icon>
                     </div>
                     <div class="payment-info">
                         <h4>UPI Payment</h4>
@@ -207,7 +207,7 @@ function showPaymentMethodSelection() {
                 
                 <div class="payment-option" data-method="wallet">
                     <div class="payment-icon">
-                        🗂️
+                        <ion-icon name="wallet"></ion-icon>
                     </div>
                     <div class="payment-info">
                         <h4>Digital Wallet</h4>
@@ -220,7 +220,7 @@ function showPaymentMethodSelection() {
                 
                 <div class="payment-option" data-method="netbanking">
                     <div class="payment-icon">
-                        🏦
+                        <ion-icon name="business"></ion-icon>
                     </div>
                     <div class="payment-info">
                         <h4>Net Banking</h4>
@@ -233,7 +233,7 @@ function showPaymentMethodSelection() {
                 
                 <div class="payment-option" data-method="cod">
                     <div class="payment-icon">
-                        💵
+                        <ion-icon name="cash-outline"></ion-icon>
                     </div>
                     <div class="payment-info">
                         <h4>Cash on Delivery</h4>
@@ -247,12 +247,10 @@ function showPaymentMethodSelection() {
             
             <div class="payment-actions">
                 <button class="cancel-payment-btn" onclick="closePaymentModal()">
-                    <i class='bx bx-x'></i>
                     Cancel
                 </button>
                 <button class="proceed-payment-btn" onclick="processPayment()" disabled>
-                    <i class='bx bx-check'></i>
-                    Proceed to Pay
+                    Proceed to Pay <ion-icon name="arrow-forward-outline" style="margin-left: 5px;"></ion-icon>
                 </button>
             </div>
         </div>
@@ -343,11 +341,11 @@ function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 
     };
     
     const paymentIcons = {
-        'card': 'bx-credit-card',
-        'upi': 'bx-qr',
-        'wallet': 'bx-wallet',
-        'netbanking': 'bx-bank',
-        'cod': 'bx-money'
+        'card': 'card',
+        'upi': 'qr-code-outline',
+        'wallet': 'wallet',
+        'netbanking': 'business',
+        'cod': 'cash-outline'
     };
 
     
@@ -359,7 +357,13 @@ function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 
         paymentMethod: paymentNames[paymentMethod],
         orderId: generateOrderId(),
         orderDate: new Date(),
-        estimatedDelivery: getEstimatedDelivery()
+        estimatedDelivery: getEstimatedDelivery(),
+        customer: {
+            name: "Alex Designer",
+            address: "42 Pixel Avenue, Creative District",
+            city: "Design City, DC 10001",
+            phone: "+1 (555) 123-4567"
+        }
     };
     
     
@@ -369,7 +373,7 @@ function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 
         <div class="order-confirmation-modal">
             <div class="confirmation-header">
                 <div class="success-icon">
-                    <i class='bx bx-check-circle'></i>
+                    <ion-icon name="checkmark-circle"></ion-icon>
                 </div>
                 <h2>Order Confirmed!</h2>
                 <p>Thank you for your purchase. Your order has been successfully placed.</p>
@@ -404,28 +408,28 @@ function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 
             
             <div class="order-info">
                 <div class="info-item">
-                    <i class='bx bx-package'></i>
+                    <ion-icon name="cube-outline"></ion-icon>
                     <div>
                         <strong>Order ID:</strong>
                         <span>#${window.lastOrderData.orderId}</span>
                     </div>
                 </div>
                 <div class="info-item">
-                    <i class='bx ${paymentIcons[paymentMethod]}'></i>
+                    <ion-icon name="${paymentIcons[paymentMethod]}"></ion-icon>
                     <div>
                         <strong>Payment Method:</strong>
                         <span>${paymentNames[paymentMethod]}</span>
                     </div>
                 </div>
                 <div class="info-item">
-                    <i class='bx bx-time'></i>
+                    <ion-icon name="time-outline"></ion-icon>
                     <div>
                         <strong>Estimated Delivery:</strong>
                         <span>${window.lastOrderData.estimatedDelivery}</span>
                     </div>
                 </div>
                 <div class="info-item">
-                    <i class='bx bx-envelope'></i>
+                    <ion-icon name="mail-outline"></ion-icon>
                     <div>
                         <strong>Confirmation Email:</strong>
                         <span>Sent to your registered email</span>
@@ -435,12 +439,10 @@ function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 
             
             <div class="confirmation-actions">
                 <button class="continue-shopping-btn" onclick="closeOrderConfirmation()">
-                    <i class='bx bx-shopping-bag'></i>
                     Continue Shopping
                 </button>
                 <button class="print-receipt-btn" onclick="printReceipt()">
-                    <i class='bx bx-printer'></i>
-                    Print Receipt
+                    <ion-icon name="print-outline"></ion-icon> Print Receipt
                 </button>
             </div>
         </div>
@@ -500,91 +502,153 @@ function printReceipt() {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Order Receipt - ${orderData.orderId}</title>
+            <title>Receipt - ${orderData.orderId}</title>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
             <style>
                 body {
-                    font-family: 'Segoe UI', sans-serif;
-                    max-width: 600px;
-                    margin: 0 auto;
-                    padding: 20px;
-                    background: white;
-                    color: black;
+                    font-family: 'Inter', sans-serif;
+                    max-width: 500px;
+                    margin: 40px auto;
+                    padding: 40px;
+                    background: #fdfdfd;
+                    color: #111;
+                    box-shadow: 0 0 20px rgba(0,0,0,0.05);
                 }
                 .receipt-header {
                     text-align: center;
-                    border-bottom: 2px solid #000;
-                    padding-bottom: 20px;
-                    margin-bottom: 20px;
+                    border-bottom: 2px dashed #111;
+                    padding-bottom: 25px;
+                    margin-bottom: 25px;
                 }
                 .company-name {
-                    font-size: 24px;
-                    font-weight: bold;
-                    margin-bottom: 5px;
+                    font-size: 26px;
+                    font-weight: 800;
+                    letter-spacing: 1px;
+                    margin-bottom: 8px;
+                    text-transform: uppercase;
                 }
                 .receipt-title {
-                    font-size: 18px;
-                    margin-bottom: 10px;
+                    font-size: 13px;
+                    letter-spacing: 2px;
+                    color: #555;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                }
+                .customer-info {
+                    margin-bottom: 25px;
+                    padding-bottom: 20px;
+                    border-bottom: 1px solid #eaeaea;
+                    font-size: 14px;
+                    line-height: 1.5;
+                }
+                .customer-info h4 {
+                    margin: 0 0 8px 0;
+                    font-size: 12px;
+                    color: #666;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                .customer-info p {
+                    margin: 2px 0;
+                    color: #222;
                 }
                 .order-info {
-                    margin-bottom: 20px;
+                    margin-bottom: 30px;
+                    font-size: 14px;
                 }
                 .info-row {
                     display: flex;
                     justify-content: space-between;
-                    margin-bottom: 5px;
+                    margin-bottom: 8px;
+                }
+                .info-row span:first-child {
+                    color: #555;
+                    font-size: 13px;
+                }
+                .info-row span:last-child {
+                    font-weight: 500;
                 }
                 .items-section {
-                    margin: 20px 0;
+                    margin: 30px 0;
                 }
                 .item-header {
                     display: flex;
                     justify-content: space-between;
-                    border-bottom: 1px solid #000;
-                    padding-bottom: 5px;
-                    margin-bottom: 10px;
-                    font-weight: bold;
+                    border-bottom: 2px solid #111;
+                    padding-bottom: 10px;
+                    margin-bottom: 15px;
+                    font-weight: 700;
+                    font-size: 13px;
+                    color: #444;
                 }
                 .item-row {
                     display: flex;
                     justify-content: space-between;
-                    margin-bottom: 5px;
+                    margin-bottom: 12px;
+                    font-size: 14px;
+                }
+                .item-row span:first-child {
+                    color: #222;
+                }
+                .item-row span:last-child {
+                    font-weight: 500;
                 }
                 .totals-section {
-                    border-top: 2px solid #000;
-                    padding-top: 10px;
-                    margin-top: 20px;
+                    border-top: 2px dashed #111;
+                    padding-top: 20px;
+                    margin-top: 30px;
                 }
                 .total-row {
                     display: flex;
                     justify-content: space-between;
-                    margin-bottom: 5px;
+                    margin-bottom: 10px;
+                    font-size: 14px;
+                }
+                .total-row span:first-child {
+                    color: #555;
                 }
                 .final-total {
-                    font-weight: bold;
-                    font-size: 18px;
-                    border-top: 1px solid #000;
-                    padding-top: 10px;
-                    margin-top: 10px;
+                    font-weight: 700;
+                    font-size: 20px;
+                    border-top: 2px solid #111;
+                    padding-top: 15px;
+                    margin-top: 15px;
+                }
+                .final-total span:first-child {
+                    color: #111;
                 }
                 .receipt-footer {
                     text-align: center;
-                    margin-top: 30px;
-                    padding-top: 20px;
-                    border-top: 2px solid #000;
+                    margin-top: 40px;
+                    padding-top: 30px;
                     font-size: 12px;
+                    color: #666;
+                    border-top: 1px dashed #ddd;
+                }
+                .receipt-footer p {
+                    margin: 5px 0;
                 }
                 @media print {
-                    body { margin: 0; }
+                    body { margin: 0; padding: 20px; box-shadow: none; }
                     .no-print { display: none; }
                 }
                 .print-btn {
-                    background: #007bff;
+                    background: #111;
                     color: white;
                     border: none;
-                    padding: 10px 20px;
+                    padding: 14px 28px;
+                    font-family: 'Inter', sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
                     cursor: pointer;
-                    margin: 20px 0;
-                    border-radius: 5px;
+                    margin: 30px auto 0;
+                    display: block;
+                    border-radius: 6px;
+                    transition: all 0.2s;
+                }
+                .print-btn:hover {
+                    background: #333;
+                    transform: translateY(-2px);
                 }
             </style>
         </head>
@@ -592,7 +656,14 @@ function printReceipt() {
             <div class="receipt-header">
                 <div class="company-name">PIXELPORT</div>
                 <div class="receipt-title">ORDER RECEIPT</div>
-                <div>Thank you for your purchase!</div>
+            </div>
+
+            <div class="customer-info">
+                <h4>Billed To</h4>
+                <p><strong>${orderData.customer.name}</strong></p>
+                <p>${orderData.customer.address}</p>
+                <p>${orderData.customer.city}</p>
+                <p>${orderData.customer.phone}</p>
             </div>
 
             <div class="order-info">
@@ -601,31 +672,23 @@ function printReceipt() {
                     <span>#${orderData.orderId}</span>
                 </div>
                 <div class="info-row">
-                    <span>Order Date:</span>
+                    <span>Date:</span>
                     <span>${orderData.orderDate.toLocaleDateString('en-IN')} ${orderData.orderDate.toLocaleTimeString('en-IN')}</span>
                 </div>
                 <div class="info-row">
-                    <span>Payment Method:</span>
+                    <span>Payment:</span>
                     <span>${orderData.paymentMethod}</span>
-                </div>
-                <div class="info-row">
-                    <span>Estimated Delivery:</span>
-                    <span>${orderData.estimatedDelivery}</span>
                 </div>
             </div>
 
             <div class="items-section">
                 <div class="item-header">
-                    <span>ITEM</span>
-                    <span>QTY</span>
-                    <span>PRICE</span>
+                    <span>ITEM (QTY)</span>
                     <span>TOTAL</span>
                 </div>
                 ${orderData.cart.map(item => `
                     <div class="item-row">
-                        <span>${item.name}</span>
-                        <span>${item.quantity}</span>
-                        <span>₹${item.price.toFixed(2)}</span>
+                        <span>${item.name} x${item.quantity}</span>
                         <span>₹${(item.price * item.quantity).toFixed(2)}</span>
                     </div>
                 `).join('')}
@@ -633,26 +696,25 @@ function printReceipt() {
 
             <div class="totals-section">
                 <div class="total-row">
-                    <span>Subtotal:</span>
+                    <span>SUBTOTAL</span>
                     <span>₹${orderData.subtotal.toFixed(2)}</span>
                 </div>
                 <div class="total-row">
-                    <span>Shipping:</span>
+                    <span>SHIPPING</span>
                     <span>${orderData.shipping === 0 ? 'FREE' : `₹${orderData.shipping.toFixed(2)}`}</span>
                 </div>
                 <div class="total-row final-total">
-                    <span>TOTAL AMOUNT:</span>
+                    <span>TOTAL</span>
                     <span>₹${orderData.total.toFixed(2)}</span>
                 </div>
             </div>
 
             <div class="receipt-footer">
-                <p>Contact: info@pixelport.com | +91 123-4567-890</p>
-                <p>Visit us at: www.pixelport.com</p>
-                <p>Thank you for choosing PixelPort!</p>
+                <p>THANK YOU FOR YOUR PURCHASE</p>
+                <p>WWW.PIXELPORT.COM</p>
             </div>
 
-            <button class="print-btn no-print" onclick="window.print()">🖨️ Print Receipt</button>
+            <button class="print-btn no-print" onclick="window.print()">PRINT RECEIPT</button>
         </body>
         </html>
     `;
