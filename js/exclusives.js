@@ -10,9 +10,10 @@ let hasPlayedVideos = false;
 
 async function fetchProducts() {
     const { data, error } = await supabase
-    .from('products')
-    .select('*')
-    .order('id', { ascending: false });
+    .from('exclusive_products')
+    .select('id, name, price, image_url, video_url, layout_slot, description, category, is_active, created_at')
+    .eq('is_active', true)
+    .order('created_at', { ascending: false });
 
     if (error) {
         console.error('Error fetching products:', error);
@@ -25,19 +26,14 @@ async function fetchProducts() {
 }
 fetchProducts();
 
-function getBentoClass(index) {
-    const classes = [
-        'bento-large', // 0
-        'bento-tall',  // 1
-        'bento-small', // 2
-        'bento-small', // 3
-        'bento-wide',  // 4
-        'bento-small', // 5
-        'bento-tall',  // 6
-        'bento-wide',  // 7
-        'bento-small'  // 8
-    ];
-    return classes[index] || 'bento-small';
+/* Pull layout directly from database */
+function getBentoClass(product){
+    console.log(
+        product.name,
+        product.layout_slot
+    );
+
+    return product.layout_slot || 'bento-small';
 }
 
 function renderProducts(products) {
@@ -53,32 +49,35 @@ function renderProducts(products) {
         return;
     }
 
-    productList.innerHTML = products.map((product, index) => {
-        const bentoClass = getBentoClass(index);
+        productList.innerHTML = products.map((product, index) => {
+        const bentoClass = getBentoClass(product);
+                const imageUrl = product.image_url || product.image || 'images/logo_small.png';
+                const videoUrl = product.video_url || product.video;
+                const formattedPrice = Number(product.price || 0).toLocaleString();
         
         return `
           <div class="bento-item ${bentoClass}">
-            ${product.video ? `
+                        ${videoUrl ? `
               <video
-                src="${product.video}"
+                                src="${videoUrl}"
                 muted
                 autoplay
                 loop
                 playsinline
                 preload="metadata"
-                poster="${product.image || 'images/logo_small.png'}"
+                                poster="${imageUrl}"
               ></video>
             ` : `
               <img
-                src="${product.image || 'images/logo_small.png'}"
+                                src="${imageUrl}"
                 alt="${product.name}"
               >
             `}
             <div class="bento-content">
               <h3 class="bento-title">${product.name}</h3>
-              <p class="bento-price">₹${product.price}</p>
+                            <p class="bento-price">₹${formattedPrice}</p>
               ${bentoClass !== 'bento-small' ? `<p class="bento-desc">${product.description || ''}</p>` : ''}
-              <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image || ''}">
+                            <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}" data-image="${imageUrl}">
                  <ion-icon name="cart-outline"></ion-icon> Add to Cart
               </button>
             </div>

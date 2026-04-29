@@ -13,34 +13,6 @@
     <link rel="stylesheet" href="../css/auction.css">
     <link rel="icon" type="image/x-icon" href="../images/favico.png">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <style>
-        .auction-detail-controls {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-        .auction-detail-timer {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--nav-accent-color);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .auction-detail-history {
-            margin-top: 2rem;
-        }
-        .auction-detail-history h4 {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--light-text);
-        }
-    </style>
 
     <link rel="stylesheet" href="../css/toast.css">
 </head>
@@ -80,15 +52,15 @@
         <div id="product-details" class="product-showcase">
 
             <section class="media-gallery">
-                <div class="image-frame-locked" style="position: relative;">
-                    <span class="auction-status" style="position: absolute; top: 20px; left: 20px; z-index: 10;">LOADING</span>
+                <div class="image-frame-locked">
+                    <span class="auction-status">LOADING</span>
                     <img id="product-image" src="" alt="Loading Asset..." class="optimized-asset">
                 </div>
             </section>
 
 
             <aside class="sticky-details">
-                <div class="sticky-data-module card" style="background: transparent; border: none; padding: 0;" data-auction-id="">
+                <div class="sticky-data-module auction-detail-card" data-auction-id="">
                     <div class="product-path">
                         <a href="auction_page.html">Live Auctions</a> / <span id="product-category">Hardware</span>
                     </div>
@@ -96,9 +68,24 @@
                     <h1 id="product-title" class="product-display-title product-title"></h1>
 
                     <div class="price-module">
-                        <span class="price-label" style="font-size: 0.9rem; color: #888;">Current Bid</span>
+                        <span class="price-label price-label--detail">Current Bid</span>
                         <br>
                         <span id="product-price" class="value current-bid"></span>
+                    </div>
+
+                    <div class="auction-detail-metrics">
+                        <div class="auction-detail-metric">
+                            <span class="auction-metric-label">Minimum Increment</span>
+                            <span class="auction-metric-value" id="min-increment">₹100</span>
+                        </div>
+                        <div class="auction-detail-metric">
+                            <span class="auction-metric-label">Next Minimum Bid</span>
+                            <span class="auction-metric-value" id="next-min-bid">₹--</span>
+                        </div>
+                        <div class="auction-detail-metric">
+                            <span class="auction-metric-label">Status</span>
+                            <span class="auction-metric-value" id="auction-status-text">Loading</span>
+                        </div>
                     </div>
 
                     <div class="technical-description-sticky">
@@ -110,20 +97,21 @@
                             <ion-icon name="time-outline"></ion-icon> Ends in: --:--:--
                         </div>
 
-                        <div class="bid-controls" style="display: flex; gap: 1rem; align-items: center;">
-                            <input type="number" placeholder="Enter Your Bid (₹)" class="bid-input" style="flex: 1;">
-                            <button class="primary-btn place-bid-btn" style="padding: 12px 24px;">Place Bid</button>
+                        <div class="bid-controls auction-detail-actions">
+                            <input type="number" placeholder="Enter Your Bid (₹)" class="bid-input">
+                            <button class="primary-btn place-bid-btn">Place Bid</button>
                         </div>
+                        <p class="auction-detail-hint" id="bid-hint">Minimum bid: ₹--</p>
                     </div>
 
                     <div class="auction-detail-history bid-history">
                         <h4>Live Bids</h4>
-                        <ul class="bid-list" style="max-height: 250px; overflow-y: auto; padding-right: 10px;">
+                        <ul class="bid-list bid-list--tall">
                             <!-- Bids injected here -->
                         </ul>
                     </div>
 
-                    <div class="security-footer" style="margin-top: 2rem;">
+                    <div class="security-footer security-footer--spaced">
                         <ion-icon name="shield-checkmark-outline"></ion-icon>
                         <span>Secure Real-time Bidding Process</span>
                     </div>

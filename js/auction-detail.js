@@ -23,6 +23,8 @@ const currentUser = {
 	name: "You"
 };
 
+const minIncrement = 100;
+
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const auctionIdParam = urlParams.get('id');
@@ -35,6 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const auctionId = Number(auctionIdParam);
     const card = document.querySelector(".sticky-data-module");
     card.dataset.auctionId = auctionId;
+
+	const minIncrementEl = card.querySelector("#min-increment");
+	if (minIncrementEl) {
+		minIncrementEl.textContent = `₹${minIncrement.toLocaleString()}`;
+	}
 
     // Load local mock data for things not in DB
     const localData = mockProductData[auctionId];
@@ -49,7 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
     setupRealtime(auctionId, card);
 
     const bidBtn = card.querySelector(".place-bid-btn");
+	const bidInput = card.querySelector(".bid-input");
     bidBtn.addEventListener("click", () => placeBid(auctionId, card));
+	if (bidInput) {
+		bidInput.addEventListener("input", () => toggleBidButtonState(card));
+	}
     
     initHeaderScroll();
 });
@@ -72,6 +83,9 @@ async function loadAuction(auctionId, card) {
 
 	card.querySelector(".product-title").textContent = data.product_name;
 	card.querySelector(".current-bid").textContent = `₹${Number(data.current_bid).toLocaleString()}`;
+
+	updateNextMinimumBid(card, Number(data.current_bid));
+	updateStatusText(data.status);
 	
 	// Also select the auction status somewhere globally if needed, actually it's in the image frame
 	const badge = document.querySelector(".auction-status");
@@ -95,6 +109,8 @@ function startTimer(endTime, card, auctionId) {
 			timerEl.innerHTML = "<ion-icon name='time-outline'></ion-icon> Auction Ended";
 			bidBtn.disabled = true;
 			bidInput.disabled = true;
+			bidBtn.classList.add("is-disabled");
+			updateStatusText("ended");
 
 			const badge = document.querySelector(".auction-status");
 			if (badge) updateStatusBadgeEl(badge, "ended");
@@ -159,6 +175,7 @@ async function placeBid(auctionId, card) {
 	}
 
 	input.value = "";
+	toggleBidButtonState(card);
 }
 
 async function loadBidHistory(auctionId, card) {
@@ -179,15 +196,12 @@ function renderBidHistory(bids, card) {
 
 	bids.forEach(bid => {
 		const li = document.createElement("li");
-		li.style.display = "flex";
-		li.style.justifyContent = "space-between";
-		li.style.padding = "10px 0";
-		li.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
+		li.classList.add("bid-list-item");
 		
 		li.innerHTML = `
-			<span class="bid-user" style="color: var(--light-text);">User ${String(bid.user_id).substring(0, 4)}</span>
-			<span class="bid-amount" style="font-weight: 600; color: #fff;">₹${Number(bid.bid_amount).toLocaleString()}</span>
-			<span class="bid-time" style="font-size: 0.8rem; color: #888;">${new Date(bid.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+			<span class="bid-user">User ${String(bid.user_id).substring(0, 4)}</span>
+			<span class="bid-amount">₹${Number(bid.bid_amount).toLocaleString()}</span>
+			<span class="bid-time">${new Date(bid.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
 		`;
 		list.appendChild(li);
 	});
@@ -202,9 +216,46 @@ function setupRealtime(auctionId, card) {
 			(payload) => {
 				loadBidHistory(auctionId, card);
 				card.querySelector(".current-bid").textContent = `₹${Number(payload.new.bid_amount).toLocaleString()}`;
+				updateNextMinimumBid(card, Number(payload.new.bid_amount));
 			}
 		)
 		.subscribe();
+}
+
+function updateNextMinimumBid(card, currentBid) {
+	const nextMin = currentBid + minIncrement;
+	const nextMinEl = card.querySelector("#next-min-bid");
+	if (nextMinEl) {
+		nextMinEl.textContent = `₹${nextMin.toLocaleString()}`;
+	}
+
+	const hintEl = card.querySelector("#bid-hint");
+	if (hintEl) {
+		hintEl.textContent = `Minimum bid: ₹${nextMin.toLocaleString()}`;
+	}
+
+	const input = card.querySelector(".bid-input");
+	if (input) {
+		input.min = String(nextMin);
+		input.step = String(minIncrement);
+		input.placeholder = `Enter Your Bid (₹${nextMin.toLocaleString()}+)`;
+	}
+
+	toggleBidButtonState(card);
+}
+
+function toggleBidButtonState(card) {
+	const input = card.querySelector(".bid-input");
+	const btn = card.querySelector(".place-bid-btn");
+	if (!input || !btn || input.disabled) {
+		return;
+	}
+
+	const value = Number(input.value);
+	const min = Number(input.min || 0);
+	const isValid = value && value >= min;
+	btn.disabled = !isValid;
+	btn.classList.toggle("is-disabled", !isValid);
 }
 
 function updateStatusBadgeEl(badge, status) {
@@ -224,6 +275,25 @@ function updateStatusBadgeEl(badge, status) {
 	
 	badge.textContent = status.toUpperCase();
 	badge.classList.add(`status-${status.toLowerCase()}`);
+}
+
+function updateStatusText(status) {
+	const statusEl = document.getElementById("auction-status-text");
+	if (!statusEl) {
+		return;
+	}
+
+	if (status === "ended") {
+		statusEl.textContent = "Ended";
+		return;
+	}
+
+	if (status === "active" || status === "live") {
+		statusEl.textContent = "Live";
+		return;
+	}
+
+	statusEl.textContent = status ? `${status.charAt(0).toUpperCase()}${status.slice(1)}` : "Unknown";
 }
 
 const initHeaderScroll = () => {

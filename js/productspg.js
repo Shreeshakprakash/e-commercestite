@@ -7,8 +7,12 @@ console.log('Supabase client initialized:', supabase);
 
 
 let allProducts = [];
-let productsChannel;
 let hasPlayedVideos = false;
+let activeFilters = {
+  categories: [],
+  brands: [],
+  prices: []
+};
 
 
 async function fetchProducts() {
@@ -123,36 +127,126 @@ function setupVideoObserver() {
 }
 
 
-function filterProductsByCategory(category){
-    if(category === 'all'){
-        renderProducts(allProducts);
-        return;
+function getFieldValue(product, keys, fallback = '') {
+  for (const key of keys) {
+    if (product && product[key] !== undefined && product[key] !== null) {
+      return product[key];
     }
-    const filteredProducts = allProducts.filter(product => {
-        if(!product.category) return false;
-
-        return product.category
-        .split(',')
-        .map(c => c.trim().toLowerCase())
-        .includes(category.toLowerCase());
-    });
-    renderProducts(filteredProducts);
+  }
+  return fallback;
 }
 
-function setupCategoryFilters(){
-    const buttons = document.querySelectorAll('.category-btn');
-
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            buttons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            const category = button.dataset.category;
-            filterProductsByCategory(category);
-        });
-    });
+function parsePriceRange(range) {
+  const [min, max] = range.split('-').map(Number);
+  return { min, max };
 }
-setupCategoryFilters();
+
+function applyFilters() {
+  let filtered = [...allProducts];
+
+  if (activeFilters.categories.length) {
+    filtered = filtered.filter((product) => {
+      const categoryValue = getFieldValue(product, ['category', 'Category'], '').toLowerCase();
+      if (!categoryValue) return false;
+      const categories = categoryValue.split(',').map((c) => c.trim());
+      return activeFilters.categories.some((cat) => categories.includes(cat));
+    });
+  }
+
+  if (activeFilters.brands.length) {
+    filtered = filtered.filter((product) => {
+      const brandValue = getFieldValue(product, ['brand', 'Brand'], '').toLowerCase();
+      if (!brandValue) {
+        return activeFilters.brands.includes('other');
+      }
+      return activeFilters.brands.includes(brandValue);
+    });
+  }
+
+  if (activeFilters.prices.length) {
+    filtered = filtered.filter((product) => {
+      const priceValue = Number(getFieldValue(product, ['price', 'Price'], 0));
+      return activeFilters.prices.some((range) => {
+        const { min, max } = parsePriceRange(range);
+        return priceValue >= min && priceValue <= max;
+      });
+    });
+  }
+
+  const sortSelect = document.getElementById('sortSelect');
+  if (sortSelect) {
+    const sortValue = sortSelect.value;
+    if (sortValue === 'price-asc') {
+      filtered.sort((a, b) => Number(a.price || 0) - Number(b.price || 0));
+    }
+    if (sortValue === 'price-desc') {
+      filtered.sort((a, b) => Number(b.price || 0) - Number(a.price || 0));
+    }
+    if (sortValue === 'name-asc') {
+      filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+    }
+  }
+
+  const resultsCount = document.getElementById('resultsCount');
+  if (resultsCount) {
+    resultsCount.textContent = `(${filtered.length})`;
+  }
+
+  renderProducts(filtered);
+}
+
+function setupFilters() {
+  const categoryInputs = document.querySelectorAll('input[name="category"]');
+  const brandInputs = document.querySelectorAll('input[name="brand"]');
+  const priceInputs = document.querySelectorAll('input[name="price"]');
+  const resetButton = document.querySelector('.filter-reset');
+  const expandButton = document.querySelector('.filter-expand');
+  const categoryList = document.querySelector('.category-list');
+  const sortSelect = document.getElementById('sortSelect');
+  const filterVisibility = document.querySelector('.filter-visibility');
+  const listingLayout = document.querySelector('.listing-layout');
+
+  const syncFilters = () => {
+    activeFilters.categories = [...categoryInputs].filter((el) => el.checked).map((el) => el.value);
+    activeFilters.brands = [...brandInputs].filter((el) => el.checked).map((el) => el.value);
+    activeFilters.prices = [...priceInputs].filter((el) => el.checked).map((el) => el.value);
+    applyFilters();
+  };
+
+  categoryInputs.forEach((input) => input.addEventListener('change', syncFilters));
+  brandInputs.forEach((input) => input.addEventListener('change', syncFilters));
+  priceInputs.forEach((input) => input.addEventListener('change', syncFilters));
+
+  if (sortSelect) {
+    sortSelect.addEventListener('change', applyFilters);
+  }
+
+  if (resetButton) {
+    resetButton.addEventListener('click', () => {
+      [...categoryInputs, ...brandInputs, ...priceInputs].forEach((input) => {
+        input.checked = false;
+      });
+      activeFilters = { categories: [], brands: [], prices: [] };
+      applyFilters();
+    });
+  }
+
+  if (expandButton && categoryList) {
+    expandButton.addEventListener('click', () => {
+      const isExpanded = categoryList.classList.toggle('is-expanded');
+      expandButton.setAttribute('aria-expanded', String(isExpanded));
+      expandButton.textContent = isExpanded ? 'Fewer categories' : 'More categories';
+    });
+  }
+
+  if (filterVisibility && listingLayout) {
+    filterVisibility.addEventListener('click', () => {
+      const isCollapsed = listingLayout.classList.toggle('filters-collapsed');
+      filterVisibility.setAttribute('aria-expanded', String(!isCollapsed));
+      filterVisibility.textContent = isCollapsed ? 'Show Filters' : 'Hide Filters';
+    });
+  }
+}
 
 const initHeaderScroll = () => {
     const header = document.getElementById('navbar');
@@ -170,6 +264,8 @@ const initHeaderScroll = () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
+  setupFilters();
+  applyFilters();
 });
 
 document.getElementById('backToTop').addEventListener('click', () => {

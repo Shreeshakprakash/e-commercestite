@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <title>PixelPort</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/x-icon" href="images/favico.png">
@@ -67,35 +68,130 @@
 
         </div>
 
-        <section class="products-section secondary-bg" id="brands">
-            <div class="section-header">
-                <span class="section-label">Our Partners</span>
-                <h2 class="section-title">Featured Brands</h2>
+        <section class="exclusive-cta" id="exclusives">
+            <div class="exclusive-cta__glow"></div>
+            <div class="exclusive-cta__content">
+                <span class="exclusive-cta__eyebrow">Premium Access</span>
+                <h2 class="exclusive-cta__title">Enter the Exclusives.</h2>
+                <p class="exclusive-cta__copy">Limited drops, collector hardware, and curated tech for those who want
+                    the very best.</p>
+                <a href="exclusives.html" class="exclusive-cta__button">
+                    Explore Exclusives
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+            </div>
+            <div class="exclusive-cta__frame">
+                <div class="exclusive-cta__card">
+                    <span class="exclusive-cta__tag">PixelPort Reserve</span>
+                    <p class="exclusive-cta__desc">Private releases, early access, and premium gear.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Brands — Dark Editorial Panel -->
+        <section class="brands-panel" id="brands">
+
+            <!-- Top strip: label + heading + CTA -->
+            <div class="brands-panel__top">
+                <div class="brands-panel__left">
+                    <span class="brands-eyebrow">Official Partners</span>
+                    <h2 class="brands-heading">Trusted by<br><span>the best.</span></h2>
+                </div>
+                <div class="brands-panel__right">
+                    <p class="brands-copy">Every product we carry is sourced directly from the world's most respected
+                        technology manufacturers — fully certified, warranty-backed and genuine.</p>
+                    <a href="products-live.html" class="brands-cta">
+                        Shop All Brands
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </a>
+                </div>
             </div>
 
-            <div class="brand-grid">
-                <div class="brand-card">
-                    <div class="brand-logo">
+            <!-- Brand logo row -->
+            <div class="brands-row">
+                <a href="products-live.html" class="brand-item" id="brand-item-asus">
+                    <div class="brand-item__logo">
                         <img src="images/logo/asus.png" alt="ASUS">
                     </div>
-                    <div class="brand-info">
-                        <h3 class="brand-title">ASUS</h3>
-                        <a href="#" class="brand-link">View Collection <ion-icon
-                                name="arrow-forward-outline"></ion-icon></a>
+                    <div class="brand-item__footer">
+                        <span class="brand-item__name">ASUS</span>
+                        <span class="brand-item__explore">Explore <ion-icon
+                                name="arrow-forward-outline"></ion-icon></span>
                     </div>
-                </div>
+                </a>
 
-                <div class="brand-card">
-                    <div class="brand-logo">
-                        <img src="images/logo/samsung.png" alt="SAMSUNG">
+                <div class="brands-row__divider"></div>
+
+                <a href="products-live.html" class="brand-item" id="brand-item-samsung">
+                    <div class="brand-item__logo">
+                        <img src="images/logo/samsung.png" alt="Samsung">
                     </div>
-                    <div class="brand-info">
-                        <h3 class="brand-title">SAMSUNG</h3>
-                        <a href="#" class="brand-link">View Collection <ion-icon
-                                name="arrow-forward-outline"></ion-icon></a>
+                    <div class="brand-item__footer">
+                        <span class="brand-item__name">SAMSUNG</span>
+                        <span class="brand-item__explore">Explore <ion-icon
+                                name="arrow-forward-outline"></ion-icon></span>
                     </div>
+                </a>
+
+                <div class="brands-row__divider"></div>
+
+                <a href="products-live.html" class="brand-item" id="brand-item-nvidia">
+                    <div class="brand-item__logo">
+                        <img src="images/logo/nvidia.png" alt="NVIDIA">
+                    </div>
+                    <div class="brand-item__footer">
+                        <span class="brand-item__name">NVIDIA</span>
+                        <span class="brand-item__explore">Explore <ion-icon
+                                name="arrow-forward-outline"></ion-icon></span>
+                    </div>
+                </a>
+
+                <div class="brands-row__divider"></div>
+
+                <a href="products-live.html" class="brand-item" id="brand-item-intel">
+                    <div class="brand-item__logo">
+                        <img src="images/logo/intel.png" alt="Intel">
+                    </div>
+                    <div class="brand-item__footer">
+                        <span class="brand-item__name">INTEL</span>
+                        <span class="brand-item__explore">Explore <ion-icon
+                                name="arrow-forward-outline"></ion-icon></span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Scrolling ticker at the bottom -->
+            <div class="brands-ticker" aria-hidden="true">
+                <div class="brands-ticker__track">
+                    <span>ASUS</span><span class="t-dot">✦</span>
+                    <span>SAMSUNG</span><span class="t-dot">✦</span>
+                    <span>NVIDIA</span><span class="t-dot">✦</span>
+                    <span>INTEL</span><span class="t-dot">✦</span>
+                    <span>ASUS</span><span class="t-dot">✦</span>
+                    <span>SAMSUNG</span><span class="t-dot">✦</span>
+                    <span>NVIDIA</span><span class="t-dot">✦</span>
+                    <span>INTEL</span><span class="t-dot">✦</span>
+                    <span>ASUS</span><span class="t-dot">✦</span>
+                    <span>SAMSUNG</span><span class="t-dot">✦</span>
+                    <span>NVIDIA</span><span class="t-dot">✦</span>
+                    <span>INTEL</span><span class="t-dot">✦</span>
+                </div>
+                <div class="brands-ticker__track" aria-hidden="true">
+                    <span>ASUS</span><span class="t-dot">✦</span>
+                    <span>SAMSUNG</span><span class="t-dot">✦</span>
+                    <span>NVIDIA</span><span class="t-dot">✦</span>
+                    <span>INTEL</span><span class="t-dot">✦</span>
+                    <span>ASUS</span><span class="t-dot">✦</span>
+                    <span>SAMSUNG</span><span class="t-dot">✦</span>
+                    <span>NVIDIA</span><span class="t-dot">✦</span>
+                    <span>INTEL</span><span class="t-dot">✦</span>
+                    <span>ASUS</span><span class="t-dot">✦</span>
+                    <span>SAMSUNG</span><span class="t-dot">✦</span>
+                    <span>NVIDIA</span><span class="t-dot">✦</span>
+                    <span>INTEL</span><span class="t-dot">✦</span>
                 </div>
             </div>
+
         </section>
     </main>
 
