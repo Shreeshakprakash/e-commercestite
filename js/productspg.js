@@ -14,6 +14,9 @@ let activeFilters = {
   prices: []
 };
 
+let currentPage = 1;
+const itemsPerPage = 20;
+
 
 async function fetchProducts() {
     const { data, error } = await supabase
@@ -33,6 +36,7 @@ fetchProducts();
 
 function renderProducts(products) {
     const productList = document.getElementById('products-list');
+    const paginationControls = document.getElementById('pagination-controls');
 
     if (!productList){
         console.error('products-list elements not found ');
@@ -41,10 +45,20 @@ function renderProducts(products) {
 
     if(!products || products.length===0){
         productList.innerHTML= '<p>No Products found.</p>';
+        if (paginationControls) paginationControls.innerHTML = '';
         return;
     }
 
-        productList.innerHTML = products.map(product => `
+    // --- Pagination Logic ---
+    const totalPages = Math.ceil(products.length / itemsPerPage);
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedProducts = products.slice(startIndex, endIndex);
+
+    productList.innerHTML = paginatedProducts.map(product => `
           <div class="product-card">
             ${product.video ? `
               <div class="product-media">
@@ -73,7 +87,51 @@ function renderProducts(products) {
           </div>
         `).join('');
 
-        
+    // --- Render Pagination Controls ---
+    if (paginationControls) {
+        if (totalPages > 1) {
+            let paginationHTML = '';
+            
+            // Prev Button
+            if (currentPage > 1) {
+                paginationHTML += `<button class="page-btn prev-btn" data-page="${currentPage - 1}"><ion-icon name="chevron-back-outline"></ion-icon> Prev</button>`;
+            }
+
+            // Page Numbers
+            for (let i = 1; i <= totalPages; i++) {
+                // simple display for up to ~10 pages; adjust if there are many pages
+                if(i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    paginationHTML += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    paginationHTML += `<span class="page-dots">...</span>`;
+                }
+            }
+
+            // Next Button
+            if (currentPage < totalPages) {
+                paginationHTML += `<button class="page-btn next-btn" data-page="${currentPage + 1}">Next <ion-icon name="chevron-forward-outline"></ion-icon></button>`;
+            }
+
+            paginationControls.innerHTML = paginationHTML;
+
+            // Add Event Listeners to buttons
+            paginationControls.querySelectorAll('.page-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    currentPage = parseInt(e.currentTarget.getAttribute('data-page'));
+                    renderProducts(products);
+                    const container = document.querySelector('.products-container');
+                    if (container) {
+                      window.scrollTo({ top: container.offsetTop - 100, behavior: 'smooth' });
+                    } else {
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+            });
+        } else {
+            paginationControls.innerHTML = '';
+        }
+    }
+
   const cartIcon = document.getElementById('cart-icon');
   document.querySelectorAll('.add-to-cart').forEach((btn) => {
     btn.addEventListener('click', (e) => {
@@ -192,6 +250,7 @@ function applyFilters() {
     resultsCount.textContent = `(${filtered.length})`;
   }
 
+  currentPage = 1; // Reset to page 1 when filters change
   renderProducts(filtered);
 }
 

@@ -182,95 +182,113 @@ const initHeaderScroll = () => {
 
 const initAuthControls = () => {
   const navUtilities = document.querySelector('.nav-utilities');
-
   if (!navUtilities || !supabase) return;
 
   const loginLink = navUtilities.querySelector('a[aria-label="Account"]');
+  if (loginLink) loginLink.style.display = 'none';
 
   const getDisplayName = (user) => {
     if (!user) return 'Account';
     return user.user_metadata?.full_name || user.email || 'Account';
   };
 
-  const ensureProfileIcon = (user) => {
-    if (document.querySelector('.profile-wrapper')) {
-      const existingName = document.querySelector('.profile-tooltip .profile-name');
-      if (existingName) existingName.textContent = getDisplayName(user);
-      if (loginLink) loginLink.style.display = 'none';
-      return;
-    }
+  const getDisplayEmail = (user) => {
+    return user ? (user.email || '') : '';
+  };
 
+  const createProfileDropdown = (user = null) => {
+    const existingWrapper = document.querySelector('.profile-wrapper');
+    if (existingWrapper) existingWrapper.remove();
+
+    const isLoggedIn = !!user;
     const wrapper = document.createElement('div');
     wrapper.className = 'profile-wrapper';
 
-    const link = document.createElement('a');
-    link.href = 'profile.html';
-    link.className = 'nav-icon profile-trigger';
-    link.setAttribute('aria-label', 'Account details');
-    link.innerHTML = '<ion-icon name="person-circle-outline"></ion-icon>';
+    const trigger = document.createElement('button');
+    trigger.className = 'nav-icon profile-trigger';
+    trigger.setAttribute('aria-label', isLoggedIn ? 'Toggle profile menu' : 'Account menu');
+    trigger.innerHTML = isLoggedIn ? '<ion-icon name="person"></ion-icon>' : '<ion-icon name="person-outline"></ion-icon>';
 
-    const tooltip = document.createElement('div');
-    tooltip.className = 'profile-tooltip';
-    tooltip.style.cssText = `
-      position: absolute;
-      right: 0;
-      min-width: 160px;
-      padding: 10px 12px;
-      background: #ffffff;
-      border: 1px solid var(--nav-border-light, #eeeeee);
-      border-radius: 10px;
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-      display: none;
-      z-index: 10;
-    `;
-    tooltip.innerHTML = `
-      <div class="profile-name">${getDisplayName(user)}</div>
-      <div class="profile-logout-text">Logout</div>
-    `;
+    const dropdown = document.createElement('div');
+    dropdown.className = 'profile-dropdown';
+    
+    if (isLoggedIn) {
+      dropdown.innerHTML = `
+        <div class="profile-info">
+          <div class="profile-name">${getDisplayName(user)}</div>
+          <div class="profile-email">${getDisplayEmail(user)}</div>
+        </div>
+        <ul class="dropdown-list">
+          <li>
+            <a href="profile.html" class="dropdown-item">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>My Profile</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="dropdown-item logout" id="dropdown-logout">
+              <ion-icon name="log-out-outline"></ion-icon>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      `;
+    } else {
+      dropdown.innerHTML = `
+        <div class="profile-info">
+          <div class="profile-name">Guest</div>
+          <div class="profile-email">Please login to see your profile</div>
+        </div>
+        <ul class="dropdown-list">
+          <li>
+            <a href="login.html" class="dropdown-item">
+              <ion-icon name="log-in-outline"></ion-icon>
+              <span>Login / Register</span>
+            </a>
+          </li>
+          <li>
+            <a href="login.html" class="dropdown-item">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>My Profile</span>
+            </a>
+          </li>
+        </ul>
+      `;
+    }
 
-    wrapper.addEventListener('mouseenter', () => {
-      tooltip.style.display = 'block';
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('active');
     });
 
-    wrapper.addEventListener('mouseleave', () => {
-      tooltip.style.display = 'none';
+    if (isLoggedIn) {
+      const logoutBtn = dropdown.querySelector('#dropdown-logout');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const { error } = await supabase.auth.signOut();
+          if (error) console.error('Error logging out:', error);
+        });
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!wrapper.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
     });
 
-    wrapper.addEventListener('focusin', () => {
-      tooltip.style.display = 'block';
-    });
-
-    wrapper.addEventListener('focusout', () => {
-      tooltip.style.display = 'none';
-    });
-
-    wrapper.appendChild(link);
-    wrapper.appendChild(tooltip);
+    wrapper.appendChild(trigger);
+    wrapper.appendChild(dropdown);
     navUtilities.appendChild(wrapper);
-
-    if (loginLink) loginLink.style.display = 'none';
-  };
-
-  const removeProfileIcon = () => {
-    const wrapper = document.querySelector('.profile-wrapper');
-    if (wrapper) wrapper.remove();
-    if (loginLink) loginLink.style.display = '';
   };
 
   supabase.auth.getUser().then(({ data }) => {
-    if (data && data.user) {
-      ensureProfileIcon(data.user);
-    } else {
-      removeProfileIcon();
-    }
+    createProfileDropdown(data?.user);
   });
 
   supabase.auth.onAuthStateChange((event, session) => {
-    if (session && session.user) {
-      ensureProfileIcon(session.user);
-    } else {
-      removeProfileIcon();
-    }
+    createProfileDropdown(session?.user);
   });
 };
 
