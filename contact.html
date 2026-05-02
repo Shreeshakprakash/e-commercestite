@@ -6,13 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us | PixelPort</title>
   <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="css/style.css">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
   <link rel="shortcut icon" href="images/favico.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
-    <link rel="stylesheet" href="css/toast.css">
 </head>
 
 <body>
@@ -32,11 +31,8 @@
       </ul>
 
       <div class="nav-utilities">
-        <a href="#" class="nav-icon" aria-label="Search">
-          <ion-icon name="search-outline"></ion-icon>
-        </a>
         <a href="login.html" class="nav-icon" aria-label="Account">
-          <ion-icon name="person-outline"></ion-icon>
+          <ion-icon name="person-circle-outline"></ion-icon>
         </a>
         <a href="cart.html" class="nav-icon" aria-label="Cart">
           <ion-icon name="bag-handle-outline"></ion-icon>
@@ -51,132 +47,144 @@
       <div class="hero-glow"></div>
 
       <div class="hero-content">
-        <span class="hero-label">Contact Us.</span>
+        <span class="hero-label">Get in Touch</span>
         <h1 class="hero-display">Open the <br><span class="text-outline">Connection.</span></h1>
-        <p class="hero-lead">Our specialized agents are available for inquiries and technical support.</p>
+        <p class="hero-lead">Our specialized agents are available for inquiries and premium technical support.</p>
       </div>
     </section>
 
     <section class="contact-content">
-      <div class="contact-grid">
+      <div class="bento-grid">
 
-        <div class="contact-form-section">
-          <div class="form-header">
-            <h2>Send us a Message <i class='bx  bx-paper-plane'></i> </h2>
-            <p>Fill out the form below and we'll get back to you within 24 hours</p>
+        <!-- Left: Form -->
+        <div class="bento-card form-card">
+          <div class="bento-header">
+            <h2>Send us a Message</h2>
+            <p>Direct line to our support specialists</p>
           </div>
 
           <form class="contact-form" id="contactForm">
-            <div class="form-group">
-              <label for="name">Full Name *</label>
-              <input type="text" id="name" name="name" required>
+            <div class="form-floating">
+              <input type="text" id="name" name="name" required placeholder=" ">
+              <label for="name">Full Name</label>
             </div>
 
-            <div class="form-group">
-              <label for="email">Email Address *</label>
-              <input type="email" id="email" name="email" required>
+            <div class="form-floating">
+              <input type="email" id="email" name="email" required placeholder=" ">
+              <label for="email">Email Address</label>
             </div>
 
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone">
-            </div>
-
-            <div class="form-group">
-              <label for="subject">Subject *</label>
+            <div class="form-floating select-wrapper">
               <select id="subject" name="subject" required>
-                <option value="">Select a topic</option>
+                <option value="" disabled selected></option>
                 <option value="general">General Inquiry</option>
                 <option value="support">Technical Support</option>
                 <option value="order">Order Related</option>
                 <option value="returns">Returns & Refunds</option>
-                <option value="partnership">Business Partnership</option>
-                <option value="other">Other</option>
               </select>
+              <label for="subject">Subject</label>
+              <ion-icon name="chevron-down-outline" class="select-icon"></ion-icon>
             </div>
 
-            <div class="form-group">
-              <label for="message">Message *</label>
-              <textarea id="message" name="message" rows="5" required
-                placeholder="Tell us how we can help you..."></textarea>
+            <div class="form-floating">
+              <textarea id="message" name="message" rows="4" required placeholder=" "></textarea>
+              <label for="message">Your Message</label>
             </div>
 
-            <button type="submit" class="submit-btn">
-              <span class="btn-text">Send Message</span>
-              <span class="btn-icon"><i class='bx  bx-send'></i> </span>
+            <button type="submit" class="bento-submit-btn">
+              <span>Send Message</span>
+              <ion-icon name="arrow-forward-outline"></ion-icon>
             </button>
           </form>
         </div>
 
-
-        <div class="contact-info-section">
-          <div class="info-header">
-            <h2>Contact Information</h2>
-            <p>Reach out to us through any of these channels</p>
+        <!-- Right: Info cards -->
+        <div class="info-column">
+          <div class="bento-card info-card email-card">
+            <div class="card-icon"><ion-icon name="mail-outline"></ion-icon></div>
+            <div>
+              <h3>Email Support</h3>
+              <p>support@pixelport.com</p>
+              <span class="sub-text">Response within 2 hours</span>
+            </div>
           </div>
 
-          <div class="contact-methods">
-            <div class="contact-method">
-              <div class="method-icon"><i class="bx bx-envelope-open "></i></div>
-              <div class="method-details">
-                <h3>Email Us</h3>
-                <p>info@pixelport.com</p>
-                <p>support@pixelport.com</p>
-                <span class="response-time">Response within 2-4 hours</span>
-              </div>
+          <div class="bento-card info-card phone-card">
+            <div class="card-icon"><ion-icon name="call-outline"></ion-icon></div>
+            <div>
+              <h3>Direct Line</h3>
+              <p>+91 123-4567-890</p>
+              <span class="sub-text">Mon-Fri: 9AM-6PM IST</span>
             </div>
+          </div>
 
-            <div class="contact-method">
-              <div class="method-icon"><i class='bx  bx-phone-ring'></i> </div>
-              <div class="method-details">
-                <h3>Call Us</h3>
-                <p>+91 123-4567-890</p>
-                <p>+91 987-6543-210</p>
-                <span class="response-time">Mon-Fri: 9AM-6PM IST</span>
-              </div>
+          <div class="bento-card info-card chat-card">
+            <div class="card-icon"><ion-icon name="chatbubbles-outline"></ion-icon></div>
+            <div>
+              <h3>Live Chat</h3>
+              <p>Available on our website</p>
+              <span class="sub-text">24/7 automated assistance</span>
             </div>
+          </div>
 
-            <div class="contact-method">
-              <div class="method-icon"><i class='bx  bx-discussion'></i> </div>
-              <div class="method-details">
-                <h3>Live Chat</h3>
-                <p>Available on our website</p>
-                <p>Instant support</p>
-                <span class="response-time">24/7 automated assistance</span>
-              </div>
+          <div class="bento-card info-card social-card">
+            <h3>Connect with us</h3>
+            <div class="social-icons-bento">
+              <a href="#" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+              <a href="#" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
             </div>
           </div>
         </div>
+
       </div>
 
-
-      <div class="faq-section">
-        <div class="faq-header">
-          <div class="faq-icon">❓</div>
+      <!-- FAQ Section -->
+      <div class="faq-bento">
+        <div class="bento-header text-center">
           <h2>Frequently Asked Questions</h2>
-          <p>Quick answers to common questions</p>
+          <p>Quick answers to common inquiries</p>
         </div>
 
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h3>How long does shipping take?</h3>
-            <p>Standard shipping takes 3-5 business days. Express shipping is available for 1-2 day delivery.</p>
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header">
+              How long does shipping take?
+              <ion-icon name="chevron-down-outline" class="accordion-icon"></ion-icon>
+            </button>
+            <div class="accordion-content">
+              <p>Standard shipping takes 3-5 business days. Express shipping is available for 1-2 day delivery via our
+                premium logistics partners.</p>
+            </div>
           </div>
-
-          <div class="faq-item">
-            <h3>What's your return policy?</h3>
-            <p>We offer a 30-day return policy for all items in original condition with proof of purchase.</p>
+          <div class="accordion-item">
+            <button class="accordion-header">
+              What's your return policy?
+              <ion-icon name="chevron-down-outline" class="accordion-icon"></ion-icon>
+            </button>
+            <div class="accordion-content">
+              <p>We offer a 30-day hassle-free return policy for all items in their original condition with proof of
+                purchase. Reach out to support to initiate a return.</p>
+            </div>
           </div>
-
-          <div class="faq-item">
-            <h3>Do you offer technical support?</h3>
-            <p>Yes! Our technical support team is available 24/7 via chat, email, or phone for all your needs.</p>
+          <div class="accordion-item">
+            <button class="accordion-header">
+              Do you offer technical support?
+              <ion-icon name="chevron-down-outline" class="accordion-icon"></ion-icon>
+            </button>
+            <div class="accordion-content">
+              <p>Yes! Our premium technical support team is available 24/7 via chat, email, or phone to assist you with
+                any hardware or software issues.</p>
+            </div>
           </div>
-
-          <div class="faq-item">
-            <h3>Can I track my order?</h3>
-            <p>Absolutely! You'll receive a tracking number via email once your order ships, allowing you to monitor its
-              progress.</p>
+          <div class="accordion-item">
+            <button class="accordion-header">
+              Can I track my order?
+              <ion-icon name="chevron-down-outline" class="accordion-icon"></ion-icon>
+            </button>
+            <div class="accordion-content">
+              <p>Absolutely! You'll receive a detailed tracking link via email the moment your order ships, allowing you
+                to monitor its progress in real-time.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -191,7 +199,6 @@
         <div class="social-links">
           <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
           <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-          <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
         </div>
       </div>
 
@@ -239,9 +246,6 @@
   <script type="module" src="js/contact.js"></script>
   <script src="js/cart-shared.js"></script>
   <script type="module" src="js/script.js"></script>
-
-    <script src="js/toast.js"></script>
-    <script src="js/theme-enhancements.js"></script>
 </body>
 
 </html>

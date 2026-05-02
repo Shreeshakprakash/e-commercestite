@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <title>New Arrivals - PixelPort</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/toast.css">
+    <link rel="stylesheet" href="css/new-arrivals.css">
+    <link rel="icon" type="image/x-icon" href="images/favico.png">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</head>
+
+<body class="new-arrivals-page">
+    <header class="header" id="navbar">
+        <nav class="nav-container">
+            <div class="menu-toggle" id="mobileMenuTrigger">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <a href="index.html" class="logo">PixelPort<span>.</span></a>
+
+            <ul class="nav-menu">
+                <li><a href="products-live.html" class="nav-link">Shop All</a></li>
+                <li><a href="exclusives.html" class="nav-link">Exclusives</a></li>
+                <li><a href="html/auction_page.html" class="nav-link">Auction Page</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+            </ul>
+
+            <div class="nav-utilities">
+                <a href="#" class="nav-icon" aria-label="Search">
+                    <ion-icon name="search-outline"></ion-icon>
+                </a>
+                <a href="login.html" class="nav-icon" aria-label="Account">
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                </a>
+                <a href="cart.html" class="nav-icon" aria-label="Cart">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span id="cart-badge" class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="new-arrivals-hero">
+            <div class="hero-inner">
+                <div class="hero-copy">
+                    <span class="hero-kicker">New Arrivals</span>
+                    <h1>Fresh drops built for modern days.</h1>
+                    <p>Discover the newest releases across audio, wearables, and computing. Curated to keep your setup sharp and future-ready.</p>
+                </div>
+                <div class="hero-actions">
+                    <a href="products-live.html" class="primary-action">Shop Now</a>
+                    <a href="#cards" class="ghost-action">Explore Highlights</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Hero Slider -->
+        <section class="dynamic-slider" id="heroSlider">
+            <div class="slider-wrapper">
+                <!-- Slide 1 -->
+                <div class="slide active" data-color="#0B3037">
+                    <div class="slide-content">
+                        <span class="slide-badge">Exclusive Drop</span>
+                        <h2>AirPods Max Gen 2</h2>
+                        <p>Unparalleled high-fidelity audio with spatial sound mapping and industry-leading active noise
+                            cancellation.</p>
+                        <a href="products-live.html" class="slide-btn">Shop Now</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="images/airpodsmax.jpg" alt="AirPods Max">
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide" data-color="#5B1621">
+                    <div class="slide-content">
+                        <span class="slide-badge">Gaming</span>
+                        <h2>ROG Zephyrus</h2>
+                        <p>An ultra-thin gaming powerhouse featuring the latest neural processing units and unparalleled
+                            refresh rates.</p>
+                        <a href="products-live.html" class="slide-btn">Discover</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="images/Laptop5.jpg" alt="ROG Zephyrus">
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide" data-color="#1A2D42">
+                    <div class="slide-content">
+                        <span class="slide-badge">Tablet</span>
+                        <h2>iPad Pro M4</h2>
+                        <p>Thinpossible. The ultimate iPad experience powered by the outrageously fast M4 chip and
+                            tandem OLED display.</p>
+                        <a href="products-live.html" class="slide-btn">Explore</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="images/ipad.jpg" alt="iPad Pro">
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="slide" data-color="#2A2A2A">
+                    <div class="slide-content">
+                        <span class="slide-badge">Wearable</span>
+                        <h2>Pixel Watch 3</h2>
+                        <p>Advanced health tracking, deeper Google integration, and a stunning domed glass design that
+                            turns heads.</p>
+                        <a href="products-live.html" class="slide-btn">Shop Now</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="images/smartwatch2.png" alt="Pixel Watch 3">
+                    </div>
+                </div>
+            </div>
+
+            <div class="slider-controls">
+                <div class="slider-progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="slider-dots">
+                    <button class="dot active" data-index="0" aria-label="Slide 1"></button>
+                    <button class="dot" data-index="1" aria-label="Slide 2"></button>
+                    <button class="dot" data-index="2" aria-label="Slide 3"></button>
+                    <button class="dot" data-index="3" aria-label="Slide 4"></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="editorial-section">
+            <div class="editorial-inner">
+                <div class="editorial-copy na-reveal">
+                    <span class="editorial-kicker">Editorial Pick</span>
+                    <h2>Designed to feel premium in every detail.</h2>
+                    <p>From aerospace metals to ultra-low latency audio, these drops deliver a tactile, deliberate feel
+                        that belongs on your desk, wrist, or backpack.</p>
+                    <ul class="editorial-list">
+                        <li>Precision finishes and soft-touch textures.</li>
+                        <li>High-efficiency components with cooler thermals.</li>
+                        <li>Quiet, refined sound profiles with spatial tuning.</li>
+                    </ul>
+                    <a href="products-live.html" class="editorial-cta">View the full drop</a>
+                </div>
+                <div class="editorial-media na-reveal" data-parallax>
+                    <div class="media-frame">
+                        <img src="images/ipad.jpg" alt="Premium new arrival highlight">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonial-section">
+            <div class="testimonial-header na-reveal">
+                <span class="testimonial-kicker">Community Notes</span>
+                <h2>Why the latest drops feel different.</h2>
+            </div>
+            <div class="testimonial-grid">
+                <article class="testimonial-card na-reveal">
+                    <p>“The new arrivals feel premium in-hand. The build quality is exactly what I was hoping for.”</p>
+                    <div class="testimonial-meta">
+                        <span class="name">Ayesha M.</span>
+                        <span class="role">Audio Creator</span>
+                    </div>
+                </article>
+                <article class="testimonial-card na-reveal">
+                    <p>“Fast shipping and the packaging was immaculate. The laptop feels like a studio-grade machine.”</p>
+                    <div class="testimonial-meta">
+                        <span class="name">Kunal S.</span>
+                        <span class="role">Product Designer</span>
+                    </div>
+                </article>
+                <article class="testimonial-card na-reveal">
+                    <p>“The wearable drop finally matches my daily aesthetic. Clean, minimal, and powerful.”</p>
+                    <div class="testimonial-meta">
+                        <span class="name">Neha R.</span>
+                        <span class="role">Fitness Coach</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="cards-container" id="cards"></section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <a href="#" class="logo">PIXELPORT<span>.</span></a>
+                <p>The one stop shop for all your tech needs.</p>
+                <div class="social-links">
+                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="new-arrivals.html">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">All Products</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="#">Journal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="bottom-content">
+                <p>2026 PIXELPORT. *images are only for demonstration purposes.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <button id="backToTop" class="back-to-top">
+                    Back to top <ion-icon name="arrow-up-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </footer>
+    <script src="js/cart-shared.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script src="js/toast.js"></script>
+    <script src="js/theme-enhancements.js"></script>
+    <script type="module" src="js/new-arrivals.js"></script>
+</body>
+
+</html>

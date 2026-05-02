@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - PixelPort</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/onboarding.css">
+    <link rel="shortcut icon" href="images/favico.png" type="image/x-icon">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+</head>
+
+<body>
+    <header class="header" id="navbar">
+        <nav class="nav-container">
+            <div class="menu-toggle" id="mobileMenuTrigger">
+                <ion-icon name="menu-outline"></ion-icon>
+            </div>
+
+            <a href="index.html" class="logo">PixelPort<span>.</span></a>
+
+            <ul class="nav-menu">
+                <li><a href="products-live.html" class="nav-link">Shop All</a></li>
+                <li><a href="exclusives.html" class="nav-link">Exclusives</a></li>
+                <li><a href="html/auction_page.html" class="nav-link">Auction Page</a></li>
+                <li><a href="about.html" class="nav-link">About Us</a></li>
+            </ul>
+
+            <div class="nav-utilities">
+                <a href="#" class="nav-icon" aria-label="Search">
+                    <ion-icon name="search-outline"></ion-icon>
+                </a>
+                <a href="login.html" class="nav-icon" aria-label="Account" style="color: var(--nav-accent-color);">
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                </a>
+                <a href="cart.html" class="nav-icon" aria-label="Cart">
+                    <ion-icon name="bag-handle-outline"></ion-icon>
+                    <span id="cart-badge" class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="profile-page">
+        <section class="profile-dashboard">
+            <!-- Sidebar: User Info & Actions -->
+            <aside class="profile-sidebar">
+                <div class="profile-card">
+                    <div class="profile-avatar">
+                        <img id="profile-avatar-img" alt="Profile photo">
+                        <span id="profile-avatar-text">PP</span>
+                        <div class="avatar-overlay">
+                            <label for="profile-avatar-input"><ion-icon name="camera-outline"></ion-icon></label>
+                            <input type="file" id="profile-avatar-input" class="avatar-input" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="profile-meta">
+                        <h1 id="profile-name">Your Profile</h1>
+                        <p id="profile-email">Loading...</p>
+                    </div>
+                    <nav class="profile-nav">
+                        <a href="#details" class="profile-nav-link active"><ion-icon name="person-outline"></ion-icon> Details</a>
+                        <a href="#security" class="profile-nav-link"><ion-icon name="lock-closed-outline"></ion-icon> Security</a>
+                        <a href="#orders" class="profile-nav-link"><ion-icon name="cube-outline"></ion-icon> Orders</a>
+                    </nav>
+                    <div class="profile-actions">
+                        <button type="button" class="logout-btn" id="profile-logout-btn">
+                            <ion-icon name="log-out-outline"></ion-icon> Logout
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="profile-content">
+                
+                <!-- Profile Details Panel -->
+                <div class="profile-form-panel" id="details">
+                    <div class="profile-panel-header">
+                        <h2>Profile details</h2>
+                        <p>Update your contact and delivery information.</p>
+                    </div>
+                    <form id="profileForm" class="profile-form">
+                        <div class="input-grid">
+                            <div class="input-group full-width">
+                                <label for="name">Full Name</label>
+                                <div class="input-wrapper">
+                                    <ion-icon name="person-outline"></ion-icon>
+                                    <input type="text" id="name" placeholder="John Doe" required>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="phone">Phone Number</label>
+                                <div class="input-wrapper">
+                                    <ion-icon name="call-outline"></ion-icon>
+                                    <input type="text" id="phone" placeholder="+1 (555) 000-0000" required>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="city">City</label>
+                                <div class="input-wrapper">
+                                    <ion-icon name="business-outline"></ion-icon>
+                                    <input type="text" id="city" placeholder="New York" required>
+                                </div>
+                            </div>
+                            <div class="input-group full-width">
+                                <label for="address">Address</label>
+                                <div class="input-wrapper">
+                                    <ion-icon name="location-outline"></ion-icon>
+                                    <input type="text" id="address" placeholder="123 Tech Avenue" required>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="pincode">Pincode</label>
+                                <div class="input-wrapper">
+                                    <ion-icon name="map-outline"></ion-icon>
+                                    <input type="text" id="pincode" placeholder="10001" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="primary-btn sleek-btn" id="profile-save-btn">
+                                <span class="btn-text">Save changes</span>
+                                <span class="btn-loader"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Account Security Panel -->
+                <div class="profile-form-panel" id="security">
+                    <div class="profile-panel-header">
+                        <h2>Account security</h2>
+                        <p>Change your password to keep your account secure.</p>
+                    </div>
+                    <form id="passwordForm" class="profile-form">
+                        <div class="input-grid">
+                            <div class="input-group full-width">
+                                <label for="new-password">New Password</label>
+                                <div class="input-wrapper">
+                                    <ion-icon name="key-outline"></ion-icon>
+                                    <input type="password" id="new-password" placeholder="••••••••" required>
+                                </div>
+                            </div>
+                            <div class="input-group full-width">
+                                <label for="confirm-password">Confirm Password</label>
+                                <div class="input-wrapper">
+                                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                                    <input type="password" id="confirm-password" placeholder="••••••••" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="secondary-btn sleek-btn-outline" id="password-save-btn">
+                                Update password
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Orders Panel -->
+                <div class="profile-form-panel" id="orders">
+                    <div class="profile-panel-header">
+                        <h2>Your orders</h2>
+                        <p>Track your recent purchases and order status.</p>
+                    </div>
+                    <div id="orders-list" class="orders-list">
+                        <div class="orders-empty">No orders yet.</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column brand-col">
+                <a href="#" class="logo">PIXELPORT<span>.</span></a>
+                <p>The one stop shop for all your tech needs.</p>
+                <div class="social-links">
+                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href="#"><ion-icon name="logo-pinterest"></ion-icon></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="new-arrivals.html">New Arrivals</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">All Products</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="#">Journal</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="bottom-content">
+                <p>2026 PIXELPORT. *images are only for demonstration purposes.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <button id="backToTop" class="back-to-top">
+                    Back to top <ion-icon name="arrow-up-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/cart-shared.js"></script>
+    <script type="module" src="js/script.js"></script>
+    <script type="module" src="js/profile.js"></script>
+</body>
+
+</html>

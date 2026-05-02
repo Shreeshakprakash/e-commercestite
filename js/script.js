@@ -179,9 +179,192 @@ const initHeaderScroll = () => {
     });
 };
 
+
+const initAuthControls = () => {
+  const navUtilities = document.querySelector('.nav-utilities');
+  if (!navUtilities || !supabase) return;
+
+  const loginLink = navUtilities.querySelector('a[aria-label="Account"]');
+  if (loginLink) loginLink.style.display = 'none';
+
+  const getDisplayName = (user) => {
+    if (!user) return 'Account';
+    return user.user_metadata?.full_name || user.email || 'Account';
+  };
+
+  const getDisplayEmail = (user) => {
+    return user ? (user.email || '') : '';
+  };
+
+  const createProfileDropdown = (user = null) => {
+    const existingWrapper = document.querySelector('.profile-wrapper');
+    if (existingWrapper) existingWrapper.remove();
+
+    const isLoggedIn = !!user;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'profile-wrapper';
+
+    const trigger = document.createElement('button');
+    trigger.className = 'nav-icon profile-trigger';
+    trigger.setAttribute('aria-label', isLoggedIn ? 'Toggle profile menu' : 'Account menu');
+    trigger.innerHTML = isLoggedIn ? '<ion-icon name="person"></ion-icon>' : '<ion-icon name="person-outline"></ion-icon>';
+
+    const dropdown = document.createElement('div');
+    dropdown.className = 'profile-dropdown';
+    
+    if (isLoggedIn) {
+      dropdown.innerHTML = `
+        <div class="profile-info">
+          <div class="profile-name">${getDisplayName(user)}</div>
+          <div class="profile-email">${getDisplayEmail(user)}</div>
+        </div>
+        <ul class="dropdown-list">
+          <li>
+            <a href="profile.html" class="dropdown-item">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>My Profile</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="dropdown-item logout" id="dropdown-logout">
+              <ion-icon name="log-out-outline"></ion-icon>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      `;
+    } else {
+      dropdown.innerHTML = `
+        <div class="profile-info">
+          <div class="profile-name">Guest</div>
+          <div class="profile-email">Please login to see your profile</div>
+        </div>
+        <ul class="dropdown-list">
+          <li>
+            <a href="login.html" class="dropdown-item">
+              <ion-icon name="log-in-outline"></ion-icon>
+              <span>Login / Register</span>
+            </a>
+          </li>
+          <li>
+            <a href="login.html" class="dropdown-item">
+              <ion-icon name="person-outline"></ion-icon>
+              <span>My Profile</span>
+            </a>
+          </li>
+        </ul>
+      `;
+    }
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('active');
+    });
+
+    if (isLoggedIn) {
+      const logoutBtn = dropdown.querySelector('#dropdown-logout');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const { error } = await supabase.auth.signOut();
+          if (error) console.error('Error logging out:', error);
+        });
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!wrapper.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+
+    wrapper.appendChild(trigger);
+    wrapper.appendChild(dropdown);
+    navUtilities.appendChild(wrapper);
+  };
+
+  supabase.auth.getUser().then(({ data }) => {
+    createProfileDropdown(data?.user);
+  });
+
+  supabase.auth.onAuthStateChange((event, session) => {
+    createProfileDropdown(session?.user);
+  });
+};
+
+const initSearchControls = () => {
+  const navUtilities = document.querySelector('.nav-utilities');
+  if (!navUtilities) return;
+
+  const searchLink = navUtilities.querySelector('a[aria-label="Search"]');
+  if (!searchLink) return;
+
+  if (navUtilities.querySelector('.nav-search')) return;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'nav-search';
+
+  searchLink.classList.add('nav-search-toggle');
+  searchLink.setAttribute('role', 'button');
+  searchLink.setAttribute('aria-expanded', 'false');
+
+  searchLink.parentNode.insertBefore(wrapper, searchLink);
+  wrapper.appendChild(searchLink);
+
+  const input = document.createElement('input');
+  input.type = 'search';
+  input.className = 'nav-search-input';
+  input.placeholder = 'Search products';
+  input.setAttribute('aria-label', 'Search products');
+  wrapper.appendChild(input);
+
+  const setActive = (active) => {
+    wrapper.classList.toggle('active', active);
+    searchLink.setAttribute('aria-expanded', String(active));
+    if (active) {
+      input.focus();
+    } else if (!input.value.trim()) {
+      input.blur();
+    }
+  };
+
+  searchLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setActive(!wrapper.classList.contains('active'));
+  });
+
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setActive(false);
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      const query = input.value.trim();
+      if (query) {
+        window.location.href = `products-live.html?search=${encodeURIComponent(query)}`;
+      }
+    }
+  });
+
+  input.addEventListener('focus', () => setActive(true));
+  input.addEventListener('blur', () => {
+    if (!input.value.trim()) setActive(false);
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!wrapper.contains(event.target)) {
+      setActive(false);
+    }
+  });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
   initMobileMenu();
+  initAuthControls();
+  initSearchControls();
 });
 
 document.getElementById('backToTop').addEventListener('click', () => {

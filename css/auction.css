@@ -264,6 +264,99 @@
     margin-bottom: 15px;
 }
 
+.auction-detail-card {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 20px 50px rgba(11, 48, 55, 0.08);
+}
+
+.price-label--detail {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.auction-detail-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    padding: 16px;
+    background: #f7fafb;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+}
+
+.auction-detail-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.auction-metric-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+}
+
+.auction-metric-value {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.auction-detail-controls {
+    margin-top: 1.75rem;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 12px 28px rgba(11, 48, 55, 0.08);
+}
+
+.auction-detail-timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.08);
+    border: 1px solid rgba(231, 76, 60, 0.2);
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.auction-detail-actions {
+    margin-bottom: 6px;
+}
+
+.auction-detail-hint {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.bid-list--tall {
+    max-height: 240px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.place-bid-btn.is-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.security-footer--spaced {
+    margin-top: 2rem;
+}
+
 .bid-input {
     flex: 2;
     padding: 14px 16px;
@@ -325,6 +418,19 @@
     border-bottom: 1px dashed #f0f0f0;
 }
 
+.bid-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dashed #f0f0f0;
+}
+
+.bid-list-item:last-child {
+    border-bottom: none;
+}
+
 .bid-list li:last-child {
     border-bottom: none;
 }
@@ -368,6 +474,15 @@
     .auction-grid {
         grid-template-columns: 1fr;
     }
+
+    .auction-detail-card {
+        padding: 24px;
+    }
+
+    .auction-detail-metrics {
+        grid-template-columns: 1fr;
+    }
+
     .bid-controls {
         flex-direction: column;
     }

@@ -8,9 +8,9 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 document.addEventListener('DOMContentLoaded', function () {
   const contactForm = document.getElementById('contactForm');
-  const submitBtn = contactForm.querySelector('.submit-btn');
-  const btnText = submitBtn.querySelector('.btn-text');
-  const btnIcon = submitBtn.querySelector('.btn-icon');
+  const submitBtn = contactForm.querySelector('.bento-submit-btn');
+  const btnText = submitBtn.querySelector('span');
+  const btnIcon = submitBtn.querySelector('ion-icon');
 
   contactForm.addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     submitBtn.style.transform = 'scale(0.95)';
     btnText.textContent = 'Sending...';
-    btnIcon.textContent = '⏳';
+    btnIcon.setAttribute('name', 'hourglass-outline');
     submitBtn.disabled = true;
 
     
@@ -46,15 +46,15 @@ if (error) {
 }
       
       btnText.textContent = 'Message Sent!';
-      btnIcon.textContent = '✅';
+      btnIcon.setAttribute('name', 'checkmark-circle-outline');
       submitBtn.style.background = '#0B3037';
 
       
       setTimeout(() => {
         contactForm.reset();
         btnText.textContent = 'Send Message';
-        btnIcon.textContent = '🚀';
-        submitBtn.style.background = 'linear-gradient(135deg, #3e8f8f 0%, #4ba0a2 100%)';
+        btnIcon.setAttribute('name', 'arrow-forward-outline');
+        submitBtn.style.background = 'var(--primary)';
         submitBtn.style.transform = 'scale(1)';
         submitBtn.disabled = false;
         showNotification("Thank you for your message! We'll get back to you soon.", "success");
@@ -63,7 +63,7 @@ if (error) {
       console.error("Error adding document: ", error);
       showNotification("❌ Something went wrong. Please try again later.", "error");
       btnText.textContent = 'Send Message';
-      btnIcon.textContent = '🚀';
+      btnIcon.setAttribute('name', 'arrow-forward-outline');
       submitBtn.disabled = false;
     }
   });
@@ -131,6 +131,28 @@ if (error) {
     `;
     document.head.appendChild(style);
   }
+
+  // Accordion Logic
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const accordionItem = header.parentElement;
+      const accordionContent = header.nextElementSibling;
+      const isActive = accordionItem.classList.contains('active');
+
+      // Close all accordions
+      document.querySelectorAll('.accordion-item').forEach(item => {
+        item.classList.remove('active');
+        item.querySelector('.accordion-content').style.maxHeight = null;
+      });
+
+      // Toggle current accordion
+      if (!isActive) {
+        accordionItem.classList.add('active');
+        accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+      }
+    });
+  });
 });
 
 

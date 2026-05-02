@@ -5,14 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us | E-commerce Store</title>
+  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/toast.css">
   <link rel="shortcut icon" href="images/favico.png" type="image/x-icon">
   <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
-    <link rel="stylesheet" href="css/toast.css">
 </head>
 
 <body>
@@ -37,80 +37,119 @@
     </nav>
   </header>
 
-  <main>
-    <section class="about-hero">
-      <div class="hero-glow"></div>
+  <main class="aura-main">
+    <!-- 1. Cinematic Hero "The Aura" -->
+    <section class="aura-hero">
+      <div class="aura-glow" id="auraGlow"></div>
       <div class="hero-content">
-        <span class="hero-tag">Est. 2025</span>
-        <h1 class="hero-display">We Design the <br>Tools of <span class="text-outline">Tomorrow.</span></h1>
-        <p class="hero-lead">PixelPort is an architectural approach to electronics. We curate high-performance gear
-          through a lens of minimalism.</p>
+        <h1 class="hero-display">Designing the <br><span class="text-outline">Future of Tech.</span></h1>
+        <p class="hero-lead">PixelPort is an architectural approach to electronics. We curate high-performance gear through a lens of absolute minimalism.</p>
       </div>
     </section>
 
-    <section class="stats-section">
-      <div class="stat-item">
-        <div class="stat-number">10K+</div>
-        <div class="stat-label">Happy Customers</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">500+</div>
-        <div class="stat-label">Products</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">50+</div>
-        <div class="stat-label">Brands</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">99%</div>
-        <div class="stat-label">Satisfaction</div>
-      </div>
-    </section>
-
-    <section class="about-content">
-      <div class="about-block story-block">
-        <h2>Our Story</h2>
-        <p>PixelPort was founded in 2025 with a vision to make quality tech products accessible to everyone. We believe
-          in innovation, transparency, and customer satisfaction. Our journey started as a small online store and has
-          grown into a trusted e-commerce platform serving thousands of happy customers worldwide.</p>
-        <p>From humble beginnings in a small garage to becoming a leading tech retailer, we've always put our customers
-          first. Every product we sell is carefully curated and tested to ensure it meets our high standards.</p>
-      </div>
-      <div class="about-block mission-block">
-        <h2>Our Mission</h2>
-        <p>To deliver the best products at unbeatable prices, while providing a seamless and enjoyable shopping
-          experience. We are committed to sustainability, ethical sourcing, and supporting our community.</p>
-        <div class="mission-points">
-          <div class="mission-point">
-            <span>Quality products at fair prices</span>
+    <!-- 2. Asymmetrical "Our Story" -->
+    <section class="aura-story">
+      <div class="story-container">
+        <div class="story-text scroll-reveal">
+          <h2>The Genesis.</h2>
+          <p>Founded in 2025, PixelPort was born from a singular vision: to strip away the noise of modern consumer electronics and focus purely on performance and aesthetics. We believe that technology should not just function, but inspire.</p>
+          <p>Our journey began in a small studio, driven by a passion for industrial design and a frustration with cluttered marketplaces. Today, we stand as the premier destination for curated, high-end tech gear.</p>
+        </div>
+        <div class="story-visual scroll-reveal delay-1">
+          <div class="glass-panel">
+            <div class="glass-content">
+              <h3>2025</h3>
+              <p>The Vision Commences</p>
+            </div>
           </div>
-          <div class="mission-point">
-            <span>Sustainable and ethical practices</span>
-          </div>
-          <div class="mission-point">
-            <span>Customer-first approach</span>
+          <div class="glass-panel mt-4">
+            <div class="glass-content">
+              <h3>10K+</h3>
+              <p>Visionaries Empowered</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="about-block values-block">
-        <h2>Our Values</h2>
-        <div class="values-grid">
-          <div class="value-item">
-            <h3>Trust</h3>
-            <p>Building lasting relationships through transparency and reliability</p>
+    </section>
+
+    <!-- 3. Meet the Visionaries (The Team) -->
+    <section class="aura-team">
+      <div class="section-header text-center scroll-reveal">
+        <h2>Meet the Visionaries.</h2>
+        <p>The architects behind the PixelPort experience.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card scroll-reveal">
+          <div class="card-aura"></div>
+          <div class="card-image bg-1"></div>
+          <div class="card-info">
+            <h3>Sarah Jenkins</h3>
+            <span>Founder & CEO</span>
+            <div class="team-socials">
+              <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+              <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            </div>
           </div>
-          <div class="value-item">
-            <h3>Innovation</h3>
-            <p>Constantly evolving to bring you the latest and greatest</p>
+        </div>
+        
+        <div class="team-card scroll-reveal delay-1">
+          <div class="card-aura"></div>
+          <div class="card-image bg-2"></div>
+          <div class="card-info">
+            <h3>David Chen</h3>
+            <span>Head of Curation</span>
+            <div class="team-socials">
+              <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+              <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            </div>
           </div>
-          <div class="value-item">
-            <h3>Excellence</h3>
-            <p>Striving for perfection in everything we do</p>
+        </div>
+
+        <div class="team-card scroll-reveal delay-2">
+          <div class="card-aura"></div>
+          <div class="card-image bg-3"></div>
+          <div class="card-info">
+            <h3>Elena Rostova</h3>
+            <span>Lead Architect</span>
+            <div class="team-socials">
+              <a href="#"><ion-icon name="logo-linkedin"></ion-icon></a>
+              <a href="#"><ion-icon name="logo-twitter"></ion-icon></a>
+            </div>
           </div>
-          <div class="value-item">
-            <h3>Community</h3>
-            <p>Supporting our customers and local communities</p>
-          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Core Values Bento Grid -->
+    <section class="aura-values">
+      <div class="section-header text-center scroll-reveal">
+        <h2>Core Philosophy.</h2>
+      </div>
+      
+      <div class="values-bento">
+        <div class="value-bento-card scroll-reveal">
+          <ion-icon name="prism-outline" class="value-icon"></ion-icon>
+          <h3>Uncompromising Quality</h3>
+          <p>Every product is stress-tested to meet our elite standards.</p>
+        </div>
+        
+        <div class="value-bento-card span-2 scroll-reveal delay-1">
+          <ion-icon name="aperture-outline" class="value-icon"></ion-icon>
+          <h3>Absolute Minimalism</h3>
+          <p>We believe in the power of less. No clutter, no noise. Just pure, unadulterated performance wrapped in stunning industrial design.</p>
+        </div>
+        
+        <div class="value-bento-card span-2 scroll-reveal delay-2">
+          <ion-icon name="earth-outline" class="value-icon"></ion-icon>
+          <h3>Sustainable Future</h3>
+          <p>Committed to zero-waste packaging and ethically sourced materials. The future of tech must also be the future of the planet.</p>
+        </div>
+        
+        <div class="value-bento-card scroll-reveal delay-3">
+          <ion-icon name="shield-checkmark-outline" class="value-icon"></ion-icon>
+          <h3>Ironclad Trust</h3>
+          <p>Transparency and reliability in every transaction.</p>
         </div>
       </div>
     </section>
@@ -169,9 +208,6 @@
   </footer>
   <script src="js/about.js"></script>
   <script type="module" src="js/script.js"></script>
-
-    <script src="js/toast.js"></script>
-    <script src="js/theme-enhancements.js"></script>
 </body>
 
 </html>

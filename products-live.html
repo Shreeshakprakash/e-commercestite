@@ -11,8 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
-    <link rel="stylesheet" href="css/toast.css">
 </head>
 
 <body>
@@ -36,7 +34,7 @@
           <ion-icon name="search-outline"></ion-icon>
         </a>
         <a href="login.html" class="nav-icon" aria-label="Account">
-          <ion-icon name="person-outline"></ion-icon>
+          <ion-icon name="person-circle-outline"></ion-icon>
         </a>
         <a href="cart.html" class="nav-icon" aria-label="Cart">
           <ion-icon name="bag-handle-outline"></ion-icon>
@@ -45,67 +43,127 @@
       </div>
     </nav>
   </header>
-  <br><br><br><br>
+
 
   <main>
-    <section class="hero-live">
-      <div class="hero-graphics">
-        <ion-icon name="layers-outline" class="hero-shape" style="left:10%; top:20%; animation-delay:0.1s;"></ion-icon>
-        <ion-icon name="flash-outline" class="hero-shape" style="left:30%; top:60%; animation-delay:0.3s;"></ion-icon>
-        <ion-icon name="cube-outline" class="hero-shape" style="left:50%; top:15%; animation-delay:0.5s;"></ion-icon>
-        <ion-icon name="infinite-outline" class="hero-shape"
-          style="left:75%; top:50%; animation-delay:0.2s;"></ion-icon>
-        <ion-icon name="scan-outline" class="hero-shape" style="left:90%; top:25%; animation-delay:0.4s;"></ion-icon>
-      </div>
+    <section class="hero-live sleek-split-hero">
+      <div class="hero-split-container">
 
-      <div class="hero-content">
-        <h1 class="hero-title-animated">Live Collection</h1>
-        <p class="hero-desc-animated">Experience real-time updates from our curated inventory.</p>
-        <div class="hero-scroll-indicator">
-          <div class="scroll-text">Scroll Down <br><ion-icon name="chevron-down-outline"></ion-icon></div>
+        <div class="hero-left">
+          <!-- <div class="hero-tag-modern">
+            <span class="pulse-dot"></span> Live Updates
+          </div> -->
+          <h1 class="hero-title-elegant">Curated Tech.<br>Uncompromised.</h1>
+          <p class="hero-desc-elegant">Discover our live inventory of the most sought-after devices. Updated in
+            real-time for your perfect setup.</p>
+          <div class="hero-actions">
+            <a href="#shop" class="btn-primary-sleek">Explore Collection</a>
+            <div class="live-stats">
+            </div>
+          </div>
         </div>
+
+        <div class="hero-right">
+          <div class="composition-wrapper">
+            <div class="backdrop-shape"></div>
+            <img src="images/airpodsmax.jpg" alt="AirPods" class="comp-img img-1 float-animation">
+            <img src="images/mobile2.jpg" alt="Phone" class="comp-img img-2 float-animation-delayed">
+            <div class="floating-glass-card">
+              <ion-icon name="flash"></ion-icon>
+              <div>
+                <strong>Just Added</strong>
+                <span>Sony XM5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="hero-scroll-indicator">
+        <div class="scroll-text">Scroll Down <br><ion-icon name="chevron-down-outline"></ion-icon></div>
       </div>
     </section>
 
 
-    <section class="category-section">
-      <div class="category-container">
-        <h2>Filter by Category</h2>
-        <div class="category-filters">
-          <button class="category-btn active" data-category="all">
-            <i class='bx bx-grid-alt'></i>
-            All Products
+    <section class="listing-section" id="shop">
+      <div class="listing-header">
+        <h2>All Products <span id="resultsCount">(0)</span></h2>
+        <div class="listing-actions">
+          <button class="filter-visibility" type="button" aria-expanded="true">
+            Hide Filters
           </button>
-          <button class="category-btn" data-category="laptop">
-            <i class='bx bx-laptop'></i>
-            Laptops
-          </button>
-          <button class="category-btn" data-category="headphones">
-            <i class='bx bx-headphone'></i>
-            Headphones
-          </button>
-          <button class="category-btn" data-category="smartwatch">
-            <i class='bxr bx-wrist-watch-alt'></i>
-            Smart Watches
-          </button>
-          <button class="category-btn" data-category="mobile">
-            <i class='bx bx-mobile'></i>
-            Smartphones
-          </button>
-          <button class="category-btn" data-category="accessories">
-            <i class='bx bx-usb'></i>
-            Accessories
-          </button>
-          <button class="category-btn" data-category="audio">
-            <i class='bx bx-speaker'></i>
-            Audio
-          </button>
+          <label class="sort-control">
+            Sort by
+            <select id="sortSelect">
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="name-asc">Name: A-Z</option>
+            </select>
+          </label>
         </div>
       </div>
-    </section>
 
-    <div class="products-grid" id="products-list">
-    </div>
+      <div class="listing-layout">
+        <aside class="filters-panel" id="filtersPanel">
+          <div class="filter-group">
+            <h3>Category</h3>
+            <div class="filter-list category-list">
+              <label class="filter-item"><input type="checkbox" name="category" value="laptop"> Laptops</label>
+              <label class="filter-item"><input type="checkbox" name="category" value="headphones"> Headphones</label>
+              <label class="filter-item"><input type="checkbox" name="category" value="smartwatch"> Smart
+                Watches</label>
+              <label class="filter-item"><input type="checkbox" name="category" value="mobile"> Smartphones</label>
+              <label class="filter-item"><input type="checkbox" name="category" value="accessories"> Accessories</label>
+              <label class="filter-item"><input type="checkbox" name="category" value="audio"> Audio</label>
+              <div class="filter-more">
+                <label class="filter-item"><input type="checkbox" name="category" value="tablet"> Tablets</label>
+                <label class="filter-item"><input type="checkbox" name="category" value="gaming"> Gaming</label>
+                <label class="filter-item"><input type="checkbox" name="category" value="camera"> Cameras</label>
+                <label class="filter-item"><input type="checkbox" name="category" value="home"> Smart Home</label>
+                <label class="filter-item"><input type="checkbox" name="category" value="peripherals">
+                  Peripherals</label>
+                <label class="filter-item"><input type="checkbox" name="category" value="storage"> Storage</label>
+                <label class="filter-item"><input type="checkbox" name="category" value="wearables"> Wearables</label>
+                <label class="filter-item"><input type="checkbox" name="category" value="office"> Office</label>
+              </div>
+              <button class="filter-expand" type="button" aria-expanded="false">More categories</button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h3>Brand</h3>
+            <div class="filter-list">
+              <label class="filter-item"><input type="checkbox" name="brand" value="apple"> Apple</label>
+              <label class="filter-item"><input type="checkbox" name="brand" value="samsung"> Samsung</label>
+              <label class="filter-item"><input type="checkbox" name="brand" value="asus"> Asus</label>
+              <label class="filter-item"><input type="checkbox" name="brand" value="sony"> Sony</label>
+              <label class="filter-item"><input type="checkbox" name="brand" value="logitech"> Logitech</label>
+              <label class="filter-item"><input type="checkbox" name="brand" value="other"> Other</label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h3>Price</h3>
+            <div class="filter-list">
+              <label class="filter-item"><input type="checkbox" name="price" value="0-5000"> Under ₹5,000</label>
+              <label class="filter-item"><input type="checkbox" name="price" value="5000-15000"> ₹5,000 -
+                ₹15,000</label>
+              <label class="filter-item"><input type="checkbox" name="price" value="15000-30000"> ₹15,000 -
+                ₹30,000</label>
+              <label class="filter-item"><input type="checkbox" name="price" value="30000-999999"> ₹30,000+</label>
+            </div>
+          </div>
+
+          <button class="filter-reset" type="button">Reset Filters</button>
+        </aside>
+
+        <div class="products-grid" id="products-list"></div>
+
+        <!-- Pagination Controls -->
+        <div id="pagination-controls" class="pagination-controls"></div>
+      </div>
+    </section>
 
 
   </main>
@@ -167,9 +225,6 @@
   <script src="js/cart-shared.js"></script>
   <script type="module" src="js/productspg.js"></script>
   <script type="module" src="js/script.js"></script>
-
-    <script src="js/toast.js"></script>
-    <script src="js/theme-enhancements.js"></script>
 </body>
 
 </html>

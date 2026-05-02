@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <title>Live Auctions - PixelPort</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/auction.css">
     <link rel="icon" type="image/x-icon" href="../images/favico.png">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
-    <link rel="stylesheet" href="../css/toast.css">
 </head>
+
 <body>
     <header class="header" id="navbar">
         <nav class="nav-container">
@@ -25,7 +26,8 @@
             <ul class="nav-menu">
                 <li><a href="../products-live.html" class="nav-link">Shop All</a></li>
                 <li><a href="../exclusives.html" class="nav-link">Exclusives</a></li>
-                <li><a href="auction_page.html" class="nav-link active-link" style="color: var(--nav-accent-color);">Auction Page</a></li>
+                <li><a href="auction_page.html" class="nav-link active-link"
+                        style="color: var(--nav-accent-color);">Auction Page</a></li>
                 <li><a href="../about.html" class="nav-link">About Us</a></li>
             </ul>
 
@@ -34,7 +36,7 @@
                     <ion-icon name="search-outline"></ion-icon>
                 </a>
                 <a href="../login.html" class="nav-icon" aria-label="Account">
-                    <ion-icon name="person-outline"></ion-icon>
+                    <ion-icon name="person-circle-outline"></ion-icon>
                 </a>
                 <a href="../cart.html" class="nav-icon" aria-label="Cart">
                     <ion-icon name="bag-handle-outline"></ion-icon>
@@ -48,17 +50,23 @@
         <section class="hero-live">
             <div class="hero-glow" style="width: 500px; height: 500px; opacity: 0.8;"></div>
             <div class="hero-graphics">
-                <ion-icon name="paper-plane-outline" class="hero-shape" style="left:10%; top:20%; animation-delay:0.1s;"></ion-icon>
-                <ion-icon name="cash-outline" class="hero-shape" style="left:30%; top:60%; animation-delay:0.3s;"></ion-icon>
-                <ion-icon name="flash-outline" class="hero-shape" style="left:80%; top:15%; animation-delay:0.5s;"></ion-icon>
-                <ion-icon name="library-outline" class="hero-shape" style="left:75%; top:60%; animation-delay:0.2s;"></ion-icon>
-                <ion-icon name="finger-print-outline" class="hero-shape" style="left:90%; top:25%; animation-delay:0.4s;"></ion-icon>
+                <ion-icon name="paper-plane-outline" class="hero-shape"
+                    style="left:10%; top:20%; animation-delay:0.1s;"></ion-icon>
+                <ion-icon name="cash-outline" class="hero-shape"
+                    style="left:30%; top:60%; animation-delay:0.3s;"></ion-icon>
+                <ion-icon name="flash-outline" class="hero-shape"
+                    style="left:80%; top:15%; animation-delay:0.5s;"></ion-icon>
+                <ion-icon name="library-outline" class="hero-shape"
+                    style="left:75%; top:60%; animation-delay:0.2s;"></ion-icon>
+                <ion-icon name="finger-print-outline" class="hero-shape"
+                    style="left:90%; top:25%; animation-delay:0.4s;"></ion-icon>
             </div>
-        
+
             <div class="hero-content">
                 <span class="hero-label">Real-time Bidding</span>
                 <h1 class="hero-title-animated">Live <span>Auctions.</span></h1>
-                <p class="hero-desc">Experience real-time updates and secure your premium tech from our exclusive auctions.</p>
+                <p class="hero-desc">Experience real-time updates and secure your premium tech from our exclusive
+                    auctions.</p>
             </div>
         </section>
 
@@ -71,103 +79,106 @@
             <div class="auction-grid">
                 <!-- Auction Card 1 -->
                 <article class="card" data-auction-id="1">
-                
+
                     <span class="auction-status">LIVE</span>
-                
+
                     <div class="card-image-wrapper">
                         <img src="../images/headphone.png" alt="Headphones">
                     </div>
-                
+
                     <div class="card-details">
                         <h3 class="product-title">Sony Headphone</h3>
-                
+
                         <div class="price-row">
                             <span class="price-label">Current Bid</span>
                             <div class="price current-bid">₹2,999</div>
                         </div>
-                
+
                         <div class="auction-timer">Ends in: 00:08:00</div>
-                
+
                         <div class="bid-controls">
                             <input type="number" placeholder="Enter Your Bid (₹)" class="bid-input">
                             <button class="primary-btn place-bid-btn">Place Bid</button>
                         </div>
-                
+
                         <!-- Bid History -->
                         <div class="bid-history">
                             <h4>Live Bids</h4>
                             <ul class="bid-list"></ul>
                         </div>
-                
-                        <button class="btn-secondary view-details-btn" onclick="window.location.href='auction_detail.html?id=1'">View Details</button>
+
+                        <button class="btn-secondary view-details-btn"
+                            onclick="window.location.href='auction_detail.html?id=1'">View Details</button>
                     </div>
                 </article>
-                
-                
+
+
                 <!-- Auction Card 2 -->
                 <article class="card" data-auction-id="2">
-                
+
                     <span class="auction-status">UPCOMING</span>
-                
+
                     <div class="card-image-wrapper">
                         <img src="../images/headphone2.png" alt="Headphones">
                     </div>
-                
+
                     <div class="card-details">
                         <h3 class="product-title">Wireless Sennheiser</h3>
-                
+
                         <div class="price-row">
                             <span class="price-label">Starting Bid</span>
                             <div class="price current-bid">₹3,939</div>
                         </div>
-                
+
                         <div class="auction-timer">Starts in: 00:10:00</div>
-                
+
                         <div class="bid-controls">
                             <input type="number" placeholder="Enter Your Bid (₹)" class="bid-input">
                             <button class="primary-btn place-bid-btn">Place Bid</button>
                         </div>
-                
+
                         <div class="bid-history">
                             <h4>Live Bids</h4>
                             <ul class="bid-list"></ul>
                         </div>
-                
-                        <button class="btn-secondary view-details-btn" onclick="window.location.href='auction_detail.html?id=2'">View Details</button>
+
+                        <button class="btn-secondary view-details-btn"
+                            onclick="window.location.href='auction_detail.html?id=2'">View Details</button>
                     </div>
                 </article>
-                
-                
+
+
                 <!-- Auction Card 3 -->
                 <article class="card" data-auction-id="3">
-                
+
                     <span class="auction-status">UPCOMING</span>
-                
+
                     <div class="card-image-wrapper">
                         <img src="../images/laptop2.jpg" alt="Asus Tuf Laptop">
                     </div>
-                
+
                     <div class="card-details">
                         <h3 class="product-title">Asus Tuf Gaming</h3>
-                
+
                         <div class="price-row">
                             <span class="price-label">Starting Bid</span>
                             <div class="price current-bid">₹83,939</div>
                         </div>
-                
+
                         <div class="auction-timer">Starts in: 00:20:00</div>
-                
+
                         <div class="bid-controls">
                             <input type="number" placeholder="Enter Your Bid (₹)" class="bid-input">
                             <button class="primary-btn place-bid-btn">Place Bid</button>
                         </div>
-                
+
                         <div class="bid-history">
                             <h4>Live Bids</h4>
                             <ul class="bid-list"></ul>
                         </div>
-                
-                        <button class="btn-secondary view-details-btn" onclick="window.location.href='auction_detail.html?id=3'">View Details</button>
+
+                        <button class="btn-secondary view-details-btn"
+                            onclick="window.location.href='auction_detail.html?id=3'">View Details</button>
                     </div>
                 </article>
             </div>
@@ -230,8 +241,6 @@
     <script type="module" src="../js/auction.js"></script>
     <script src="../js/cart-shared.js"></script>
     <script type="module" src="../js/script.js"></script>
-
-    <script src="../js/toast.js"></script>
-    <script src="../js/theme-enhancements.js"></script>
 </body>
+
 </html>
