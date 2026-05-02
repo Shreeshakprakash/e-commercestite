@@ -1,3 +1,5 @@
+import { supabase } from './supabase.js';
+
 //Cart UI, storage, and order summary
 document.addEventListener('DOMContentLoaded', function() {
     displayCartItems();
@@ -5,6 +7,81 @@ document.addEventListener('DOMContentLoaded', function() {
     loadRecommendedProducts();
     initializeMenuToggle();
 });
+
+const formatCustomer = (profile, user) => {
+    const name = profile?.full_name || user?.user_metadata?.full_name || user?.email || 'Customer';
+    const addressLine = profile?.address || 'Address not provided';
+    const cityLineParts = [profile?.city, profile?.pincode].filter(Boolean);
+    const cityLine = cityLineParts.length ? cityLineParts.join(' - ') : 'City not provided';
+    const phone = profile?.phone || 'Phone not provided';
+
+    return {
+        name,
+        addressLine,
+        cityLine,
+        phone
+    };
+};
+
+async function getCustomerProfile() {
+    const { data: userData } = await supabase.auth.getUser();
+    const user = userData ? userData.user : null;
+
+    if (!user) {
+        return formatCustomer(null, null);
+    }
+
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('full_name, phone, address, city, pincode')
+        .eq('id', user.id)
+        .maybeSingle();
+
+    return formatCustomer(profile, user);
+}
+
+async function createOrderInDb(user, cart, totals, paymentMethod, customer, orderRef) {
+    const orderPayload = {
+        user_id: user.id,
+        order_ref: orderRef,
+        subtotal: totals.subtotal,
+        shipping: totals.shipping,
+        total: totals.total,
+        payment_method: paymentMethod,
+        status: 'processing',
+        address_line: customer.addressLine,
+        city_line: customer.cityLine,
+        phone: customer.phone
+    };
+
+    const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .insert(orderPayload)
+        .select('id')
+        .single();
+
+    if (orderError || !order) {
+        return { error: orderError ? orderError.message : 'Failed to create order.' };
+    }
+
+    const itemsPayload = cart.map((item) => ({
+        order_id: order.id,
+        product_name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        image: item.image || null
+    }));
+
+    const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(itemsPayload);
+
+    if (itemsError) {
+        return { error: itemsError.message };
+    }
+
+    return { orderId: order.id };
+}
 
 function displayCartItems() {
     const cart = getCart();
@@ -293,7 +370,7 @@ function closePaymentModal() {
 }
 
 
-function processPayment() {
+async function processPayment() {
     const selectedPayment = document.querySelector('input[name="payment"]:checked');
     if (!selectedPayment) return;
     
@@ -313,14 +390,39 @@ function processPayment() {
     showNotification(`Processing payment via ${paymentNames[paymentMethod]}...`, 'info');
     
     
-    setTimeout(() => {
+    setTimeout(async () => {
         const cart = getCart();
         const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         const shipping = subtotal > 1000 ? 0 : 99;
         const total = subtotal + shipping; 
         
         
-        showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod);
+        const customer = await getCustomerProfile();
+        const { data: userData } = await supabase.auth.getUser();
+        const user = userData ? userData.user : null;
+
+        if (!user) {
+            showNotification('Please log in to place an order.', 'error');
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const orderRef = generateOrderId();
+        const orderResult = await createOrderInDb(
+            user,
+            cart,
+            { subtotal, shipping, total },
+            paymentNames[paymentMethod],
+            customer,
+            orderRef
+        );
+
+        if (orderResult.error) {
+            showNotification(orderResult.error, 'error');
+            return;
+        }
+
+        showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod, customer, orderRef);
         
         
         saveCart([]);
@@ -331,7 +433,7 @@ function processPayment() {
 }
 
 
-function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 'card') {
+function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 'card', customer, orderRef) {
     const paymentNames = {
         'card': 'Credit/Debit Card',
         'upi': 'UPI Payment',
@@ -349,21 +451,18 @@ function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 
     };
 
     
+    const customerInfo = customer || formatCustomer(null, null);
+
     window.lastOrderData = {
         cart,
         subtotal,
         shipping,
         total,
         paymentMethod: paymentNames[paymentMethod],
-        orderId: generateOrderId(),
+        orderId: orderRef || generateOrderId(),
         orderDate: new Date(),
         estimatedDelivery: getEstimatedDelivery(),
-        customer: {
-            name: "Alex Designer",
-            address: "42 Pixel Avenue, Creative District",
-            city: "Design City, DC 10001",
-            phone: "+1 (555) 123-4567"
-        }
+        customer: customerInfo
     };
     
     
@@ -433,6 +532,16 @@ function showOrderConfirmation(cart, subtotal, shipping, total, paymentMethod = 
                     <div>
                         <strong>Confirmation Email:</strong>
                         <span>Sent to your registered email</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <ion-icon name="location-outline"></ion-icon>
+                    <div>
+                        <strong>Delivery Address:</strong>
+                        <span>${window.lastOrderData.customer.name}</span>
+                        <span>${window.lastOrderData.customer.addressLine}</span>
+                        <span>${window.lastOrderData.customer.cityLine}</span>
+                        <span>${window.lastOrderData.customer.phone}</span>
                     </div>
                 </div>
             </div>
@@ -661,8 +770,8 @@ function printReceipt() {
             <div class="customer-info">
                 <h4>Billed To</h4>
                 <p><strong>${orderData.customer.name}</strong></p>
-                <p>${orderData.customer.address}</p>
-                <p>${orderData.customer.city}</p>
+                <p>${orderData.customer.addressLine}</p>
+                <p>${orderData.customer.cityLine}</p>
                 <p>${orderData.customer.phone}</p>
             </div>
 
@@ -794,6 +903,10 @@ function addToCartFromRecommended(productName, price) {
 window.updateQuantity = updateQuantity;
 window.removeFromCart = removeFromCart;
 window.addToCartFromRecommended = addToCartFromRecommended;
+window.processPayment = processPayment;
+window.closePaymentModal = closePaymentModal;
+window.closeOrderConfirmation = closeOrderConfirmation;
+window.printReceipt = printReceipt;
 
 
 document.addEventListener('DOMContentLoaded', function() {

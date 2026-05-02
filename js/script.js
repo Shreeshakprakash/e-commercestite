@@ -179,9 +179,174 @@ const initHeaderScroll = () => {
     });
 };
 
+
+const initAuthControls = () => {
+  const navUtilities = document.querySelector('.nav-utilities');
+
+  if (!navUtilities || !supabase) return;
+
+  const loginLink = navUtilities.querySelector('a[aria-label="Account"]');
+
+  const getDisplayName = (user) => {
+    if (!user) return 'Account';
+    return user.user_metadata?.full_name || user.email || 'Account';
+  };
+
+  const ensureProfileIcon = (user) => {
+    if (document.querySelector('.profile-wrapper')) {
+      const existingName = document.querySelector('.profile-tooltip .profile-name');
+      if (existingName) existingName.textContent = getDisplayName(user);
+      if (loginLink) loginLink.style.display = 'none';
+      return;
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'profile-wrapper';
+
+    const link = document.createElement('a');
+    link.href = 'profile.html';
+    link.className = 'nav-icon profile-trigger';
+    link.setAttribute('aria-label', 'Account details');
+    link.innerHTML = '<ion-icon name="person-circle-outline"></ion-icon>';
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'profile-tooltip';
+    tooltip.style.cssText = `
+      position: absolute;
+      right: 0;
+      min-width: 160px;
+      padding: 10px 12px;
+      background: #ffffff;
+      border: 1px solid var(--nav-border-light, #eeeeee);
+      border-radius: 10px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+      display: none;
+      z-index: 10;
+    `;
+    tooltip.innerHTML = `
+      <div class="profile-name">${getDisplayName(user)}</div>
+      <div class="profile-logout-text">Logout</div>
+    `;
+
+    wrapper.addEventListener('mouseenter', () => {
+      tooltip.style.display = 'block';
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+      tooltip.style.display = 'none';
+    });
+
+    wrapper.addEventListener('focusin', () => {
+      tooltip.style.display = 'block';
+    });
+
+    wrapper.addEventListener('focusout', () => {
+      tooltip.style.display = 'none';
+    });
+
+    wrapper.appendChild(link);
+    wrapper.appendChild(tooltip);
+    navUtilities.appendChild(wrapper);
+
+    if (loginLink) loginLink.style.display = 'none';
+  };
+
+  const removeProfileIcon = () => {
+    const wrapper = document.querySelector('.profile-wrapper');
+    if (wrapper) wrapper.remove();
+    if (loginLink) loginLink.style.display = '';
+  };
+
+  supabase.auth.getUser().then(({ data }) => {
+    if (data && data.user) {
+      ensureProfileIcon(data.user);
+    } else {
+      removeProfileIcon();
+    }
+  });
+
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (session && session.user) {
+      ensureProfileIcon(session.user);
+    } else {
+      removeProfileIcon();
+    }
+  });
+};
+
+const initSearchControls = () => {
+  const navUtilities = document.querySelector('.nav-utilities');
+  if (!navUtilities) return;
+
+  const searchLink = navUtilities.querySelector('a[aria-label="Search"]');
+  if (!searchLink) return;
+
+  if (navUtilities.querySelector('.nav-search')) return;
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'nav-search';
+
+  searchLink.classList.add('nav-search-toggle');
+  searchLink.setAttribute('role', 'button');
+  searchLink.setAttribute('aria-expanded', 'false');
+
+  searchLink.parentNode.insertBefore(wrapper, searchLink);
+  wrapper.appendChild(searchLink);
+
+  const input = document.createElement('input');
+  input.type = 'search';
+  input.className = 'nav-search-input';
+  input.placeholder = 'Search products';
+  input.setAttribute('aria-label', 'Search products');
+  wrapper.appendChild(input);
+
+  const setActive = (active) => {
+    wrapper.classList.toggle('active', active);
+    searchLink.setAttribute('aria-expanded', String(active));
+    if (active) {
+      input.focus();
+    } else if (!input.value.trim()) {
+      input.blur();
+    }
+  };
+
+  searchLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setActive(!wrapper.classList.contains('active'));
+  });
+
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setActive(false);
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      const query = input.value.trim();
+      if (query) {
+        window.location.href = `products-live.html?search=${encodeURIComponent(query)}`;
+      }
+    }
+  });
+
+  input.addEventListener('focus', () => setActive(true));
+  input.addEventListener('blur', () => {
+    if (!input.value.trim()) setActive(false);
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!wrapper.contains(event.target)) {
+      setActive(false);
+    }
+  });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     initHeaderScroll();
   initMobileMenu();
+  initAuthControls();
+  initSearchControls();
 });
 
 document.getElementById('backToTop').addEventListener('click', () => {
